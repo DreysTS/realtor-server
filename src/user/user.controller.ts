@@ -22,14 +22,14 @@ export class UserController {
 	@HttpCode(HttpStatus.OK)
 	@Get('profile')
 	public async getUser(@Authorized('id') userId: string) {
-		return this.userService.getUserById(userId)
+		return this.userService.findById(userId)
 	}
 
 	@Authorization(UserRole.ADMIN)
 	@HttpCode(HttpStatus.OK)
 	@Get('by-id/:id')
 	public async getUserById(@Param('id') id: string) {
-		return this.userService.getUserById(id)
+		return this.userService.findById(id)
 	}
 
 	@Authorization()

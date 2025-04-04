@@ -44,17 +44,17 @@ export class EmailConfirmationService {
 
 		if (hasExpired) {
 			throw new BadRequestException(
-				'Токен подтверждения истёк. Пожалуйста, запросите новый токен для подтверждения.'
+				'Токен подтверждения истек. Пожалуйста, запросите новый токен для подтверждения.'
 			)
 		}
 
-		const existingUser = await this.userService.getUserByEmail(
+		const existingUser = await this.userService.findByEmail(
 			existingToken.email
 		)
 
 		if (!existingUser) {
 			throw new NotFoundException(
-				'Пользователь не найден. Пожалуйста, проверьте введённый адрес электронной почты и попробуйте снова.'
+				'Пользователь не найден. Пожалуйста, проверьте введенный адрес электронной почты и попробуйте снова.'
 			)
 		}
 
@@ -88,7 +88,7 @@ export class EmailConfirmationService {
 		return true
 	}
 
-	public async generateVerificationToken(email: string) {
+	private async generateVerificationToken(email: string) {
 		const token = uuidv4()
 		const expiresIn = new Date(new Date().getTime() + 3600 * 1000)
 

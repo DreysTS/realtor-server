@@ -22,11 +22,11 @@ export class PasswordRecoveryService {
 	) {}
 
 	public async resetPassword(dto: ResetPasswordDto) {
-		const existingUser = await this.userService.getUserByEmail(dto.email)
+		const existingUser = await this.userService.findByEmail(dto.email)
 
 		if (!existingUser) {
 			throw new NotFoundException(
-				'Пользователь не найден. Пожалуйста, введите адрес электронной почты и попробуйте снова.'
+				'Пользователь не найден. Пожалуйста, проверьте введенный адрес электронной почты и попробуйте снова.'
 			)
 		}
 
@@ -60,11 +60,11 @@ export class PasswordRecoveryService {
 
 		if (hasExpired) {
 			throw new BadRequestException(
-				'Токен истёк. Пожалуйста, запросите новый токен для подтверждения сброса пароля.'
+				'Токен истек. Пожалуйста, запросите новый токен для подтверждения сброса пароля.'
 			)
 		}
 
-		const existingUser = await this.userService.getUserByEmail(
+		const existingUser = await this.userService.findByEmail(
 			existingToken.email
 		)
 
@@ -95,7 +95,6 @@ export class PasswordRecoveryService {
 
 	private async generatePasswordResetToken(email: string) {
 		const token = uuidv4()
-
 		const expiresIn = new Date(new Date().getTime() + 3600 * 1000)
 
 		const existingToken = await this.prismaService.token.findFirst({

@@ -18,23 +18,23 @@ import { RealEstateService } from './real-estate.service'
 export class RealEstateController {
 	constructor(private readonly realEstateService: RealEstateService) {}
 
-	@Authorization(UserRole.ADMIN)
 	@HttpCode(HttpStatus.OK)
-	@Post('create')
-	public async create(@Body() dto: CreateRealEstateDto) {
-		return this.realEstateService.create(dto)
-	}
-
-	@HttpCode(HttpStatus.OK)
-	@Get('catalog')
+	@Get('')
 	public async getAllRealEstates() {
 		return this.realEstateService.getAllRealEstates()
 	}
 
 	@HttpCode(HttpStatus.OK)
-	@Get('catalog/:id')
+	@Get('/:id')
 	public async getRealEstateById(@Param('id') id: string) {
 		return this.realEstateService.getRealEstateById(id)
+	}
+
+	@Authorization(UserRole.ADMIN)
+	@HttpCode(HttpStatus.OK)
+	@Post('create')
+	public async create(@Body() dto: CreateRealEstateDto) {
+		return this.realEstateService.create(dto)
 	}
 
 	@Authorization(UserRole.ADMIN)

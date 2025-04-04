@@ -10,7 +10,7 @@ import { UpdateUserDto } from './dto/update-user.dto'
 export class UserService {
 	public constructor(private readonly prismaService: PrismaService) {}
 
-	public async getUserById(id: string) {
+	public async findById(id: string) {
 		const user = await this.prismaService.user.findUnique({
 			where: {
 				id
@@ -29,7 +29,7 @@ export class UserService {
 		return user
 	}
 
-	public async getUserByEmail(email: string) {
+	public async findByEmail(email: string) {
 		const user = await this.prismaService.user.findUnique({
 			where: {
 				email
@@ -38,13 +38,6 @@ export class UserService {
 				accounts: true
 			}
 		})
-
-		if (!user) {
-			throw new NotFoundException(
-				'Пользователь не найден. Пожалуйста, проверьте правильность введённых данных.'
-			)
-		}
-
 		return user
 	}
 
@@ -74,7 +67,7 @@ export class UserService {
 	}
 
 	public async update(userId: string, dto: UpdateUserDto) {
-		const user = await this.getUserById(userId)
+		const user = await this.findById(userId)
 
 		const updatedUser = await this.prismaService.user.update({
 			where: {

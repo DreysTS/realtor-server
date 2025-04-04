@@ -30,7 +30,7 @@ export class AuthService {
 	) {}
 
 	public async register(dto: RegisterDto) {
-		const isExists = await this.userService.getUserByEmail(dto.email)
+		const isExists = await this.userService.findByEmail(dto.email)
 
 		if (isExists) {
 			throw new ConflictException(
@@ -56,7 +56,7 @@ export class AuthService {
 	}
 
 	public async login(req: Request, dto: LoginDto) {
-		const user = await this.userService.getUserByEmail(dto.email)
+		const user = await this.userService.findByEmail(dto.email)
 
 		if (!user || !user.password) {
 			throw new NotFoundException(
@@ -116,7 +116,7 @@ export class AuthService {
 		})
 
 		let user = account?.userId
-			? await this.userService.getUserById(account.userId)
+			? await this.userService.findById(account.userId)
 			: null
 
 		if (user) {

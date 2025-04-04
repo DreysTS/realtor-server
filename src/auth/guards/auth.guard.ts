@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate {
 			)
 		}
 
-		const user = await this.userService.getUserById(request.session.userId)
+		const user = await this.userService.findById(request.session.userId)
 
 		request.user = user
 
