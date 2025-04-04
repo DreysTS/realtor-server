@@ -1,0 +1,168 @@
+generator client {
+  output   = "./__generated__"
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URI")
+}
+
+model User {
+  id String @unique @default(uuid())
+
+  email    String @unique
+  password String
+
+  displayName String
+  picture     String?
+
+  role UserRole @default(REGULAR)
+
+  isVerified         Boolean @default(false) @map("is_verified")
+  isTwoFactorEnabled Boolean @default(false) @map("is_two_factor_enabled")
+
+  method AuthMethod
+
+  accounts Account[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+model Account {
+  id String @id @default(uuid())
+
+  type     String
+  provider String
+
+  refreshToken String? @map("refresh_token")
+  accessToken  String? @map("access_token")
+  expiresAt    Int     @map("expires_at")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    String?  @map("user_id")
+
+  @@map("accounts")
+}
+
+model Token {
+  id String @id @default(uuid())
+
+  email     String
+  token     String    @unique
+  type      TokenType
+  expiresIn DateTime  @map("expires_in")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("tokens")
+}
+
+enum UserRole {
+  REGULAR
+  ADMIN
+}
+
+enum AuthMethod {
+  CREDENTIALS
+  GOOGLE
+  YANDEX
+}
+
+enum TokenType {
+  VERIFICATION
+  TWO_FACTOR
+  PASSWORD_RESET
+}
+
+model RealEstate {
+  id     String  @id @default(uuid()) @db.Uuid
+  images Image[]
+  price  Int
+  title  String
+
+  city        String
+  district    String?
+  street      String
+  houseNumber String  @map("house_number")
+
+  square           Int
+  livingSpace      Int?
+  currentFloor     Int?
+  floorsInTheHouse Int  @map("floors_in_the_house")
+  rooms            Int
+
+  propertyType PropertyType @map("property_type")
+  status       Status       @default(SALE)
+
+  isNewBuilding Boolean  @default(false) @map("is_new_building")
+  builtYear     Int?     @map("built_year")
+  description   String?
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  developerId String?    @map("developer_id")
+  developer   Developer? @relation(fields: [developerId], references: [id], onDelete: SetNull)
+
+  @@index([city])
+  @@index([price])
+  @@index([propertyType])
+  @@index([status])
+  @@index([rooms])
+  @@index([square])
+  @@map("real_estates")
+}
+
+model Image {
+  id           String     @id @default(uuid())
+  url          String
+  order        Int        @default(0)
+  description  String?
+  isMain       Boolean    @default(false) @map("is_main")
+  type         ImageType?
+  realEstateId String     @map("real_estate_id") @db.Uuid
+  realEstate   RealEstate @relation(fields: [realEstateId], references: [id], onDelete: Cascade)
+  uploadedAt   DateTime   @default(now())
+
+  @@index([realEstateId])
+  @@index([order])
+  @@index([isMain])
+  @@map("images")
+}
+
+model Developer {
+  id          String       @id @default(uuid())
+  name        String       @unique
+  website     String?
+  foundedYear Int?         @map("founded_year")
+  logo        String?
+  realEstates RealEstate[]
+
+  @@index([name])
+  @@map("developers")
+}
+
+enum PropertyType {
+  APARTMENT
+  HOUSE
+  TOWNHOUSE
+  LAND
+}
+
+enum Status {
+  SALE
+  RENT
+  SOLD
+}
+
+enum ImageType {
+  PLAN
+  FACADE
+  VIEW
+  INTERIOR
+}
