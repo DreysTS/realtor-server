@@ -30,12 +30,14 @@ export class AuthController {
 		private readonly providerService: ProviderService
 	) {}
 
+	@Recaptcha()
 	@Post('register')
 	@HttpCode(HttpStatus.OK)
 	public async register(@Body() dto: RegisterDto) {
 		return this.authService.register(dto)
 	}
 
+	@Recaptcha()
 	@Post('login')
 	@HttpCode(HttpStatus.OK)
 	public async login(@Req() req: Request, @Body() dto: LoginDto) {
@@ -59,7 +61,7 @@ export class AuthController {
 		await this.authService.extractProfileFromCode(req, provider, code)
 
 		return res.redirect(
-			`${this.configService.getOrThrow<string>('ALLOWED_ORIGIN')}/dashboard/settings`
+			`${this.configService.getOrThrow<string>('ALLOWED_ORIGIN')}`
 		)
 	}
 

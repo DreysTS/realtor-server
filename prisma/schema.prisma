@@ -9,12 +9,13 @@ datasource db {
 }
 
 model User {
-  id String @unique @default(uuid())
+  id String @id @default(uuid())
 
-  email    String @unique
-  password String
+  email       String  @unique
+  password    String
+  phoneNumber String?
 
-  displayName String
+  displayName String  @map("display_name")
   picture     String?
 
   role UserRole @default(REGULAR)
@@ -28,6 +29,9 @@ model User {
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+
+  favorite        Favorite[]
+  propertyRequest PropertyRequest[]
 
   @@map("users")
 }
@@ -65,7 +69,7 @@ model Token {
 
 enum UserRole {
   REGULAR
-  ADMIN
+  REALTOR
 }
 
 enum AuthMethod {
@@ -80,89 +84,120 @@ enum TokenType {
   PASSWORD_RESET
 }
 
-model RealEstate {
-  id     String  @id @default(uuid()) @db.Uuid
-  images Image[]
-  price  Int
-  title  String
+model Property {
+  id            String       @id @default(uuid())
+  title         String
+  description   String
+  images        String[]
+  price         Float
+  square        Float
+  rooms         Int
+  kitchenSquare Float?        @map("kitchen_square")
+  roomsSquare   Float[]      @map("rooms_square")
+  floor         Int?
+  totalFloors   Int?          @map("total_floors")
+  isSecondary   Boolean?     @map("is_secondary")
+  builtYear     Int?         @map("built_year")
+  ceilingHeight Float?       @map("ceiling_height")
+  buildingType  BuildingType? @map("building_type")
 
-  city        String
-  district    String?
-  street      String
-  houseNumber String  @map("house_number")
+  propertyType PropertyType?   @default(FLAT)
+  sellingType  SellingType?    @map("selling_type")
+  status       PropertyStatus @default(DRAFT)
 
-  square           Int
-  livingSpace      Int?
-  currentFloor     Int?
-  floorsInTheHouse Int  @map("floors_in_the_house")
-  rooms            Int
+  locationId Int     @map("location_id")
+  userId     String? @map("user_id")
 
-  propertyType PropertyType @map("property_type")
-  status       Status       @default(SALE)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-  isNewBuilding Boolean  @default(false) @map("is_new_building")
-  builtYear     Int?     @map("built_year")
-  description   String?
-  createdAt     DateTime @default(now()) @map("created_at")
-  updatedAt     DateTime @updatedAt @map("updated_at")
+  Favorite Favorite[]
 
-  developerId String?    @map("developer_id")
-  developer   Developer? @relation(fields: [developerId], references: [id], onDelete: SetNull)
+  location        Location          @relation(fields: [locationId], references: [id])
+  PropertyRequest PropertyRequest[]
 
-  @@index([city])
-  @@index([price])
-  @@index([propertyType])
-  @@index([status])
-  @@index([rooms])
-  @@index([square])
-  @@map("real_estates")
+  @@map("properties")
 }
 
-model Image {
-  id           String     @id @default(uuid())
-  url          String
-  order        Int        @default(0)
-  description  String?
-  isMain       Boolean    @default(false) @map("is_main")
-  type         ImageType?
-  realEstateId String     @map("real_estate_id") @db.Uuid
-  realEstate   RealEstate @relation(fields: [realEstateId], references: [id], onDelete: Cascade)
-  uploadedAt   DateTime   @default(now())
+model Location {
+  id         Int        @id @default(autoincrement())
+  address    String
+  city       String?
+  district   String?
+  latitude   Float?
+  longitude  Float?
+  properties Property[]
 
-  @@index([realEstateId])
-  @@index([order])
-  @@index([isMain])
-  @@map("images")
+  @@map("locations")
 }
 
-model Developer {
-  id          String       @id @default(uuid())
-  name        String       @unique
-  website     String?
-  foundedYear Int?         @map("founded_year")
-  logo        String?
-  realEstates RealEstate[]
+model Favorite {
+  userId     String @map("user_id")
+  propertyId String @map("property_id")
 
-  @@index([name])
-  @@map("developers")
+  user     User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  property Property? @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  favoritedAt DateTime @default(now()) @map("favorited_at")
+
+  @@id([userId, propertyId])
+  @@map("favorites")
 }
 
 enum PropertyType {
   APARTMENT
-  HOUSE
-  TOWNHOUSE
-  LAND
+  FLAT
+  EURO_FLAT
+  GAB
 }
 
-enum Status {
+enum SellingType {
   SALE
   RENT
   SOLD
 }
 
-enum ImageType {
-  PLAN
-  FACADE
-  VIEW
-  INTERIOR
+enum BuildingType {
+  PANEL
+  BRICK
+  MONOLITH
+}
+
+enum PropertyStatus {
+  ACTIVE
+  DRAFT
+  ARCHIVED
+}
+
+model PropertyRequest {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  price       Int
+  square      Float
+  rooms       Int
+  address     String
+  images      String[]
+  currentUrl  String?
+
+  propertyRequestStatus PropertyRequestStatus @default(PENDING)
+  rejectionReason       String?
+  propertyId            String?
+  userId                String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  property Property? @relation(fields: [propertyId], references: [id], onDelete: SetNull)
+  user     User      @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([propertyRequestStatus])
+  @@map("property_requests")
+}
+
+enum PropertyRequestStatus {
+  PENDING
+  APPROWED
+  REJECTED
 }

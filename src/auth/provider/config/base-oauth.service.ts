@@ -27,10 +27,10 @@ export class BaseOAuthService {
 			redirect_uri: this.getRedirectUrl(),
 			scope: (this.options.scopes ?? []).join(' '),
 			access_type: 'offline',
-			prompt: 'select-account'
+			prompt: 'select_account'
 		})
 
-		return `${this.options.access_url}?${query}`
+		return `${this.options.authorize_url}?${query}`
 	}
 
 	public async findUserByCode(code: string): Promise<TypeUserInfo> {
@@ -45,7 +45,7 @@ export class BaseOAuthService {
 			grant_type: 'authorization_code'
 		})
 
-		const tokenRequest = await fetch(this.options.access_url, {
+		const tokensRequest = await fetch(this.options.access_url, {
 			method: 'POST',
 			body: tokenQuery,
 			headers: {
@@ -54,15 +54,15 @@ export class BaseOAuthService {
 			}
 		})
 
-		if (!tokenRequest.ok) {
+		if (!tokensRequest.ok) {
 			throw new BadRequestException(
 				`Не удалось получить пользователя с ${this.options.profile_url}. Проверьте правильность токена доступа.`
 			)
 		}
 
-		const token = await tokenRequest.json()
+		const tokens = await tokensRequest.json()
 
-		if (!token.access_token) {
+		if (!tokens.access_token) {
 			throw new BadRequestException(
 				`Нет токенов с ${this.options.access_url}. Убедитесь, что код авторизации действителен.`
 			)
@@ -70,7 +70,7 @@ export class BaseOAuthService {
 
 		const userRequest = await fetch(this.options.profile_url, {
 			headers: {
-				Authorization: `Bearer ${token.access_token}`
+				Authorization: `Bearer ${tokens.access_token}`
 			}
 		})
 
@@ -85,15 +85,15 @@ export class BaseOAuthService {
 
 		return {
 			...userData,
-			access_token: token.access_token,
-			refresh_token: token.refresh_token,
-			expires_at: token.expires_at || token.expires_in,
+			access_token: tokens.access_token,
+			refresh_token: tokens.refresh_token,
+			expires_at: tokens.expires_at || tokens.expires_in,
 			provider: this.options.name
 		}
 	}
 
 	public getRedirectUrl() {
-		return `${this.BASE_URL}/auth/ouath/callback/${this.options.name}`
+		return `${this.BASE_URL}/auth/oauth/callback/${this.options.name}`
 	}
 
 	set baseUrl(value: string) {

@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
     db:
-        container_name: postgres
+        container_name: postgres-db
         image: postgres:15.2
         restart: always
         environment:
@@ -10,14 +10,14 @@ services:
             - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
             - POSTGRES_DB=${POSTGRES_DB}
         ports:
-            - 5433:5432
+            - 5434:5432
         volumes:
             - postgres_data:/var/lib/postgresql/data
         networks:
             - backend
 
     redis:
-        container_name: redis
+        container_name: redis-db
         image: redis:6.2
         restart: always
         ports:

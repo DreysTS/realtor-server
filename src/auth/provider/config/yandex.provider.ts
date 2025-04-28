@@ -15,7 +15,7 @@ export class YandexProvider extends BaseOAuthService {
 		})
 	}
 
-	public extractUserInfo(data: YandexProfile): Promise<TypeUserInfo> {
+	public async extractUserInfo(data: YandexProfile): Promise<TypeUserInfo> {
 		return super.extractUserInfo({
 			email: data.emails[0],
 			name: data.display_name,

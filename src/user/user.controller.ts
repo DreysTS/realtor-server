@@ -25,7 +25,7 @@ export class UserController {
 		return this.userService.findById(userId)
 	}
 
-	@Authorization(UserRole.ADMIN)
+	@Authorization(UserRole.REALTOR)
 	@HttpCode(HttpStatus.OK)
 	@Get('by-id/:id')
 	public async getUserById(@Param('id') id: string) {

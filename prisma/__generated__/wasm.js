@@ -17,12 +17,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.2.1
- * Query Engine version: 173f8d54f8d52e692c7e27e72a88314ec7aeff60
+ * Prisma Client JS version: 6.6.0
+ * Query Engine version: f676762280b54cd07c770017ed3711ddde35f37a
  */
 Prisma.prismaVersion = {
-  client: "6.2.1",
-  engine: "173f8d54f8d52e692c7e27e72a88314ec7aeff60"
+  client: "6.6.0",
+  engine: "f676762280b54cd07c770017ed3711ddde35f37a"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -121,6 +121,7 @@ exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   password: 'password',
+  phoneNumber: 'phoneNumber',
   displayName: 'displayName',
   picture: 'picture',
   role: 'role',
@@ -152,46 +153,62 @@ exports.Prisma.TokenScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
-exports.Prisma.RealEstateScalarFieldEnum = {
+exports.Prisma.PropertyScalarFieldEnum = {
   id: 'id',
-  price: 'price',
   title: 'title',
+  description: 'description',
+  images: 'images',
+  price: 'price',
+  square: 'square',
+  rooms: 'rooms',
+  kitchenSquare: 'kitchenSquare',
+  roomsSquare: 'roomsSquare',
+  floor: 'floor',
+  totalFloors: 'totalFloors',
+  isSecondary: 'isSecondary',
+  builtYear: 'builtYear',
+  ceilingHeight: 'ceilingHeight',
+  buildingType: 'buildingType',
+  propertyType: 'propertyType',
+  sellingType: 'sellingType',
+  status: 'status',
+  locationId: 'locationId',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LocationScalarFieldEnum = {
+  id: 'id',
+  address: 'address',
   city: 'city',
   district: 'district',
-  street: 'street',
-  houseNumber: 'houseNumber',
+  latitude: 'latitude',
+  longitude: 'longitude'
+};
+
+exports.Prisma.FavoriteScalarFieldEnum = {
+  userId: 'userId',
+  propertyId: 'propertyId',
+  favoritedAt: 'favoritedAt'
+};
+
+exports.Prisma.PropertyRequestScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  price: 'price',
   square: 'square',
-  livingSpace: 'livingSpace',
-  currentFloor: 'currentFloor',
-  floorsInTheHouse: 'floorsInTheHouse',
   rooms: 'rooms',
-  propertyType: 'propertyType',
-  status: 'status',
-  isNewBuilding: 'isNewBuilding',
-  builtYear: 'builtYear',
-  description: 'description',
+  address: 'address',
+  images: 'images',
+  currentUrl: 'currentUrl',
+  propertyRequestStatus: 'propertyRequestStatus',
+  rejectionReason: 'rejectionReason',
+  propertyId: 'propertyId',
+  userId: 'userId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  developerId: 'developerId'
-};
-
-exports.Prisma.ImageScalarFieldEnum = {
-  id: 'id',
-  url: 'url',
-  order: 'order',
-  description: 'description',
-  isMain: 'isMain',
-  type: 'type',
-  realEstateId: 'realEstateId',
-  uploadedAt: 'uploadedAt'
-};
-
-exports.Prisma.DeveloperScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  website: 'website',
-  foundedYear: 'foundedYear',
-  logo: 'logo'
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -210,7 +227,7 @@ exports.Prisma.NullsOrder = {
 };
 exports.UserRole = exports.$Enums.UserRole = {
   REGULAR: 'REGULAR',
-  ADMIN: 'ADMIN'
+  REALTOR: 'REALTOR'
 };
 
 exports.AuthMethod = exports.$Enums.AuthMethod = {
@@ -225,33 +242,45 @@ exports.TokenType = exports.$Enums.TokenType = {
   PASSWORD_RESET: 'PASSWORD_RESET'
 };
 
-exports.PropertyType = exports.$Enums.PropertyType = {
-  APARTMENT: 'APARTMENT',
-  HOUSE: 'HOUSE',
-  TOWNHOUSE: 'TOWNHOUSE',
-  LAND: 'LAND'
+exports.BuildingType = exports.$Enums.BuildingType = {
+  PANEL: 'PANEL',
+  BRICK: 'BRICK',
+  MONOLITH: 'MONOLITH'
 };
 
-exports.Status = exports.$Enums.Status = {
+exports.PropertyType = exports.$Enums.PropertyType = {
+  APARTMENT: 'APARTMENT',
+  FLAT: 'FLAT',
+  EURO_FLAT: 'EURO_FLAT',
+  GAB: 'GAB'
+};
+
+exports.SellingType = exports.$Enums.SellingType = {
   SALE: 'SALE',
   RENT: 'RENT',
   SOLD: 'SOLD'
 };
 
-exports.ImageType = exports.$Enums.ImageType = {
-  PLAN: 'PLAN',
-  FACADE: 'FACADE',
-  VIEW: 'VIEW',
-  INTERIOR: 'INTERIOR'
+exports.PropertyStatus = exports.$Enums.PropertyStatus = {
+  ACTIVE: 'ACTIVE',
+  DRAFT: 'DRAFT',
+  ARCHIVED: 'ARCHIVED'
+};
+
+exports.PropertyRequestStatus = exports.$Enums.PropertyRequestStatus = {
+  PENDING: 'PENDING',
+  APPROWED: 'APPROWED',
+  REJECTED: 'REJECTED'
 };
 
 exports.Prisma.ModelName = {
   User: 'User',
   Account: 'Account',
   Token: 'Token',
-  RealEstate: 'RealEstate',
-  Image: 'Image',
-  Developer: 'Developer'
+  Property: 'Property',
+  Location: 'Location',
+  Favorite: 'Favorite',
+  PropertyRequest: 'PropertyRequest'
 };
 
 /**
@@ -271,7 +300,7 @@ class PrismaClient {
         } else {
           message = 'PrismaClient is unable to run in this browser environment, or has been bundled for the browser (running in `' + runtime.prettyName + '`).'
         }
-        
+
         message += `
 If this is unexpected, please open an issue: https://pris.ly/prisma-prisma-bug-report`
 
