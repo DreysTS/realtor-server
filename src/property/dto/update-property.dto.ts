@@ -11,8 +11,8 @@ import {
 } from 'class-validator'
 import {
 	BuildingType,
+	PropertyRequestStatus,
 	PropertyType,
-	RequestStatus,
 	SellingType
 } from 'prisma/__generated__'
 
@@ -107,9 +107,9 @@ export class UpdatePropertyDto {
 	@IsOptional()
 	sellingType?: SellingType
 
-	@IsEnum(RequestStatus, { message: 'Недопустимый статус заявки.' })
+	@IsEnum(PropertyRequestStatus, { message: 'Недопустимый статус заявки.' })
 	@IsOptional()
-	requestStatus?: RequestStatus
+	requestStatus?: PropertyRequestStatus
 
 	@IsString({ message: 'Причина отказа должна быть строкой.' })
 	@IsOptional()

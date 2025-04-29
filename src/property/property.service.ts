@@ -1,17 +1,17 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import * as fs from 'fs'
-import * as path from 'path'
 import { PropertyStatus } from 'prisma/__generated__'
-import * as sharp from 'sharp'
+import { FileService } from 'src/file/file.service'
 import { PrismaService } from 'src/prisma/prisma.service'
-import { v4 as uuidv4 } from 'uuid'
 
 import { CreateProperty } from './dto/create-property.dto'
 import { UpdateProperty } from './dto/update-property.dto'
 
 @Injectable()
 export class PropertyService {
-	public constructor(private readonly prismaService: PrismaService) {}
+	public constructor(
+		private readonly prismaService: PrismaService,
+		private readonly fileService: FileService
+	) {}
 
 	public async findAll() {
 		return await this.prismaService.property.findMany({
@@ -55,22 +55,7 @@ export class PropertyService {
 	}
 
 	public async create(files: Express.Multer.File[], dto: CreateProperty) {
-		const uploadDir = path.join(__dirname, '..', '..', 'uploads')
-
-		if (!fs.existsSync(uploadDir)) {
-			fs.mkdirSync(uploadDir, { recursive: true })
-		}
-
-		const images = []
-
-		for (const file of files) {
-			const fileName = `${uuidv4()}.webp`
-			const filePath = path.join(uploadDir, fileName)
-
-			await sharp(file.buffer).webp({ quality: 80 }).toFile(filePath)
-
-			images.push(fileName)
-		}
+		const images = await this.fileService.saveImages(files)
 
 		return await this.prismaService.property.create({
 			data: {
@@ -120,11 +105,12 @@ export class PropertyService {
 			}
 		})
 
-		// Сделать метод, при котором достаётся массив изображений из
-		// папки uploads, массивы фильтруются так, что все изображения
-		// что хранились в папке и не пришли из dto, удалялись
+		const existingImages = property.images
 
-		const images = property.images
+		const images = await this.fileService.processPropertyImages(
+			existingImages,
+			files
+		)
 
 		await this.prismaService.property.create({
 			data: {

@@ -5,19 +5,52 @@ import {
 	PropertyStatus,
 	PropertyType
 } from 'prisma/__generated__'
+import { FileService } from 'src/file/file.service'
 import { PrismaService } from 'src/prisma/prisma.service'
 
-import { DeclinePropertyRequestDto } from './dto/decline-property-request.dto'
+import { CreateSellRequest } from './dto/create-sell-request.dto'
+import { DeclineRequestDto } from './dto/decline-request.dto'
 
 @Injectable()
-export class PropertyRequestService {
+export class RequestService {
 	public constructor(
 		private readonly prismaService: PrismaService,
+		private readonly fileService: FileService,
 		private readonly configService: ConfigService
 	) {}
 
-	public async acceptPropertyRequest(id: string) {
-		const propertyRequest = await this.findPropertyRequestById(id)
+	public async createRequest(
+		userId: string,
+		dto: CreateSellRequest,
+		files: Express.Multer.File[]
+	) {
+		const images = await this.fileService.saveImages(files)
+
+		return await this.prismaService.propertyRequest.create({
+			data: {
+				title: dto.title,
+				description: dto.description,
+				price: dto.price,
+				square: dto.square,
+				rooms: dto.rooms,
+				address: dto.address,
+				images,
+				userId
+			}
+		})
+	}
+
+	public async deleteRequest(userId: string, requestId: string) {
+		return await this.prismaService.propertyRequest.delete({
+			where: {
+				id: requestId,
+				userId
+			}
+		})
+	}
+
+	public async acceptRequest(id: string) {
+		const propertyRequest = await this.findRequestById(id)
 
 		if (!propertyRequest) {
 			throw new NotFoundException(
@@ -48,15 +81,13 @@ export class PropertyRequestService {
 				id
 			},
 			data: {
+				propertyRequestStatus: PropertyRequestStatus.APPROWED,
 				currentUrl: `${this.configService.getOrThrow<string>('ALLOWED_ORIGIN')}/profile/requests/${property.id}`
 			}
 		})
 	}
 
-	public async declinePropertyRequest(
-		id: string,
-		dto: DeclinePropertyRequestDto
-	) {
+	public async declineRequest(id: string, dto: DeclineRequestDto) {
 		return await this.prismaService.propertyRequest.update({
 			where: {
 				id
@@ -68,7 +99,7 @@ export class PropertyRequestService {
 		})
 	}
 
-	private async findPropertyRequestById(id: string) {
+	private async findRequestById(id: string) {
 		const propertyRequest =
 			await this.prismaService.propertyRequest.findFirst({
 				where: {

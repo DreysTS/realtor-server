@@ -41,12 +41,12 @@ export class FavoritesController {
 	}
 
 	@Authorization()
-	@Post()
+	@Post(':propertyId')
 	public async addToFavorite(
 		@Authorized('id') id: string,
-		@Body() dto: FavoriteDto
+		@Param('propertyId') propertyId: string
 	) {
-		return this.favoritesService.addToFavorite(id, dto)
+		return this.favoritesService.addToFavorite(id, propertyId)
 	}
 
 	@Authorization()

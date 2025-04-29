@@ -13,9 +13,6 @@ import {
 	UseInterceptors
 } from '@nestjs/common'
 import { FilesInterceptor } from '@nestjs/platform-express'
-import { UserRole } from 'prisma/__generated__'
-import { Authorization } from 'src/auth/decorators/auth.decorator'
-import { Authorized } from 'src/auth/decorators/authorized.decorator'
 
 import { CreateProperty } from './dto/create-property.dto'
 import { PropertyService } from './property.service'

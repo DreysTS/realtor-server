@@ -47,9 +47,7 @@ export class FavoritesService {
 		})
 	}
 
-	public async addToFavorite(id: string, dto: FavoriteDto) {
-		const { propertyId } = dto
-
+	public async addToFavorite(id: string, propertyId: string) {
 		return await this.prismaService.favorite.create({
 			data: {
 				userId: id,
