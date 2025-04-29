@@ -12,7 +12,6 @@ import { UserRole } from 'prisma/__generated__'
 import { Authorization } from 'src/auth/decorators/auth.decorator'
 import { Authorized } from 'src/auth/decorators/authorized.decorator'
 
-import { FavoriteDto } from './dto/favorite.dto'
 import { FavoritesService } from './favorites.service'
 
 @Controller('favorites')

@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from 'src/prisma/prisma.service'
 
-import { FavoriteDto } from './dto/favorite.dto'
-
 @Injectable()
 export class FavoritesService {
 	public constructor(private readonly prismaService: PrismaService) {}

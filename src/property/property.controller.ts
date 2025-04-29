@@ -1,11 +1,10 @@
 import {
+	Body,
 	Controller,
 	Delete,
-	FileTypeValidator,
 	Get,
 	HttpCode,
 	HttpStatus,
-	MaxFileSizeValidator,
 	Param,
 	ParseFilePipe,
 	Post,
@@ -13,6 +12,7 @@ import {
 	UseInterceptors
 } from '@nestjs/common'
 import { FilesInterceptor } from '@nestjs/platform-express'
+import { IMAGE_VALIDATORS } from 'src/libs/common/constants/image-validators'
 
 import { CreateProperty } from './dto/create-property.dto'
 import { PropertyService } from './property.service'
@@ -38,19 +38,11 @@ export class PropertyController {
 	public async create(
 		@UploadedFiles(
 			new ParseFilePipe({
-				validators: [
-					new FileTypeValidator({
-						fileType: /\/(jpg|jpeg|png|webp|gif)$/
-					}),
-					new MaxFileSizeValidator({
-						maxSize: 1024 * 1024 * 10,
-						message: 'Файл должен быть не более 10Мб'
-					})
-				]
+				validators: IMAGE_VALIDATORS
 			})
 		)
 		files: Express.Multer.File[],
-		dto: CreateProperty
+		@Body() dto: CreateProperty
 	) {
 		return this.propertyService.create(files, dto)
 	}
@@ -60,21 +52,13 @@ export class PropertyController {
 	public async update(
 		@UploadedFiles(
 			new ParseFilePipe({
-				validators: [
-					new FileTypeValidator({
-						fileType: /\/(jpg|jpeg|png|webp|gif)$/
-					}),
-					new MaxFileSizeValidator({
-						maxSize: 1024 * 1024 * 10,
-						message: 'Файл должен быть не более 10Мб'
-					})
-				]
+				validators: IMAGE_VALIDATORS
 			})
 		)
 		@Param('id')
 		id: string,
 		files: Express.Multer.File[],
-		dto: CreateProperty
+		@Body() dto: CreateProperty
 	) {
 		return this.propertyService.update(id, files, dto)
 	}

@@ -1,10 +1,9 @@
 import {
+	Body,
 	Controller,
 	Delete,
-	FileTypeValidator,
 	HttpCode,
 	HttpStatus,
-	MaxFileSizeValidator,
 	Param,
 	ParseFilePipe,
 	Patch,
@@ -16,6 +15,7 @@ import { FilesInterceptor } from '@nestjs/platform-express'
 import { UserRole } from 'prisma/__generated__'
 import { Authorization } from 'src/auth/decorators/auth.decorator'
 import { Authorized } from 'src/auth/decorators/authorized.decorator'
+import { IMAGE_VALIDATORS } from 'src/libs/common/constants/image-validators'
 
 import { CreateSellRequest } from './dto/create-sell-request.dto'
 import { DeclineRequestDto } from './dto/decline-request.dto'
@@ -32,20 +32,12 @@ export class RequestController {
 	public async createRequest(
 		@UploadedFiles(
 			new ParseFilePipe({
-				validators: [
-					new FileTypeValidator({
-						fileType: /\/(jpg|jpeg|png|webp|gif)$/
-					}),
-					new MaxFileSizeValidator({
-						maxSize: 1024 * 1024 * 10,
-						message: 'Файл должен быть не более 10Мб'
-					})
-				]
+				validators: IMAGE_VALIDATORS
 			})
 		)
 		files: Express.Multer.File[],
 		@Authorized('id') id: string,
-		dto: CreateSellRequest
+		@Body() dto: CreateSellRequest
 	) {
 		return this.requestService.createRequest(id, dto, files)
 	}
