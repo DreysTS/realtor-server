@@ -19,7 +19,7 @@ export class FavoritesController {
 	constructor(private readonly favoritesService: FavoritesService) {}
 
 	@Authorization()
-	@Get('')
+	@Get()
 	@HttpCode(HttpStatus.OK)
 	public async getFavoritesProperties(@Authorized('id') id: string) {
 		return this.favoritesService.favoritesProperties(id)

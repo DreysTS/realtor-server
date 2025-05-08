@@ -93,7 +93,7 @@ model Property {
   square        Float
   rooms         Int
   kitchenSquare Float?        @map("kitchen_square")
-  roomsSquare   Float[]       @map("rooms_square")
+  roomsSquare   Float?        @map("rooms_square")
   floor         Int?
   totalFloors   Int?          @map("total_floors")
   isSecondary   Boolean?      @map("is_secondary")
@@ -113,7 +113,7 @@ model Property {
 
   Favorite Favorite[]
 
-  location        Location          @relation(fields: [locationId], references: [id])
+  location        Location          @relation(fields: [locationId], references: [id], onDelete: Cascade)
   PropertyRequest PropertyRequest[]
 
   @@map("properties")

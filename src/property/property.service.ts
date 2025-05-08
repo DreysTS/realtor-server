@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import {
+	BadRequestException,
+	Injectable,
+	NotFoundException
+} from '@nestjs/common'
 import { PropertyStatus } from 'prisma/__generated__'
 import { FileService } from 'src/file/file.service'
 import { PrismaService } from 'src/prisma/prisma.service'
@@ -20,6 +24,20 @@ export class PropertyService {
 			},
 			include: {
 				location: true
+			},
+			orderBy: {
+				createdAt: 'desc'
+			}
+		})
+	}
+
+	public async realtorFindAll() {
+		return await this.prismaService.property.findMany({
+			include: {
+				location: true
+			},
+			orderBy: {
+				createdAt: 'desc'
 			}
 		})
 	}
@@ -142,6 +160,60 @@ export class PropertyService {
 			},
 			include: {
 				location: true
+			}
+		})
+	}
+
+	public async setDraftStatus(id: string) {
+		return await this.prismaService.property.update({
+			where: {
+				id
+			},
+			data: {
+				status: PropertyStatus.DRAFT
+			}
+		})
+	}
+
+	public async setActiveStatus(id: string) {
+		return await this.prismaService.property.update({
+			where: {
+				id
+			},
+			data: {
+				status: PropertyStatus.ACTIVE
+			}
+		})
+	}
+
+	public async setArchiveStatus(id: string) {
+		return await this.prismaService.property.update({
+			where: {
+				id
+			},
+			data: {
+				status: PropertyStatus.ARCHIVED
+			}
+		})
+	}
+
+	public async setStatus(id: string, status: string) {
+		const normalizedStatus = status.toUpperCase()
+
+		if (
+			!Object.values(PropertyStatus).includes(
+				normalizedStatus as PropertyStatus
+			)
+		) {
+			throw new BadRequestException('Некорректный статус.')
+		}
+
+		return this.prismaService.property.update({
+			where: {
+				id
+			},
+			data: {
+				status: normalizedStatus as PropertyStatus
 			}
 		})
 	}

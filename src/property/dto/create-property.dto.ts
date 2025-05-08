@@ -1,5 +1,5 @@
+import { Transform } from 'class-transformer'
 import {
-	IsArray,
 	IsBoolean,
 	IsEnum,
 	IsInt,
@@ -13,40 +13,44 @@ import { BuildingType, PropertyType, SellingType } from 'prisma/__generated__'
 import { BaseProperty } from 'src/libs/common/dto/base-property.dto'
 
 export class CreateProperty extends BaseProperty {
+	@Transform(({ value }) => parseFloat(value))
 	@IsNumber({}, { message: 'Площадь кухни должна быть числовым значением.' })
 	@IsPositive({ message: 'Площадь кухни должна быть положительной.' })
-	@IsNotEmpty({ message: 'Площадь кухни не должна быть пустой.' })
-	kitchenSquare: number
+	@IsOptional()
+	kitchenSquare?: number
 
-	@IsArray({ message: 'Площади комнат должны быть массивом.' })
+	@Transform(({ value }) => parseFloat(value))
 	@IsNumber(
 		{},
 		{
-			each: true,
 			message: 'Каждая площадь должна быть числовым значением.'
 		}
 	)
 	@IsOptional()
-	roomsSquare?: number[]
+	roomsSquare?: number
 
+	@Transform(({ value }) => parseInt(value))
 	@IsInt({ message: 'Этаж должен быть целочисленным значением.' })
 	@IsPositive({ message: 'Этаж должен быть положительным.' })
-	@IsNotEmpty({ message: 'Этаж не должен быть пустым.' })
-	floor: number
+	@IsOptional()
+	floor?: number
 
+	@Transform(({ value }) => parseInt(value))
 	@IsInt({
 		message: 'Общее количество этажей должно быть целочисленным значением.'
 	})
 	@IsPositive({
 		message: 'Общее количество этажей должно быть положительным.'
 	})
-	@IsNotEmpty({ message: 'Общее количество этажей не должно быть пустым.' })
-	totalFloors: number
+	@IsOptional()
+	totalFloors?: number
 
+	@Transform(({ value }) => value === 'true' || value === '1')
 	@IsBoolean({ message: 'Вторичка должна быть булевым значением.' })
 	@IsOptional()
 	isSecondary?: boolean
 
+	@Transform(({ value }) => parseInt(value))
 	@IsInt({ message: 'Год постройки должен быть целочисленным значением.' })
 	@IsPositive({
 		message: 'Год постройки должен быть положительным значением.'
@@ -54,6 +58,7 @@ export class CreateProperty extends BaseProperty {
 	@IsOptional()
 	builtYear?: number
 
+	@Transform(({ value }) => parseFloat(value))
 	@IsNumber(
 		{},
 		{ message: 'Высота потолков должна быть числовым значением.' }
@@ -62,7 +67,7 @@ export class CreateProperty extends BaseProperty {
 		message: 'Высота потолков должна быть положительным значением.'
 	})
 	@IsOptional()
-	ceilingHeight: number
+	ceilingHeight?: number
 
 	@IsEnum(BuildingType, { message: 'Недопустимое значение типа здания.' })
 	@IsNotEmpty({ message: 'Тип здания не должен быть пустым.' })
@@ -85,10 +90,12 @@ export class CreateProperty extends BaseProperty {
 	@IsOptional()
 	district?: string
 
+	@Transform(({ value }) => parseFloat(value))
 	@IsString({ message: 'Ширина должна быть строкой.' })
 	@IsOptional()
 	latitude?: number
 
+	@Transform(({ value }) => parseFloat(value))
 	@IsString({ message: 'Долгота должна быть строкой.' })
 	@IsOptional()
 	longitude?: number

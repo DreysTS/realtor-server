@@ -410,8 +410,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.6.0
-   * Query Engine version: f676762280b54cd07c770017ed3711ddde35f37a
+   * Prisma Client JS version: 6.7.0
+   * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
    */
   export type PrismaVersion = {
     client: string
@@ -5061,7 +5061,7 @@ export namespace Prisma {
     square: number | null
     rooms: number | null
     kitchenSquare: number | null
-    roomsSquare: number[]
+    roomsSquare: number | null
     floor: number | null
     totalFloors: number | null
     builtYear: number | null
@@ -5077,6 +5077,7 @@ export namespace Prisma {
     square: number | null
     rooms: number | null
     kitchenSquare: number | null
+    roomsSquare: number | null
     floor: number | null
     totalFloors: number | null
     isSecondary: boolean | null
@@ -5100,6 +5101,7 @@ export namespace Prisma {
     square: number | null
     rooms: number | null
     kitchenSquare: number | null
+    roomsSquare: number | null
     floor: number | null
     totalFloors: number | null
     isSecondary: boolean | null
@@ -5176,6 +5178,7 @@ export namespace Prisma {
     square?: true
     rooms?: true
     kitchenSquare?: true
+    roomsSquare?: true
     floor?: true
     totalFloors?: true
     isSecondary?: true
@@ -5199,6 +5202,7 @@ export namespace Prisma {
     square?: true
     rooms?: true
     kitchenSquare?: true
+    roomsSquare?: true
     floor?: true
     totalFloors?: true
     isSecondary?: true
@@ -5335,7 +5339,7 @@ export namespace Prisma {
     square: number
     rooms: number
     kitchenSquare: number | null
-    roomsSquare: number[]
+    roomsSquare: number | null
     floor: number | null
     totalFloors: number | null
     isSecondary: boolean | null
@@ -5506,7 +5510,7 @@ export namespace Prisma {
       square: number
       rooms: number
       kitchenSquare: number | null
-      roomsSquare: number[]
+      roomsSquare: number | null
       floor: number | null
       totalFloors: number | null
       isSecondary: boolean | null
@@ -5954,7 +5958,7 @@ export namespace Prisma {
     readonly square: FieldRef<"Property", 'Float'>
     readonly rooms: FieldRef<"Property", 'Int'>
     readonly kitchenSquare: FieldRef<"Property", 'Float'>
-    readonly roomsSquare: FieldRef<"Property", 'Float[]'>
+    readonly roomsSquare: FieldRef<"Property", 'Float'>
     readonly floor: FieldRef<"Property", 'Int'>
     readonly totalFloors: FieldRef<"Property", 'Int'>
     readonly isSecondary: FieldRef<"Property", 'Boolean'>
@@ -10464,7 +10468,7 @@ export namespace Prisma {
     square?: FloatFilter<"Property"> | number
     rooms?: IntFilter<"Property"> | number
     kitchenSquare?: FloatNullableFilter<"Property"> | number | null
-    roomsSquare?: FloatNullableListFilter<"Property">
+    roomsSquare?: FloatNullableFilter<"Property"> | number | null
     floor?: IntNullableFilter<"Property"> | number | null
     totalFloors?: IntNullableFilter<"Property"> | number | null
     isSecondary?: BoolNullableFilter<"Property"> | boolean | null
@@ -10492,7 +10496,7 @@ export namespace Prisma {
     square?: SortOrder
     rooms?: SortOrder
     kitchenSquare?: SortOrderInput | SortOrder
-    roomsSquare?: SortOrder
+    roomsSquare?: SortOrderInput | SortOrder
     floor?: SortOrderInput | SortOrder
     totalFloors?: SortOrderInput | SortOrder
     isSecondary?: SortOrderInput | SortOrder
@@ -10523,7 +10527,7 @@ export namespace Prisma {
     square?: FloatFilter<"Property"> | number
     rooms?: IntFilter<"Property"> | number
     kitchenSquare?: FloatNullableFilter<"Property"> | number | null
-    roomsSquare?: FloatNullableListFilter<"Property">
+    roomsSquare?: FloatNullableFilter<"Property"> | number | null
     floor?: IntNullableFilter<"Property"> | number | null
     totalFloors?: IntNullableFilter<"Property"> | number | null
     isSecondary?: BoolNullableFilter<"Property"> | boolean | null
@@ -10551,7 +10555,7 @@ export namespace Prisma {
     square?: SortOrder
     rooms?: SortOrder
     kitchenSquare?: SortOrderInput | SortOrder
-    roomsSquare?: SortOrder
+    roomsSquare?: SortOrderInput | SortOrder
     floor?: SortOrderInput | SortOrder
     totalFloors?: SortOrderInput | SortOrder
     isSecondary?: SortOrderInput | SortOrder
@@ -10584,7 +10588,7 @@ export namespace Prisma {
     square?: FloatWithAggregatesFilter<"Property"> | number
     rooms?: IntWithAggregatesFilter<"Property"> | number
     kitchenSquare?: FloatNullableWithAggregatesFilter<"Property"> | number | null
-    roomsSquare?: FloatNullableListFilter<"Property">
+    roomsSquare?: FloatNullableWithAggregatesFilter<"Property"> | number | null
     floor?: IntNullableWithAggregatesFilter<"Property"> | number | null
     totalFloors?: IntNullableWithAggregatesFilter<"Property"> | number | null
     isSecondary?: BoolNullableWithAggregatesFilter<"Property"> | boolean | null
@@ -11093,7 +11097,7 @@ export namespace Prisma {
     square: number
     rooms: number
     kitchenSquare?: number | null
-    roomsSquare?: PropertyCreateroomsSquareInput | number[]
+    roomsSquare?: number | null
     floor?: number | null
     totalFloors?: number | null
     isSecondary?: boolean | null
@@ -11120,7 +11124,7 @@ export namespace Prisma {
     square: number
     rooms: number
     kitchenSquare?: number | null
-    roomsSquare?: PropertyCreateroomsSquareInput | number[]
+    roomsSquare?: number | null
     floor?: number | null
     totalFloors?: number | null
     isSecondary?: boolean | null
@@ -11147,7 +11151,7 @@ export namespace Prisma {
     square?: FloatFieldUpdateOperationsInput | number
     rooms?: IntFieldUpdateOperationsInput | number
     kitchenSquare?: NullableFloatFieldUpdateOperationsInput | number | null
-    roomsSquare?: PropertyUpdateroomsSquareInput | number[]
+    roomsSquare?: NullableFloatFieldUpdateOperationsInput | number | null
     floor?: NullableIntFieldUpdateOperationsInput | number | null
     totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
     isSecondary?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -11174,7 +11178,7 @@ export namespace Prisma {
     square?: FloatFieldUpdateOperationsInput | number
     rooms?: IntFieldUpdateOperationsInput | number
     kitchenSquare?: NullableFloatFieldUpdateOperationsInput | number | null
-    roomsSquare?: PropertyUpdateroomsSquareInput | number[]
+    roomsSquare?: NullableFloatFieldUpdateOperationsInput | number | null
     floor?: NullableIntFieldUpdateOperationsInput | number | null
     totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
     isSecondary?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -11201,7 +11205,7 @@ export namespace Prisma {
     square: number
     rooms: number
     kitchenSquare?: number | null
-    roomsSquare?: PropertyCreateroomsSquareInput | number[]
+    roomsSquare?: number | null
     floor?: number | null
     totalFloors?: number | null
     isSecondary?: boolean | null
@@ -11226,7 +11230,7 @@ export namespace Prisma {
     square?: FloatFieldUpdateOperationsInput | number
     rooms?: IntFieldUpdateOperationsInput | number
     kitchenSquare?: NullableFloatFieldUpdateOperationsInput | number | null
-    roomsSquare?: PropertyUpdateroomsSquareInput | number[]
+    roomsSquare?: NullableFloatFieldUpdateOperationsInput | number | null
     floor?: NullableIntFieldUpdateOperationsInput | number | null
     totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
     isSecondary?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -11250,7 +11254,7 @@ export namespace Prisma {
     square?: FloatFieldUpdateOperationsInput | number
     rooms?: IntFieldUpdateOperationsInput | number
     kitchenSquare?: NullableFloatFieldUpdateOperationsInput | number | null
-    roomsSquare?: PropertyUpdateroomsSquareInput | number[]
+    roomsSquare?: NullableFloatFieldUpdateOperationsInput | number | null
     floor?: NullableIntFieldUpdateOperationsInput | number | null
     totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
     isSecondary?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -11862,14 +11866,6 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type FloatNullableListFilter<$PrismaModel = never> = {
-    equals?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    has?: number | FloatFieldRefInput<$PrismaModel> | null
-    hasEvery?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    hasSome?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
-  }
-
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -11965,6 +11961,7 @@ export namespace Prisma {
     square?: SortOrder
     rooms?: SortOrder
     kitchenSquare?: SortOrder
+    roomsSquare?: SortOrder
     floor?: SortOrder
     totalFloors?: SortOrder
     isSecondary?: SortOrder
@@ -11988,6 +11985,7 @@ export namespace Prisma {
     square?: SortOrder
     rooms?: SortOrder
     kitchenSquare?: SortOrder
+    roomsSquare?: SortOrder
     floor?: SortOrder
     totalFloors?: SortOrder
     isSecondary?: SortOrder
@@ -12457,10 +12455,6 @@ export namespace Prisma {
     set: string[]
   }
 
-  export type PropertyCreateroomsSquareInput = {
-    set: number[]
-  }
-
   export type FavoriteCreateNestedManyWithoutPropertyInput = {
     create?: XOR<FavoriteCreateWithoutPropertyInput, FavoriteUncheckedCreateWithoutPropertyInput> | FavoriteCreateWithoutPropertyInput[] | FavoriteUncheckedCreateWithoutPropertyInput[]
     connectOrCreate?: FavoriteCreateOrConnectWithoutPropertyInput | FavoriteCreateOrConnectWithoutPropertyInput[]
@@ -12514,11 +12508,6 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
-  }
-
-  export type PropertyUpdateroomsSquareInput = {
-    set?: number[]
-    push?: number | number[]
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -13515,7 +13504,7 @@ export namespace Prisma {
     square: number
     rooms: number
     kitchenSquare?: number | null
-    roomsSquare?: PropertyCreateroomsSquareInput | number[]
+    roomsSquare?: number | null
     floor?: number | null
     totalFloors?: number | null
     isSecondary?: boolean | null
@@ -13541,7 +13530,7 @@ export namespace Prisma {
     square: number
     rooms: number
     kitchenSquare?: number | null
-    roomsSquare?: PropertyCreateroomsSquareInput | number[]
+    roomsSquare?: number | null
     floor?: number | null
     totalFloors?: number | null
     isSecondary?: boolean | null
@@ -13596,7 +13585,7 @@ export namespace Prisma {
     square?: FloatFilter<"Property"> | number
     rooms?: IntFilter<"Property"> | number
     kitchenSquare?: FloatNullableFilter<"Property"> | number | null
-    roomsSquare?: FloatNullableListFilter<"Property">
+    roomsSquare?: FloatNullableFilter<"Property"> | number | null
     floor?: IntNullableFilter<"Property"> | number | null
     totalFloors?: IntNullableFilter<"Property"> | number | null
     isSecondary?: BoolNullableFilter<"Property"> | boolean | null
@@ -13660,7 +13649,7 @@ export namespace Prisma {
     square: number
     rooms: number
     kitchenSquare?: number | null
-    roomsSquare?: PropertyCreateroomsSquareInput | number[]
+    roomsSquare?: number | null
     floor?: number | null
     totalFloors?: number | null
     isSecondary?: boolean | null
@@ -13686,7 +13675,7 @@ export namespace Prisma {
     square: number
     rooms: number
     kitchenSquare?: number | null
-    roomsSquare?: PropertyCreateroomsSquareInput | number[]
+    roomsSquare?: number | null
     floor?: number | null
     totalFloors?: number | null
     isSecondary?: boolean | null
@@ -13773,7 +13762,7 @@ export namespace Prisma {
     square?: FloatFieldUpdateOperationsInput | number
     rooms?: IntFieldUpdateOperationsInput | number
     kitchenSquare?: NullableFloatFieldUpdateOperationsInput | number | null
-    roomsSquare?: PropertyUpdateroomsSquareInput | number[]
+    roomsSquare?: NullableFloatFieldUpdateOperationsInput | number | null
     floor?: NullableIntFieldUpdateOperationsInput | number | null
     totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
     isSecondary?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -13799,7 +13788,7 @@ export namespace Prisma {
     square?: FloatFieldUpdateOperationsInput | number
     rooms?: IntFieldUpdateOperationsInput | number
     kitchenSquare?: NullableFloatFieldUpdateOperationsInput | number | null
-    roomsSquare?: PropertyUpdateroomsSquareInput | number[]
+    roomsSquare?: NullableFloatFieldUpdateOperationsInput | number | null
     floor?: NullableIntFieldUpdateOperationsInput | number | null
     totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
     isSecondary?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -13825,7 +13814,7 @@ export namespace Prisma {
     square: number
     rooms: number
     kitchenSquare?: number | null
-    roomsSquare?: PropertyCreateroomsSquareInput | number[]
+    roomsSquare?: number | null
     floor?: number | null
     totalFloors?: number | null
     isSecondary?: boolean | null
@@ -13851,7 +13840,7 @@ export namespace Prisma {
     square: number
     rooms: number
     kitchenSquare?: number | null
-    roomsSquare?: PropertyCreateroomsSquareInput | number[]
+    roomsSquare?: number | null
     floor?: number | null
     totalFloors?: number | null
     isSecondary?: boolean | null
@@ -13932,7 +13921,7 @@ export namespace Prisma {
     square?: FloatFieldUpdateOperationsInput | number
     rooms?: IntFieldUpdateOperationsInput | number
     kitchenSquare?: NullableFloatFieldUpdateOperationsInput | number | null
-    roomsSquare?: PropertyUpdateroomsSquareInput | number[]
+    roomsSquare?: NullableFloatFieldUpdateOperationsInput | number | null
     floor?: NullableIntFieldUpdateOperationsInput | number | null
     totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
     isSecondary?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -13958,7 +13947,7 @@ export namespace Prisma {
     square?: FloatFieldUpdateOperationsInput | number
     rooms?: IntFieldUpdateOperationsInput | number
     kitchenSquare?: NullableFloatFieldUpdateOperationsInput | number | null
-    roomsSquare?: PropertyUpdateroomsSquareInput | number[]
+    roomsSquare?: NullableFloatFieldUpdateOperationsInput | number | null
     floor?: NullableIntFieldUpdateOperationsInput | number | null
     totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
     isSecondary?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -14249,7 +14238,7 @@ export namespace Prisma {
     square: number
     rooms: number
     kitchenSquare?: number | null
-    roomsSquare?: PropertyCreateroomsSquareInput | number[]
+    roomsSquare?: number | null
     floor?: number | null
     totalFloors?: number | null
     isSecondary?: boolean | null
@@ -14273,7 +14262,7 @@ export namespace Prisma {
     square?: FloatFieldUpdateOperationsInput | number
     rooms?: IntFieldUpdateOperationsInput | number
     kitchenSquare?: NullableFloatFieldUpdateOperationsInput | number | null
-    roomsSquare?: PropertyUpdateroomsSquareInput | number[]
+    roomsSquare?: NullableFloatFieldUpdateOperationsInput | number | null
     floor?: NullableIntFieldUpdateOperationsInput | number | null
     totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
     isSecondary?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -14299,7 +14288,7 @@ export namespace Prisma {
     square?: FloatFieldUpdateOperationsInput | number
     rooms?: IntFieldUpdateOperationsInput | number
     kitchenSquare?: NullableFloatFieldUpdateOperationsInput | number | null
-    roomsSquare?: PropertyUpdateroomsSquareInput | number[]
+    roomsSquare?: NullableFloatFieldUpdateOperationsInput | number | null
     floor?: NullableIntFieldUpdateOperationsInput | number | null
     totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
     isSecondary?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -14325,7 +14314,7 @@ export namespace Prisma {
     square?: FloatFieldUpdateOperationsInput | number
     rooms?: IntFieldUpdateOperationsInput | number
     kitchenSquare?: NullableFloatFieldUpdateOperationsInput | number | null
-    roomsSquare?: PropertyUpdateroomsSquareInput | number[]
+    roomsSquare?: NullableFloatFieldUpdateOperationsInput | number | null
     floor?: NullableIntFieldUpdateOperationsInput | number | null
     totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
     isSecondary?: NullableBoolFieldUpdateOperationsInput | boolean | null

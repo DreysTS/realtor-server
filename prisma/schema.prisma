@@ -85,7 +85,7 @@ enum TokenType {
 }
 
 model Property {
-  id            String       @id @default(uuid())
+  id            String        @id @default(uuid())
   title         String
   description   String
   images        String[]
@@ -93,16 +93,16 @@ model Property {
   square        Float
   rooms         Int
   kitchenSquare Float?        @map("kitchen_square")
-  roomsSquare   Float[]      @map("rooms_square")
+  roomsSquare   Float?        @map("rooms_square")
   floor         Int?
   totalFloors   Int?          @map("total_floors")
-  isSecondary   Boolean?     @map("is_secondary")
-  builtYear     Int?         @map("built_year")
-  ceilingHeight Float?       @map("ceiling_height")
+  isSecondary   Boolean?      @map("is_secondary")
+  builtYear     Int?          @map("built_year")
+  ceilingHeight Float?        @map("ceiling_height")
   buildingType  BuildingType? @map("building_type")
 
-  propertyType PropertyType?   @default(FLAT)
-  sellingType  SellingType?    @map("selling_type")
+  propertyType PropertyType?  @default(FLAT)
+  sellingType  SellingType?   @map("selling_type")
   status       PropertyStatus @default(DRAFT)
 
   locationId Int     @map("location_id")
@@ -113,7 +113,7 @@ model Property {
 
   Favorite Favorite[]
 
-  location        Location          @relation(fields: [locationId], references: [id])
+  location        Location          @relation(fields: [locationId], references: [id], onDelete: Cascade)
   PropertyRequest PropertyRequest[]
 
   @@map("properties")

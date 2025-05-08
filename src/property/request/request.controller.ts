@@ -2,6 +2,7 @@ import {
 	Body,
 	Controller,
 	Delete,
+	Get,
 	HttpCode,
 	HttpStatus,
 	Param,
@@ -25,10 +26,24 @@ import { RequestService } from './request.service'
 export class RequestController {
 	constructor(private readonly requestService: RequestService) {}
 
+	@Authorization(UserRole.REGULAR)
+	@Get()
+	@HttpCode(HttpStatus.OK)
+	public async findUserRequests(@Authorized('id') userId: string) {
+		return this.requestService.findUserRequests(userId)
+	}
+
+	@Authorization(UserRole.REALTOR)
+	@Get('/realtor')
+	@HttpCode(HttpStatus.OK)
+	public async findUsersRequests() {
+		return this.requestService.findUsersRequests()
+	}
+
 	@UseInterceptors(FilesInterceptor('files'))
 	@Authorization()
 	@Post()
-	@HttpCode(HttpStatus.OK)
+	@HttpCode(HttpStatus.CREATED)
 	public async createRequest(
 		@UploadedFiles(
 			new ParseFilePipe({
@@ -64,7 +79,7 @@ export class RequestController {
 	@HttpCode(HttpStatus.OK)
 	public async declineRequest(
 		@Param('id') id: string,
-		dto: DeclineRequestDto
+		@Body() dto: DeclineRequestDto
 	) {
 		return this.requestService.declineRequest(id, dto)
 	}

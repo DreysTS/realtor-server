@@ -19,6 +19,26 @@ export class RequestService {
 		private readonly configService: ConfigService
 	) {}
 
+	public async findUserRequests(userId: string) {
+		return await this.prismaService.propertyRequest.findMany({
+			where: {
+				userId
+			},
+			orderBy: {
+				createdAt: 'asc'
+			}
+		})
+	}
+
+	public async findUsersRequests() {
+		return await this.prismaService.propertyRequest.findMany({
+			orderBy: {
+				userId: 'asc',
+				createdAt: 'asc'
+			}
+		})
+	}
+
 	public async createRequest(
 		userId: string,
 		dto: CreateSellRequest,
