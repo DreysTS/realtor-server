@@ -27,6 +27,7 @@ export class BaseOAuthService {
 			redirect_uri: this.getRedirectUrl(),
 			scope: (this.options.scopes ?? []).join(' '),
 			access_type: 'offline',
+			include_granted_scopes: 'false',
 			prompt: 'select_account'
 		})
 

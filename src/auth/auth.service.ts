@@ -110,27 +110,25 @@ export class AuthService {
 
 		const account = await this.prismaService.account.findFirst({
 			where: {
-				id: profile.id,
-				provider: profile.provider
+				provider: profile.provider,
+				providerId: profile.id
 			}
 		})
 
 		let user = account?.userId
 			? await this.userService.findById(account.userId)
-			: null
+			: await this.userService.findByEmail(profile.email)
 
-		if (user) {
-			return this.saveSession(req, user)
+		if (!user) {
+			user = await this.userService.create(
+				profile.email,
+				'',
+				profile.name,
+				profile.picture,
+				AuthMethod[profile.provider.toUpperCase()],
+				true
+			)
 		}
-
-		user = await this.userService.create(
-			profile.email,
-			'',
-			profile.name,
-			profile.picture,
-			AuthMethod[profile.provider.toUpperCase()],
-			true
-		)
 
 		if (!account) {
 			await this.prismaService.account.create({
@@ -138,6 +136,7 @@ export class AuthService {
 					userId: user.id,
 					type: 'oauth',
 					provider: profile.provider,
+					providerId: profile.id,
 					accessToken: profile.access_token,
 					refreshToken: profile.refresh_token,
 					expiresAt: profile.expires_at

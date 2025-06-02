@@ -13,6 +13,7 @@ import { MailModule } from './libs/mail/mail.module'
 import { PrismaModule } from './prisma/prisma.module'
 import { PropertyModule } from './property/property.module'
 import { UserModule } from './user/user.module'
+import { FeedbackModule } from './feedback/feedback.module';
 
 @Module({
 	imports: [
@@ -30,7 +31,8 @@ import { UserModule } from './user/user.module'
 		PasswordRecoveryModule,
 		PropertyModule,
 		FavoritesModule,
-		FileModule
+		FileModule,
+		FeedbackModule
 	]
 })
 export class AppModule {}

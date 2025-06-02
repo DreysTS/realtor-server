@@ -75,6 +75,7 @@ export class UserService {
 			data: {
 				email: dto.email,
 				displayName: dto.name,
+				phoneNumber: dto.phoneNumber,
 				isTwoFactorEnabled: dto.isTwoFactorEnabled
 			}
 		})
@@ -88,6 +89,18 @@ export class UserService {
 			},
 			select: {
 				role: true
+			}
+		})
+	}
+
+	public async findAllUsers() {
+		return await this.prismaService.user.findMany({
+			select: {
+				id: true,
+				displayName: true,
+				email: true,
+				createdAt: true,
+				picture: true
 			}
 		})
 	}

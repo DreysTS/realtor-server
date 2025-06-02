@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.7.0
- * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
+ * Prisma Client JS version: 6.8.2
+ * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
  */
 Prisma.prismaVersion = {
-  client: "6.7.0",
-  engine: "3cff47a7f5d65c3ea74883f1d736e41d68ce91ed"
+  client: "6.8.2",
+  engine: "2060c79ba17c6bb9f5823312b6f6b7f4a845738e"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -139,6 +139,7 @@ exports.Prisma.AccountScalarFieldEnum = {
   id: 'id',
   type: 'type',
   provider: 'provider',
+  providerId: 'providerId',
   refreshToken: 'refreshToken',
   accessToken: 'accessToken',
   expiresAt: 'expiresAt',
@@ -205,10 +206,32 @@ exports.Prisma.PropertyRequestScalarFieldEnum = {
   rooms: 'rooms',
   address: 'address',
   images: 'images',
-  currentUrl: 'currentUrl',
   propertyRequestStatus: 'propertyRequestStatus',
   rejectionReason: 'rejectionReason',
   propertyId: 'propertyId',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PropertyPurchaseScalarFieldEnum = {
+  id: 'id',
+  description: 'description',
+  budget_min: 'budget_min',
+  budget_max: 'budget_max',
+  rooms: 'rooms',
+  area_min: 'area_min',
+  area_max: 'area_max',
+  contact_method: 'contact_method',
+  status: 'status',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FeedbackScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
   userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -276,6 +299,13 @@ exports.PropertyRequestStatus = exports.$Enums.PropertyRequestStatus = {
   REJECTED: 'REJECTED'
 };
 
+exports.PropertyPurchaseStatus = exports.$Enums.PropertyPurchaseStatus = {
+  ACTIVE: 'ACTIVE',
+  PENDING: 'PENDING',
+  COMPLETED: 'COMPLETED',
+  REJECTED: 'REJECTED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Account: 'Account',
@@ -283,7 +313,9 @@ exports.Prisma.ModelName = {
   Property: 'Property',
   Location: 'Location',
   Favorite: 'Favorite',
-  PropertyRequest: 'PropertyRequest'
+  PropertyRequest: 'PropertyRequest',
+  PropertyPurchase: 'PropertyPurchase',
+  Feedback: 'Feedback'
 };
 
 /**

@@ -1,24 +1,24 @@
 import {
 	Controller,
+	HttpCode,
+	HttpStatus,
 	ParseFilePipe,
 	Post,
 	UploadedFiles,
 	UseInterceptors
 } from '@nestjs/common'
 import { FilesInterceptor } from '@nestjs/platform-express'
-import { UserRole } from 'prisma/__generated__'
-import { Authorization } from 'src/auth/decorators/auth.decorator'
 import { IMAGE_VALIDATORS } from 'src/libs/common/constants/image-validators'
 
 import { FileService } from './file.service'
 
-@Controller('file')
+@Controller('files')
 export class FileController {
 	constructor(private readonly fileService: FileService) {}
 
-	@Authorization(UserRole.REALTOR)
 	@UseInterceptors(FilesInterceptor('files'))
 	@Post()
+	@HttpCode(HttpStatus.OK)
 	public async create(
 		@UploadedFiles(
 			new ParseFilePipe({
@@ -27,6 +27,6 @@ export class FileController {
 		)
 		files: Express.Multer.File[]
 	) {
-		return
+		return this.fileService.saveImages(files)
 	}
 }

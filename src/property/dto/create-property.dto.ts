@@ -1,4 +1,3 @@
-import { Transform } from 'class-transformer'
 import {
 	IsBoolean,
 	IsEnum,
@@ -13,13 +12,11 @@ import { BuildingType, PropertyType, SellingType } from 'prisma/__generated__'
 import { BaseProperty } from 'src/libs/common/dto/base-property.dto'
 
 export class CreateProperty extends BaseProperty {
-	@Transform(({ value }) => parseFloat(value))
 	@IsNumber({}, { message: 'Площадь кухни должна быть числовым значением.' })
 	@IsPositive({ message: 'Площадь кухни должна быть положительной.' })
 	@IsOptional()
 	kitchenSquare?: number
 
-	@Transform(({ value }) => parseFloat(value))
 	@IsNumber(
 		{},
 		{
@@ -29,13 +26,11 @@ export class CreateProperty extends BaseProperty {
 	@IsOptional()
 	roomsSquare?: number
 
-	@Transform(({ value }) => parseInt(value))
 	@IsInt({ message: 'Этаж должен быть целочисленным значением.' })
 	@IsPositive({ message: 'Этаж должен быть положительным.' })
 	@IsOptional()
 	floor?: number
 
-	@Transform(({ value }) => parseInt(value))
 	@IsInt({
 		message: 'Общее количество этажей должно быть целочисленным значением.'
 	})
@@ -45,12 +40,10 @@ export class CreateProperty extends BaseProperty {
 	@IsOptional()
 	totalFloors?: number
 
-	@Transform(({ value }) => value === 'true' || value === '1')
 	@IsBoolean({ message: 'Вторичка должна быть булевым значением.' })
 	@IsOptional()
 	isSecondary?: boolean
 
-	@Transform(({ value }) => parseInt(value))
 	@IsInt({ message: 'Год постройки должен быть целочисленным значением.' })
 	@IsPositive({
 		message: 'Год постройки должен быть положительным значением.'
@@ -58,7 +51,6 @@ export class CreateProperty extends BaseProperty {
 	@IsOptional()
 	builtYear?: number
 
-	@Transform(({ value }) => parseFloat(value))
 	@IsNumber(
 		{},
 		{ message: 'Высота потолков должна быть числовым значением.' }
@@ -90,12 +82,10 @@ export class CreateProperty extends BaseProperty {
 	@IsOptional()
 	district?: string
 
-	@Transform(({ value }) => parseFloat(value))
 	@IsString({ message: 'Ширина должна быть строкой.' })
 	@IsOptional()
 	latitude?: number
 
-	@Transform(({ value }) => parseFloat(value))
 	@IsString({ message: 'Долгота должна быть строкой.' })
 	@IsOptional()
 	longitude?: number

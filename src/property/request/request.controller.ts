@@ -6,19 +6,14 @@ import {
 	HttpCode,
 	HttpStatus,
 	Param,
-	ParseFilePipe,
 	Patch,
-	Post,
-	UploadedFiles,
-	UseInterceptors
+	Post
 } from '@nestjs/common'
-import { FilesInterceptor } from '@nestjs/platform-express'
 import { UserRole } from 'prisma/__generated__'
 import { Authorization } from 'src/auth/decorators/auth.decorator'
 import { Authorized } from 'src/auth/decorators/authorized.decorator'
-import { IMAGE_VALIDATORS } from 'src/libs/common/constants/image-validators'
 
-import { CreateSellRequest } from './dto/create-sell-request.dto'
+import { CreateRequest } from './dto/create-request.dto'
 import { DeclineRequestDto } from './dto/decline-request.dto'
 import { RequestService } from './request.service'
 
@@ -26,35 +21,44 @@ import { RequestService } from './request.service'
 export class RequestController {
 	constructor(private readonly requestService: RequestService) {}
 
-	@Authorization(UserRole.REGULAR)
-	@Get()
+	@Authorization()
+	@Get('user')
 	@HttpCode(HttpStatus.OK)
-	public async findUserRequests(@Authorized('id') userId: string) {
-		return this.requestService.findUserRequests(userId)
+	public async findRequests(@Authorized('id') userId: string) {
+		return this.requestService.findRequests(userId)
 	}
 
 	@Authorization(UserRole.REALTOR)
-	@Get('/realtor')
+	@Get('user/:targetUserId')
+	@HttpCode(HttpStatus.OK)
+	public async findUserRequests(
+		@Param('targetUserId') targetUserId?: string
+	) {
+		return this.requestService.findUserRequests(targetUserId)
+	}
+
+	@Authorization(UserRole.REALTOR)
+	@Get('realtor')
 	@HttpCode(HttpStatus.OK)
 	public async findUsersRequests() {
 		return this.requestService.findUsersRequests()
 	}
 
-	@UseInterceptors(FilesInterceptor('files'))
+	@Authorization(UserRole.REALTOR)
+	@Get(':requestId')
+	@HttpCode(HttpStatus.OK)
+	public async findRequestById(@Param('requestId') requestId?: string) {
+		return this.requestService.findRequestById(requestId)
+	}
+
 	@Authorization()
 	@Post()
 	@HttpCode(HttpStatus.CREATED)
 	public async createRequest(
-		@UploadedFiles(
-			new ParseFilePipe({
-				validators: IMAGE_VALIDATORS
-			})
-		)
-		files: Express.Multer.File[],
 		@Authorized('id') id: string,
-		@Body() dto: CreateSellRequest
+		@Body() dto: CreateRequest
 	) {
-		return this.requestService.createRequest(id, dto, files)
+		return this.requestService.createRequest(id, dto)
 	}
 
 	@Authorization()

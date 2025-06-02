@@ -6,18 +6,16 @@ import {
 	HttpCode,
 	HttpStatus,
 	Param,
-	ParseFilePipe,
 	Patch,
 	Post,
-	UploadedFiles,
-	UseInterceptors
+	Query
 } from '@nestjs/common'
-import { FilesInterceptor } from '@nestjs/platform-express'
 import { UserRole } from 'prisma/__generated__'
 import { Authorization } from 'src/auth/decorators/auth.decorator'
-import { IMAGE_VALIDATORS } from 'src/libs/common/constants/image-validators'
 
 import { CreateProperty } from './dto/create-property.dto'
+import { PropertyFiltersDto } from './dto/property-filters.dto'
+import { UpdatePropertyDto } from './dto/update-property.dto'
 import { PropertyService } from './property.service'
 
 @Controller('property')
@@ -26,14 +24,25 @@ export class PropertyController {
 
 	@Get()
 	@HttpCode(HttpStatus.OK)
-	public async findAll() {
-		return this.propertyService.findAll()
+	public async findAll(
+		@Query() filters: PropertyFiltersDto,
+		signal?: AbortSignal
+	) {
+		return this.propertyService.findAll(filters, signal)
 	}
 
-	@Get('/realtor')
+	@Authorization(UserRole.REALTOR)
+	@Get('realtor')
 	@HttpCode(HttpStatus.OK)
 	public async realtorFindAll() {
 		return this.propertyService.realtorFindAll()
+	}
+
+	@Authorization(UserRole.REALTOR)
+	@Get('realtor/:propertyId')
+	@HttpCode(HttpStatus.OK)
+	public async realtorFindById(@Param('propertyId') propertyId: string) {
+		return this.propertyService.realtorFindById(propertyId)
 	}
 
 	@Get(':id')
@@ -43,62 +52,25 @@ export class PropertyController {
 	}
 
 	@Authorization(UserRole.REALTOR)
-	@UseInterceptors(FilesInterceptor('files'))
 	@Post()
-	public async create(
-		@UploadedFiles(
-			new ParseFilePipe({
-				validators: IMAGE_VALIDATORS
-			})
-		)
-		files: Express.Multer.File[],
-		@Body() dto: CreateProperty
-	) {
-		return this.propertyService.create(files, dto)
+	public async create(@Body() dto: CreateProperty) {
+		console.log(dto)
+		return this.propertyService.create(dto)
 	}
 
 	@Authorization(UserRole.REALTOR)
-	@UseInterceptors(FilesInterceptor('files'))
-	@Post(':id')
+	@Patch(':id')
 	public async update(
-		@UploadedFiles(
-			new ParseFilePipe({
-				validators: IMAGE_VALIDATORS
-			})
-		)
-		@Param('id')
-		id: string,
-		files: Express.Multer.File[],
-		@Body() dto: CreateProperty
+		@Param('id') id: string,
+		@Body() dto: UpdatePropertyDto
 	) {
-		return this.propertyService.update(id, files, dto)
+		return this.propertyService.update(id, dto)
 	}
 
 	@Delete(':id')
 	@HttpCode(HttpStatus.OK)
 	public async delete(@Param('id') id: string) {
 		return this.propertyService.delete(id)
-	}
-
-	@Authorization(UserRole.REALTOR)
-	@HttpCode(HttpStatus.OK)
-	@Patch(':id/draft')
-	public async setDraftStatus(@Param('id') id: string) {
-		return this.propertyService.setDraftStatus(id)
-	}
-
-	@Authorization(UserRole.REALTOR)
-	@HttpCode(HttpStatus.OK)
-	@Patch(':id/active')
-	public async setActiveStatus(@Param('id') id: string) {
-		return this.propertyService.setActiveStatus(id)
-	}
-
-	@Authorization(UserRole.REALTOR)
-	@HttpCode(HttpStatus.OK)
-	@Patch(':id/archive')
-	public async setArchiveStatus(@Param('id') id: string) {
-		return this.propertyService.setArchiveStatus(id)
 	}
 
 	@Authorization(UserRole.REALTOR)

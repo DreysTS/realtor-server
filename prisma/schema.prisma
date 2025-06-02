@@ -3,6 +3,11 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator erd {
+  provider = "prisma-erd-generator"
+  output   = "./ERD.png"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("POSTGRES_URI")
@@ -13,9 +18,9 @@ model User {
 
   email       String  @unique
   password    String
-  phoneNumber String?
+  phoneNumber String? @map("phone_number")
 
-  displayName String  @map("display_name")
+  displayName String
   picture     String?
 
   role UserRole @default(REGULAR)
@@ -30,8 +35,11 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  favorite        Favorite[]
-  propertyRequest PropertyRequest[]
+  favorite         Favorite[]
+  propertyRequest  PropertyRequest[]
+  propertyPurchase PropertyPurchase[]
+
+  comments Feedback[]
 
   @@map("users")
 }
@@ -39,8 +47,9 @@ model User {
 model Account {
   id String @id @default(uuid())
 
-  type     String
-  provider String
+  type       String
+  provider   String
+  providerId String @map("provider_id")
 
   refreshToken String? @map("refresh_token")
   accessToken  String? @map("access_token")
@@ -113,8 +122,8 @@ model Property {
 
   Favorite Favorite[]
 
-  location        Location          @relation(fields: [locationId], references: [id], onDelete: Cascade)
-  PropertyRequest PropertyRequest[]
+  location        Location         @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  propertyRequest PropertyRequest?
 
   @@map("properties")
 }
@@ -178,11 +187,10 @@ model PropertyRequest {
   rooms       Int
   address     String
   images      String[]
-  currentUrl  String?
 
   propertyRequestStatus PropertyRequestStatus @default(PENDING)
   rejectionReason       String?
-  propertyId            String?
+  propertyId            String?               @unique
   userId                String
 
   createdAt DateTime @default(now())
@@ -200,4 +208,47 @@ enum PropertyRequestStatus {
   PENDING
   APPROWED
   REJECTED
+}
+
+model PropertyPurchase {
+  id String @id @default(uuid())
+
+  description    String
+  budget_min     Float?
+  budget_max     Float?
+  rooms          Int?
+  area_min       Float?
+  area_max       Float?
+  contact_method String?
+  status         PropertyPurchaseStatus
+
+  userId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("property_purchases")
+}
+
+enum PropertyPurchaseStatus {
+  ACTIVE
+  PENDING
+  COMPLETED
+  REJECTED
+}
+
+model Feedback {
+  id String @id @default(uuid())
+
+  content String
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("feedbacks")
 }

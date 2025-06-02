@@ -48,6 +48,16 @@ export type Favorite = $Result.DefaultSelection<Prisma.$FavoritePayload>
  * 
  */
 export type PropertyRequest = $Result.DefaultSelection<Prisma.$PropertyRequestPayload>
+/**
+ * Model PropertyPurchase
+ * 
+ */
+export type PropertyPurchase = $Result.DefaultSelection<Prisma.$PropertyPurchasePayload>
+/**
+ * Model Feedback
+ * 
+ */
+export type Feedback = $Result.DefaultSelection<Prisma.$FeedbackPayload>
 
 /**
  * Enums
@@ -124,6 +134,16 @@ export const PropertyRequestStatus: {
 
 export type PropertyRequestStatus = (typeof PropertyRequestStatus)[keyof typeof PropertyRequestStatus]
 
+
+export const PropertyPurchaseStatus: {
+  ACTIVE: 'ACTIVE',
+  PENDING: 'PENDING',
+  COMPLETED: 'COMPLETED',
+  REJECTED: 'REJECTED'
+};
+
+export type PropertyPurchaseStatus = (typeof PropertyPurchaseStatus)[keyof typeof PropertyPurchaseStatus]
+
 }
 
 export type UserRole = $Enums.UserRole
@@ -157,6 +177,10 @@ export const PropertyStatus: typeof $Enums.PropertyStatus
 export type PropertyRequestStatus = $Enums.PropertyRequestStatus
 
 export const PropertyRequestStatus: typeof $Enums.PropertyRequestStatus
+
+export type PropertyPurchaseStatus = $Enums.PropertyPurchaseStatus
+
+export const PropertyPurchaseStatus: typeof $Enums.PropertyPurchaseStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -352,6 +376,26 @@ export class PrismaClient<
     * ```
     */
   get propertyRequest(): Prisma.PropertyRequestDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.propertyPurchase`: Exposes CRUD operations for the **PropertyPurchase** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PropertyPurchases
+    * const propertyPurchases = await prisma.propertyPurchase.findMany()
+    * ```
+    */
+  get propertyPurchase(): Prisma.PropertyPurchaseDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.feedback`: Exposes CRUD operations for the **Feedback** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Feedbacks
+    * const feedbacks = await prisma.feedback.findMany()
+    * ```
+    */
+  get feedback(): Prisma.FeedbackDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -410,8 +454,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.7.0
-   * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
+   * Prisma Client JS version: 6.8.2
+   * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
    */
   export type PrismaVersion = {
     client: string
@@ -798,7 +842,9 @@ export namespace Prisma {
     Property: 'Property',
     Location: 'Location',
     Favorite: 'Favorite',
-    PropertyRequest: 'PropertyRequest'
+    PropertyRequest: 'PropertyRequest',
+    PropertyPurchase: 'PropertyPurchase',
+    Feedback: 'Feedback'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -817,7 +863,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "account" | "token" | "property" | "location" | "favorite" | "propertyRequest"
+      modelProps: "user" | "account" | "token" | "property" | "location" | "favorite" | "propertyRequest" | "propertyPurchase" | "feedback"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1339,6 +1385,154 @@ export namespace Prisma {
           }
         }
       }
+      PropertyPurchase: {
+        payload: Prisma.$PropertyPurchasePayload<ExtArgs>
+        fields: Prisma.PropertyPurchaseFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PropertyPurchaseFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyPurchasePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PropertyPurchaseFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyPurchasePayload>
+          }
+          findFirst: {
+            args: Prisma.PropertyPurchaseFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyPurchasePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PropertyPurchaseFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyPurchasePayload>
+          }
+          findMany: {
+            args: Prisma.PropertyPurchaseFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyPurchasePayload>[]
+          }
+          create: {
+            args: Prisma.PropertyPurchaseCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyPurchasePayload>
+          }
+          createMany: {
+            args: Prisma.PropertyPurchaseCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PropertyPurchaseCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyPurchasePayload>[]
+          }
+          delete: {
+            args: Prisma.PropertyPurchaseDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyPurchasePayload>
+          }
+          update: {
+            args: Prisma.PropertyPurchaseUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyPurchasePayload>
+          }
+          deleteMany: {
+            args: Prisma.PropertyPurchaseDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PropertyPurchaseUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PropertyPurchaseUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyPurchasePayload>[]
+          }
+          upsert: {
+            args: Prisma.PropertyPurchaseUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyPurchasePayload>
+          }
+          aggregate: {
+            args: Prisma.PropertyPurchaseAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePropertyPurchase>
+          }
+          groupBy: {
+            args: Prisma.PropertyPurchaseGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PropertyPurchaseGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PropertyPurchaseCountArgs<ExtArgs>
+            result: $Utils.Optional<PropertyPurchaseCountAggregateOutputType> | number
+          }
+        }
+      }
+      Feedback: {
+        payload: Prisma.$FeedbackPayload<ExtArgs>
+        fields: Prisma.FeedbackFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FeedbackFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FeedbackPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FeedbackFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FeedbackPayload>
+          }
+          findFirst: {
+            args: Prisma.FeedbackFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FeedbackPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FeedbackFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FeedbackPayload>
+          }
+          findMany: {
+            args: Prisma.FeedbackFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FeedbackPayload>[]
+          }
+          create: {
+            args: Prisma.FeedbackCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FeedbackPayload>
+          }
+          createMany: {
+            args: Prisma.FeedbackCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.FeedbackCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FeedbackPayload>[]
+          }
+          delete: {
+            args: Prisma.FeedbackDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FeedbackPayload>
+          }
+          update: {
+            args: Prisma.FeedbackUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FeedbackPayload>
+          }
+          deleteMany: {
+            args: Prisma.FeedbackDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FeedbackUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.FeedbackUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FeedbackPayload>[]
+          }
+          upsert: {
+            args: Prisma.FeedbackUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FeedbackPayload>
+          }
+          aggregate: {
+            args: Prisma.FeedbackAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFeedback>
+          }
+          groupBy: {
+            args: Prisma.FeedbackGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FeedbackGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FeedbackCountArgs<ExtArgs>
+            result: $Utils.Optional<FeedbackCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1430,6 +1624,8 @@ export namespace Prisma {
     location?: LocationOmit
     favorite?: FavoriteOmit
     propertyRequest?: PropertyRequestOmit
+    propertyPurchase?: PropertyPurchaseOmit
+    feedback?: FeedbackOmit
   }
 
   /* Types for Logging */
@@ -1527,12 +1723,16 @@ export namespace Prisma {
     accounts: number
     favorite: number
     propertyRequest: number
+    propertyPurchase: number
+    comments: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs
     favorite?: boolean | UserCountOutputTypeCountFavoriteArgs
     propertyRequest?: boolean | UserCountOutputTypeCountPropertyRequestArgs
+    propertyPurchase?: boolean | UserCountOutputTypeCountPropertyPurchaseArgs
+    comments?: boolean | UserCountOutputTypeCountCommentsArgs
   }
 
   // Custom InputTypes
@@ -1567,6 +1767,20 @@ export namespace Prisma {
     where?: PropertyRequestWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPropertyPurchaseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PropertyPurchaseWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FeedbackWhereInput
+  }
+
 
   /**
    * Count Type PropertyCountOutputType
@@ -1574,12 +1788,10 @@ export namespace Prisma {
 
   export type PropertyCountOutputType = {
     Favorite: number
-    PropertyRequest: number
   }
 
   export type PropertyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Favorite?: boolean | PropertyCountOutputTypeCountFavoriteArgs
-    PropertyRequest?: boolean | PropertyCountOutputTypeCountPropertyRequestArgs
   }
 
   // Custom InputTypes
@@ -1598,13 +1810,6 @@ export namespace Prisma {
    */
   export type PropertyCountOutputTypeCountFavoriteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: FavoriteWhereInput
-  }
-
-  /**
-   * PropertyCountOutputType without action
-   */
-  export type PropertyCountOutputTypeCountPropertyRequestArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PropertyRequestWhereInput
   }
 
 
@@ -1866,6 +2071,8 @@ export namespace Prisma {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     favorite?: boolean | User$favoriteArgs<ExtArgs>
     propertyRequest?: boolean | User$propertyRequestArgs<ExtArgs>
+    propertyPurchase?: boolean | User$propertyPurchaseArgs<ExtArgs>
+    comments?: boolean | User$commentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1919,6 +2126,8 @@ export namespace Prisma {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     favorite?: boolean | User$favoriteArgs<ExtArgs>
     propertyRequest?: boolean | User$propertyRequestArgs<ExtArgs>
+    propertyPurchase?: boolean | User$propertyPurchaseArgs<ExtArgs>
+    comments?: boolean | User$commentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1930,6 +2139,8 @@ export namespace Prisma {
       accounts: Prisma.$AccountPayload<ExtArgs>[]
       favorite: Prisma.$FavoritePayload<ExtArgs>[]
       propertyRequest: Prisma.$PropertyRequestPayload<ExtArgs>[]
+      propertyPurchase: Prisma.$PropertyPurchasePayload<ExtArgs>[]
+      comments: Prisma.$FeedbackPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2341,6 +2552,8 @@ export namespace Prisma {
     accounts<T extends User$accountsArgs<ExtArgs> = {}>(args?: Subset<T, User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     favorite<T extends User$favoriteArgs<ExtArgs> = {}>(args?: Subset<T, User$favoriteArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     propertyRequest<T extends User$propertyRequestArgs<ExtArgs> = {}>(args?: Subset<T, User$propertyRequestArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PropertyRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    propertyPurchase<T extends User$propertyPurchaseArgs<ExtArgs> = {}>(args?: Subset<T, User$propertyPurchaseArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PropertyPurchasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    comments<T extends User$commentsArgs<ExtArgs> = {}>(args?: Subset<T, User$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2842,6 +3055,54 @@ export namespace Prisma {
   }
 
   /**
+   * User.propertyPurchase
+   */
+  export type User$propertyPurchaseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyPurchase
+     */
+    select?: PropertyPurchaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyPurchase
+     */
+    omit?: PropertyPurchaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyPurchaseInclude<ExtArgs> | null
+    where?: PropertyPurchaseWhereInput
+    orderBy?: PropertyPurchaseOrderByWithRelationInput | PropertyPurchaseOrderByWithRelationInput[]
+    cursor?: PropertyPurchaseWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PropertyPurchaseScalarFieldEnum | PropertyPurchaseScalarFieldEnum[]
+  }
+
+  /**
+   * User.comments
+   */
+  export type User$commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Feedback
+     */
+    select?: FeedbackSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Feedback
+     */
+    omit?: FeedbackOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeedbackInclude<ExtArgs> | null
+    where?: FeedbackWhereInput
+    orderBy?: FeedbackOrderByWithRelationInput | FeedbackOrderByWithRelationInput[]
+    cursor?: FeedbackWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FeedbackScalarFieldEnum | FeedbackScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2884,6 +3145,7 @@ export namespace Prisma {
     id: string | null
     type: string | null
     provider: string | null
+    providerId: string | null
     refreshToken: string | null
     accessToken: string | null
     expiresAt: number | null
@@ -2896,6 +3158,7 @@ export namespace Prisma {
     id: string | null
     type: string | null
     provider: string | null
+    providerId: string | null
     refreshToken: string | null
     accessToken: string | null
     expiresAt: number | null
@@ -2908,6 +3171,7 @@ export namespace Prisma {
     id: number
     type: number
     provider: number
+    providerId: number
     refreshToken: number
     accessToken: number
     expiresAt: number
@@ -2930,6 +3194,7 @@ export namespace Prisma {
     id?: true
     type?: true
     provider?: true
+    providerId?: true
     refreshToken?: true
     accessToken?: true
     expiresAt?: true
@@ -2942,6 +3207,7 @@ export namespace Prisma {
     id?: true
     type?: true
     provider?: true
+    providerId?: true
     refreshToken?: true
     accessToken?: true
     expiresAt?: true
@@ -2954,6 +3220,7 @@ export namespace Prisma {
     id?: true
     type?: true
     provider?: true
+    providerId?: true
     refreshToken?: true
     accessToken?: true
     expiresAt?: true
@@ -3053,6 +3320,7 @@ export namespace Prisma {
     id: string
     type: string
     provider: string
+    providerId: string
     refreshToken: string | null
     accessToken: string | null
     expiresAt: number
@@ -3084,6 +3352,7 @@ export namespace Prisma {
     id?: boolean
     type?: boolean
     provider?: boolean
+    providerId?: boolean
     refreshToken?: boolean
     accessToken?: boolean
     expiresAt?: boolean
@@ -3097,6 +3366,7 @@ export namespace Prisma {
     id?: boolean
     type?: boolean
     provider?: boolean
+    providerId?: boolean
     refreshToken?: boolean
     accessToken?: boolean
     expiresAt?: boolean
@@ -3110,6 +3380,7 @@ export namespace Prisma {
     id?: boolean
     type?: boolean
     provider?: boolean
+    providerId?: boolean
     refreshToken?: boolean
     accessToken?: boolean
     expiresAt?: boolean
@@ -3123,6 +3394,7 @@ export namespace Prisma {
     id?: boolean
     type?: boolean
     provider?: boolean
+    providerId?: boolean
     refreshToken?: boolean
     accessToken?: boolean
     expiresAt?: boolean
@@ -3131,7 +3403,7 @@ export namespace Prisma {
     userId?: boolean
   }
 
-  export type AccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "provider" | "refreshToken" | "accessToken" | "expiresAt" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["account"]>
+  export type AccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "provider" | "providerId" | "refreshToken" | "accessToken" | "expiresAt" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["account"]>
   export type AccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     User?: boolean | Account$UserArgs<ExtArgs>
   }
@@ -3151,6 +3423,7 @@ export namespace Prisma {
       id: string
       type: string
       provider: string
+      providerId: string
       refreshToken: string | null
       accessToken: string | null
       expiresAt: number
@@ -3584,6 +3857,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Account", 'String'>
     readonly type: FieldRef<"Account", 'String'>
     readonly provider: FieldRef<"Account", 'String'>
+    readonly providerId: FieldRef<"Account", 'String'>
     readonly refreshToken: FieldRef<"Account", 'String'>
     readonly accessToken: FieldRef<"Account", 'String'>
     readonly expiresAt: FieldRef<"Account", 'Int'>
@@ -5399,7 +5673,7 @@ export namespace Prisma {
     updatedAt?: boolean
     Favorite?: boolean | Property$FavoriteArgs<ExtArgs>
     location?: boolean | LocationDefaultArgs<ExtArgs>
-    PropertyRequest?: boolean | Property$PropertyRequestArgs<ExtArgs>
+    propertyRequest?: boolean | Property$propertyRequestArgs<ExtArgs>
     _count?: boolean | PropertyCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["property"]>
 
@@ -5484,7 +5758,7 @@ export namespace Prisma {
   export type PropertyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Favorite?: boolean | Property$FavoriteArgs<ExtArgs>
     location?: boolean | LocationDefaultArgs<ExtArgs>
-    PropertyRequest?: boolean | Property$PropertyRequestArgs<ExtArgs>
+    propertyRequest?: boolean | Property$propertyRequestArgs<ExtArgs>
     _count?: boolean | PropertyCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PropertyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5499,7 +5773,7 @@ export namespace Prisma {
     objects: {
       Favorite: Prisma.$FavoritePayload<ExtArgs>[]
       location: Prisma.$LocationPayload<ExtArgs>
-      PropertyRequest: Prisma.$PropertyRequestPayload<ExtArgs>[]
+      propertyRequest: Prisma.$PropertyRequestPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5920,7 +6194,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     Favorite<T extends Property$FavoriteArgs<ExtArgs> = {}>(args?: Subset<T, Property$FavoriteArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     location<T extends LocationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LocationDefaultArgs<ExtArgs>>): Prisma__LocationClient<$Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    PropertyRequest<T extends Property$PropertyRequestArgs<ExtArgs> = {}>(args?: Subset<T, Property$PropertyRequestArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PropertyRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    propertyRequest<T extends Property$propertyRequestArgs<ExtArgs> = {}>(args?: Subset<T, Property$propertyRequestArgs<ExtArgs>>): Prisma__PropertyRequestClient<$Result.GetResult<Prisma.$PropertyRequestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6392,9 +6666,9 @@ export namespace Prisma {
   }
 
   /**
-   * Property.PropertyRequest
+   * Property.propertyRequest
    */
-  export type Property$PropertyRequestArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Property$propertyRequestArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the PropertyRequest
      */
@@ -6408,11 +6682,6 @@ export namespace Prisma {
      */
     include?: PropertyRequestInclude<ExtArgs> | null
     where?: PropertyRequestWhereInput
-    orderBy?: PropertyRequestOrderByWithRelationInput | PropertyRequestOrderByWithRelationInput[]
-    cursor?: PropertyRequestWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: PropertyRequestScalarFieldEnum | PropertyRequestScalarFieldEnum[]
   }
 
   /**
@@ -8669,7 +8938,6 @@ export namespace Prisma {
     square: number | null
     rooms: number | null
     address: string | null
-    currentUrl: string | null
     propertyRequestStatus: $Enums.PropertyRequestStatus | null
     rejectionReason: string | null
     propertyId: string | null
@@ -8686,7 +8954,6 @@ export namespace Prisma {
     square: number | null
     rooms: number | null
     address: string | null
-    currentUrl: string | null
     propertyRequestStatus: $Enums.PropertyRequestStatus | null
     rejectionReason: string | null
     propertyId: string | null
@@ -8704,7 +8971,6 @@ export namespace Prisma {
     rooms: number
     address: number
     images: number
-    currentUrl: number
     propertyRequestStatus: number
     rejectionReason: number
     propertyId: number
@@ -8735,7 +9001,6 @@ export namespace Prisma {
     square?: true
     rooms?: true
     address?: true
-    currentUrl?: true
     propertyRequestStatus?: true
     rejectionReason?: true
     propertyId?: true
@@ -8752,7 +9017,6 @@ export namespace Prisma {
     square?: true
     rooms?: true
     address?: true
-    currentUrl?: true
     propertyRequestStatus?: true
     rejectionReason?: true
     propertyId?: true
@@ -8770,7 +9034,6 @@ export namespace Prisma {
     rooms?: true
     address?: true
     images?: true
-    currentUrl?: true
     propertyRequestStatus?: true
     rejectionReason?: true
     propertyId?: true
@@ -8875,7 +9138,6 @@ export namespace Prisma {
     rooms: number
     address: string
     images: string[]
-    currentUrl: string | null
     propertyRequestStatus: $Enums.PropertyRequestStatus
     rejectionReason: string | null
     propertyId: string | null
@@ -8912,7 +9174,6 @@ export namespace Prisma {
     rooms?: boolean
     address?: boolean
     images?: boolean
-    currentUrl?: boolean
     propertyRequestStatus?: boolean
     rejectionReason?: boolean
     propertyId?: boolean
@@ -8932,7 +9193,6 @@ export namespace Prisma {
     rooms?: boolean
     address?: boolean
     images?: boolean
-    currentUrl?: boolean
     propertyRequestStatus?: boolean
     rejectionReason?: boolean
     propertyId?: boolean
@@ -8952,7 +9212,6 @@ export namespace Prisma {
     rooms?: boolean
     address?: boolean
     images?: boolean
-    currentUrl?: boolean
     propertyRequestStatus?: boolean
     rejectionReason?: boolean
     propertyId?: boolean
@@ -8972,7 +9231,6 @@ export namespace Prisma {
     rooms?: boolean
     address?: boolean
     images?: boolean
-    currentUrl?: boolean
     propertyRequestStatus?: boolean
     rejectionReason?: boolean
     propertyId?: boolean
@@ -8981,7 +9239,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type PropertyRequestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "price" | "square" | "rooms" | "address" | "images" | "currentUrl" | "propertyRequestStatus" | "rejectionReason" | "propertyId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["propertyRequest"]>
+  export type PropertyRequestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "price" | "square" | "rooms" | "address" | "images" | "propertyRequestStatus" | "rejectionReason" | "propertyId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["propertyRequest"]>
   export type PropertyRequestInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     property?: boolean | PropertyRequest$propertyArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -9010,7 +9268,6 @@ export namespace Prisma {
       rooms: number
       address: string
       images: string[]
-      currentUrl: string | null
       propertyRequestStatus: $Enums.PropertyRequestStatus
       rejectionReason: string | null
       propertyId: string | null
@@ -9450,7 +9707,6 @@ export namespace Prisma {
     readonly rooms: FieldRef<"PropertyRequest", 'Int'>
     readonly address: FieldRef<"PropertyRequest", 'String'>
     readonly images: FieldRef<"PropertyRequest", 'String[]'>
-    readonly currentUrl: FieldRef<"PropertyRequest", 'String'>
     readonly propertyRequestStatus: FieldRef<"PropertyRequest", 'PropertyRequestStatus'>
     readonly rejectionReason: FieldRef<"PropertyRequest", 'String'>
     readonly propertyId: FieldRef<"PropertyRequest", 'String'>
@@ -9891,6 +10147,2263 @@ export namespace Prisma {
 
 
   /**
+   * Model PropertyPurchase
+   */
+
+  export type AggregatePropertyPurchase = {
+    _count: PropertyPurchaseCountAggregateOutputType | null
+    _avg: PropertyPurchaseAvgAggregateOutputType | null
+    _sum: PropertyPurchaseSumAggregateOutputType | null
+    _min: PropertyPurchaseMinAggregateOutputType | null
+    _max: PropertyPurchaseMaxAggregateOutputType | null
+  }
+
+  export type PropertyPurchaseAvgAggregateOutputType = {
+    budget_min: number | null
+    budget_max: number | null
+    rooms: number | null
+    area_min: number | null
+    area_max: number | null
+  }
+
+  export type PropertyPurchaseSumAggregateOutputType = {
+    budget_min: number | null
+    budget_max: number | null
+    rooms: number | null
+    area_min: number | null
+    area_max: number | null
+  }
+
+  export type PropertyPurchaseMinAggregateOutputType = {
+    id: string | null
+    description: string | null
+    budget_min: number | null
+    budget_max: number | null
+    rooms: number | null
+    area_min: number | null
+    area_max: number | null
+    contact_method: string | null
+    status: $Enums.PropertyPurchaseStatus | null
+    userId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PropertyPurchaseMaxAggregateOutputType = {
+    id: string | null
+    description: string | null
+    budget_min: number | null
+    budget_max: number | null
+    rooms: number | null
+    area_min: number | null
+    area_max: number | null
+    contact_method: string | null
+    status: $Enums.PropertyPurchaseStatus | null
+    userId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PropertyPurchaseCountAggregateOutputType = {
+    id: number
+    description: number
+    budget_min: number
+    budget_max: number
+    rooms: number
+    area_min: number
+    area_max: number
+    contact_method: number
+    status: number
+    userId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PropertyPurchaseAvgAggregateInputType = {
+    budget_min?: true
+    budget_max?: true
+    rooms?: true
+    area_min?: true
+    area_max?: true
+  }
+
+  export type PropertyPurchaseSumAggregateInputType = {
+    budget_min?: true
+    budget_max?: true
+    rooms?: true
+    area_min?: true
+    area_max?: true
+  }
+
+  export type PropertyPurchaseMinAggregateInputType = {
+    id?: true
+    description?: true
+    budget_min?: true
+    budget_max?: true
+    rooms?: true
+    area_min?: true
+    area_max?: true
+    contact_method?: true
+    status?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PropertyPurchaseMaxAggregateInputType = {
+    id?: true
+    description?: true
+    budget_min?: true
+    budget_max?: true
+    rooms?: true
+    area_min?: true
+    area_max?: true
+    contact_method?: true
+    status?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PropertyPurchaseCountAggregateInputType = {
+    id?: true
+    description?: true
+    budget_min?: true
+    budget_max?: true
+    rooms?: true
+    area_min?: true
+    area_max?: true
+    contact_method?: true
+    status?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PropertyPurchaseAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PropertyPurchase to aggregate.
+     */
+    where?: PropertyPurchaseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PropertyPurchases to fetch.
+     */
+    orderBy?: PropertyPurchaseOrderByWithRelationInput | PropertyPurchaseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PropertyPurchaseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PropertyPurchases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PropertyPurchases.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PropertyPurchases
+    **/
+    _count?: true | PropertyPurchaseCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PropertyPurchaseAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PropertyPurchaseSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PropertyPurchaseMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PropertyPurchaseMaxAggregateInputType
+  }
+
+  export type GetPropertyPurchaseAggregateType<T extends PropertyPurchaseAggregateArgs> = {
+        [P in keyof T & keyof AggregatePropertyPurchase]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePropertyPurchase[P]>
+      : GetScalarType<T[P], AggregatePropertyPurchase[P]>
+  }
+
+
+
+
+  export type PropertyPurchaseGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PropertyPurchaseWhereInput
+    orderBy?: PropertyPurchaseOrderByWithAggregationInput | PropertyPurchaseOrderByWithAggregationInput[]
+    by: PropertyPurchaseScalarFieldEnum[] | PropertyPurchaseScalarFieldEnum
+    having?: PropertyPurchaseScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PropertyPurchaseCountAggregateInputType | true
+    _avg?: PropertyPurchaseAvgAggregateInputType
+    _sum?: PropertyPurchaseSumAggregateInputType
+    _min?: PropertyPurchaseMinAggregateInputType
+    _max?: PropertyPurchaseMaxAggregateInputType
+  }
+
+  export type PropertyPurchaseGroupByOutputType = {
+    id: string
+    description: string
+    budget_min: number | null
+    budget_max: number | null
+    rooms: number | null
+    area_min: number | null
+    area_max: number | null
+    contact_method: string | null
+    status: $Enums.PropertyPurchaseStatus
+    userId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: PropertyPurchaseCountAggregateOutputType | null
+    _avg: PropertyPurchaseAvgAggregateOutputType | null
+    _sum: PropertyPurchaseSumAggregateOutputType | null
+    _min: PropertyPurchaseMinAggregateOutputType | null
+    _max: PropertyPurchaseMaxAggregateOutputType | null
+  }
+
+  type GetPropertyPurchaseGroupByPayload<T extends PropertyPurchaseGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PropertyPurchaseGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PropertyPurchaseGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PropertyPurchaseGroupByOutputType[P]>
+            : GetScalarType<T[P], PropertyPurchaseGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PropertyPurchaseSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    description?: boolean
+    budget_min?: boolean
+    budget_max?: boolean
+    rooms?: boolean
+    area_min?: boolean
+    area_max?: boolean
+    contact_method?: boolean
+    status?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["propertyPurchase"]>
+
+  export type PropertyPurchaseSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    description?: boolean
+    budget_min?: boolean
+    budget_max?: boolean
+    rooms?: boolean
+    area_min?: boolean
+    area_max?: boolean
+    contact_method?: boolean
+    status?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["propertyPurchase"]>
+
+  export type PropertyPurchaseSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    description?: boolean
+    budget_min?: boolean
+    budget_max?: boolean
+    rooms?: boolean
+    area_min?: boolean
+    area_max?: boolean
+    contact_method?: boolean
+    status?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["propertyPurchase"]>
+
+  export type PropertyPurchaseSelectScalar = {
+    id?: boolean
+    description?: boolean
+    budget_min?: boolean
+    budget_max?: boolean
+    rooms?: boolean
+    area_min?: boolean
+    area_max?: boolean
+    contact_method?: boolean
+    status?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PropertyPurchaseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "description" | "budget_min" | "budget_max" | "rooms" | "area_min" | "area_max" | "contact_method" | "status" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["propertyPurchase"]>
+  export type PropertyPurchaseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PropertyPurchaseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PropertyPurchaseIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $PropertyPurchasePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PropertyPurchase"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      description: string
+      budget_min: number | null
+      budget_max: number | null
+      rooms: number | null
+      area_min: number | null
+      area_max: number | null
+      contact_method: string | null
+      status: $Enums.PropertyPurchaseStatus
+      userId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["propertyPurchase"]>
+    composites: {}
+  }
+
+  type PropertyPurchaseGetPayload<S extends boolean | null | undefined | PropertyPurchaseDefaultArgs> = $Result.GetResult<Prisma.$PropertyPurchasePayload, S>
+
+  type PropertyPurchaseCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PropertyPurchaseFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PropertyPurchaseCountAggregateInputType | true
+    }
+
+  export interface PropertyPurchaseDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PropertyPurchase'], meta: { name: 'PropertyPurchase' } }
+    /**
+     * Find zero or one PropertyPurchase that matches the filter.
+     * @param {PropertyPurchaseFindUniqueArgs} args - Arguments to find a PropertyPurchase
+     * @example
+     * // Get one PropertyPurchase
+     * const propertyPurchase = await prisma.propertyPurchase.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PropertyPurchaseFindUniqueArgs>(args: SelectSubset<T, PropertyPurchaseFindUniqueArgs<ExtArgs>>): Prisma__PropertyPurchaseClient<$Result.GetResult<Prisma.$PropertyPurchasePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PropertyPurchase that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PropertyPurchaseFindUniqueOrThrowArgs} args - Arguments to find a PropertyPurchase
+     * @example
+     * // Get one PropertyPurchase
+     * const propertyPurchase = await prisma.propertyPurchase.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PropertyPurchaseFindUniqueOrThrowArgs>(args: SelectSubset<T, PropertyPurchaseFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PropertyPurchaseClient<$Result.GetResult<Prisma.$PropertyPurchasePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PropertyPurchase that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyPurchaseFindFirstArgs} args - Arguments to find a PropertyPurchase
+     * @example
+     * // Get one PropertyPurchase
+     * const propertyPurchase = await prisma.propertyPurchase.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PropertyPurchaseFindFirstArgs>(args?: SelectSubset<T, PropertyPurchaseFindFirstArgs<ExtArgs>>): Prisma__PropertyPurchaseClient<$Result.GetResult<Prisma.$PropertyPurchasePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PropertyPurchase that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyPurchaseFindFirstOrThrowArgs} args - Arguments to find a PropertyPurchase
+     * @example
+     * // Get one PropertyPurchase
+     * const propertyPurchase = await prisma.propertyPurchase.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PropertyPurchaseFindFirstOrThrowArgs>(args?: SelectSubset<T, PropertyPurchaseFindFirstOrThrowArgs<ExtArgs>>): Prisma__PropertyPurchaseClient<$Result.GetResult<Prisma.$PropertyPurchasePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PropertyPurchases that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyPurchaseFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PropertyPurchases
+     * const propertyPurchases = await prisma.propertyPurchase.findMany()
+     * 
+     * // Get first 10 PropertyPurchases
+     * const propertyPurchases = await prisma.propertyPurchase.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const propertyPurchaseWithIdOnly = await prisma.propertyPurchase.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PropertyPurchaseFindManyArgs>(args?: SelectSubset<T, PropertyPurchaseFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PropertyPurchasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PropertyPurchase.
+     * @param {PropertyPurchaseCreateArgs} args - Arguments to create a PropertyPurchase.
+     * @example
+     * // Create one PropertyPurchase
+     * const PropertyPurchase = await prisma.propertyPurchase.create({
+     *   data: {
+     *     // ... data to create a PropertyPurchase
+     *   }
+     * })
+     * 
+     */
+    create<T extends PropertyPurchaseCreateArgs>(args: SelectSubset<T, PropertyPurchaseCreateArgs<ExtArgs>>): Prisma__PropertyPurchaseClient<$Result.GetResult<Prisma.$PropertyPurchasePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PropertyPurchases.
+     * @param {PropertyPurchaseCreateManyArgs} args - Arguments to create many PropertyPurchases.
+     * @example
+     * // Create many PropertyPurchases
+     * const propertyPurchase = await prisma.propertyPurchase.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PropertyPurchaseCreateManyArgs>(args?: SelectSubset<T, PropertyPurchaseCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PropertyPurchases and returns the data saved in the database.
+     * @param {PropertyPurchaseCreateManyAndReturnArgs} args - Arguments to create many PropertyPurchases.
+     * @example
+     * // Create many PropertyPurchases
+     * const propertyPurchase = await prisma.propertyPurchase.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PropertyPurchases and only return the `id`
+     * const propertyPurchaseWithIdOnly = await prisma.propertyPurchase.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PropertyPurchaseCreateManyAndReturnArgs>(args?: SelectSubset<T, PropertyPurchaseCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PropertyPurchasePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PropertyPurchase.
+     * @param {PropertyPurchaseDeleteArgs} args - Arguments to delete one PropertyPurchase.
+     * @example
+     * // Delete one PropertyPurchase
+     * const PropertyPurchase = await prisma.propertyPurchase.delete({
+     *   where: {
+     *     // ... filter to delete one PropertyPurchase
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PropertyPurchaseDeleteArgs>(args: SelectSubset<T, PropertyPurchaseDeleteArgs<ExtArgs>>): Prisma__PropertyPurchaseClient<$Result.GetResult<Prisma.$PropertyPurchasePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PropertyPurchase.
+     * @param {PropertyPurchaseUpdateArgs} args - Arguments to update one PropertyPurchase.
+     * @example
+     * // Update one PropertyPurchase
+     * const propertyPurchase = await prisma.propertyPurchase.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PropertyPurchaseUpdateArgs>(args: SelectSubset<T, PropertyPurchaseUpdateArgs<ExtArgs>>): Prisma__PropertyPurchaseClient<$Result.GetResult<Prisma.$PropertyPurchasePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PropertyPurchases.
+     * @param {PropertyPurchaseDeleteManyArgs} args - Arguments to filter PropertyPurchases to delete.
+     * @example
+     * // Delete a few PropertyPurchases
+     * const { count } = await prisma.propertyPurchase.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PropertyPurchaseDeleteManyArgs>(args?: SelectSubset<T, PropertyPurchaseDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PropertyPurchases.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyPurchaseUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PropertyPurchases
+     * const propertyPurchase = await prisma.propertyPurchase.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PropertyPurchaseUpdateManyArgs>(args: SelectSubset<T, PropertyPurchaseUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PropertyPurchases and returns the data updated in the database.
+     * @param {PropertyPurchaseUpdateManyAndReturnArgs} args - Arguments to update many PropertyPurchases.
+     * @example
+     * // Update many PropertyPurchases
+     * const propertyPurchase = await prisma.propertyPurchase.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PropertyPurchases and only return the `id`
+     * const propertyPurchaseWithIdOnly = await prisma.propertyPurchase.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PropertyPurchaseUpdateManyAndReturnArgs>(args: SelectSubset<T, PropertyPurchaseUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PropertyPurchasePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PropertyPurchase.
+     * @param {PropertyPurchaseUpsertArgs} args - Arguments to update or create a PropertyPurchase.
+     * @example
+     * // Update or create a PropertyPurchase
+     * const propertyPurchase = await prisma.propertyPurchase.upsert({
+     *   create: {
+     *     // ... data to create a PropertyPurchase
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PropertyPurchase we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PropertyPurchaseUpsertArgs>(args: SelectSubset<T, PropertyPurchaseUpsertArgs<ExtArgs>>): Prisma__PropertyPurchaseClient<$Result.GetResult<Prisma.$PropertyPurchasePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PropertyPurchases.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyPurchaseCountArgs} args - Arguments to filter PropertyPurchases to count.
+     * @example
+     * // Count the number of PropertyPurchases
+     * const count = await prisma.propertyPurchase.count({
+     *   where: {
+     *     // ... the filter for the PropertyPurchases we want to count
+     *   }
+     * })
+    **/
+    count<T extends PropertyPurchaseCountArgs>(
+      args?: Subset<T, PropertyPurchaseCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PropertyPurchaseCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PropertyPurchase.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyPurchaseAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PropertyPurchaseAggregateArgs>(args: Subset<T, PropertyPurchaseAggregateArgs>): Prisma.PrismaPromise<GetPropertyPurchaseAggregateType<T>>
+
+    /**
+     * Group by PropertyPurchase.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyPurchaseGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PropertyPurchaseGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PropertyPurchaseGroupByArgs['orderBy'] }
+        : { orderBy?: PropertyPurchaseGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PropertyPurchaseGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPropertyPurchaseGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PropertyPurchase model
+   */
+  readonly fields: PropertyPurchaseFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PropertyPurchase.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PropertyPurchaseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PropertyPurchase model
+   */
+  interface PropertyPurchaseFieldRefs {
+    readonly id: FieldRef<"PropertyPurchase", 'String'>
+    readonly description: FieldRef<"PropertyPurchase", 'String'>
+    readonly budget_min: FieldRef<"PropertyPurchase", 'Float'>
+    readonly budget_max: FieldRef<"PropertyPurchase", 'Float'>
+    readonly rooms: FieldRef<"PropertyPurchase", 'Int'>
+    readonly area_min: FieldRef<"PropertyPurchase", 'Float'>
+    readonly area_max: FieldRef<"PropertyPurchase", 'Float'>
+    readonly contact_method: FieldRef<"PropertyPurchase", 'String'>
+    readonly status: FieldRef<"PropertyPurchase", 'PropertyPurchaseStatus'>
+    readonly userId: FieldRef<"PropertyPurchase", 'String'>
+    readonly createdAt: FieldRef<"PropertyPurchase", 'DateTime'>
+    readonly updatedAt: FieldRef<"PropertyPurchase", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PropertyPurchase findUnique
+   */
+  export type PropertyPurchaseFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyPurchase
+     */
+    select?: PropertyPurchaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyPurchase
+     */
+    omit?: PropertyPurchaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyPurchaseInclude<ExtArgs> | null
+    /**
+     * Filter, which PropertyPurchase to fetch.
+     */
+    where: PropertyPurchaseWhereUniqueInput
+  }
+
+  /**
+   * PropertyPurchase findUniqueOrThrow
+   */
+  export type PropertyPurchaseFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyPurchase
+     */
+    select?: PropertyPurchaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyPurchase
+     */
+    omit?: PropertyPurchaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyPurchaseInclude<ExtArgs> | null
+    /**
+     * Filter, which PropertyPurchase to fetch.
+     */
+    where: PropertyPurchaseWhereUniqueInput
+  }
+
+  /**
+   * PropertyPurchase findFirst
+   */
+  export type PropertyPurchaseFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyPurchase
+     */
+    select?: PropertyPurchaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyPurchase
+     */
+    omit?: PropertyPurchaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyPurchaseInclude<ExtArgs> | null
+    /**
+     * Filter, which PropertyPurchase to fetch.
+     */
+    where?: PropertyPurchaseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PropertyPurchases to fetch.
+     */
+    orderBy?: PropertyPurchaseOrderByWithRelationInput | PropertyPurchaseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PropertyPurchases.
+     */
+    cursor?: PropertyPurchaseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PropertyPurchases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PropertyPurchases.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PropertyPurchases.
+     */
+    distinct?: PropertyPurchaseScalarFieldEnum | PropertyPurchaseScalarFieldEnum[]
+  }
+
+  /**
+   * PropertyPurchase findFirstOrThrow
+   */
+  export type PropertyPurchaseFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyPurchase
+     */
+    select?: PropertyPurchaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyPurchase
+     */
+    omit?: PropertyPurchaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyPurchaseInclude<ExtArgs> | null
+    /**
+     * Filter, which PropertyPurchase to fetch.
+     */
+    where?: PropertyPurchaseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PropertyPurchases to fetch.
+     */
+    orderBy?: PropertyPurchaseOrderByWithRelationInput | PropertyPurchaseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PropertyPurchases.
+     */
+    cursor?: PropertyPurchaseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PropertyPurchases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PropertyPurchases.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PropertyPurchases.
+     */
+    distinct?: PropertyPurchaseScalarFieldEnum | PropertyPurchaseScalarFieldEnum[]
+  }
+
+  /**
+   * PropertyPurchase findMany
+   */
+  export type PropertyPurchaseFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyPurchase
+     */
+    select?: PropertyPurchaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyPurchase
+     */
+    omit?: PropertyPurchaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyPurchaseInclude<ExtArgs> | null
+    /**
+     * Filter, which PropertyPurchases to fetch.
+     */
+    where?: PropertyPurchaseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PropertyPurchases to fetch.
+     */
+    orderBy?: PropertyPurchaseOrderByWithRelationInput | PropertyPurchaseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PropertyPurchases.
+     */
+    cursor?: PropertyPurchaseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PropertyPurchases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PropertyPurchases.
+     */
+    skip?: number
+    distinct?: PropertyPurchaseScalarFieldEnum | PropertyPurchaseScalarFieldEnum[]
+  }
+
+  /**
+   * PropertyPurchase create
+   */
+  export type PropertyPurchaseCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyPurchase
+     */
+    select?: PropertyPurchaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyPurchase
+     */
+    omit?: PropertyPurchaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyPurchaseInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PropertyPurchase.
+     */
+    data: XOR<PropertyPurchaseCreateInput, PropertyPurchaseUncheckedCreateInput>
+  }
+
+  /**
+   * PropertyPurchase createMany
+   */
+  export type PropertyPurchaseCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PropertyPurchases.
+     */
+    data: PropertyPurchaseCreateManyInput | PropertyPurchaseCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PropertyPurchase createManyAndReturn
+   */
+  export type PropertyPurchaseCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyPurchase
+     */
+    select?: PropertyPurchaseSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyPurchase
+     */
+    omit?: PropertyPurchaseOmit<ExtArgs> | null
+    /**
+     * The data used to create many PropertyPurchases.
+     */
+    data: PropertyPurchaseCreateManyInput | PropertyPurchaseCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyPurchaseIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PropertyPurchase update
+   */
+  export type PropertyPurchaseUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyPurchase
+     */
+    select?: PropertyPurchaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyPurchase
+     */
+    omit?: PropertyPurchaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyPurchaseInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PropertyPurchase.
+     */
+    data: XOR<PropertyPurchaseUpdateInput, PropertyPurchaseUncheckedUpdateInput>
+    /**
+     * Choose, which PropertyPurchase to update.
+     */
+    where: PropertyPurchaseWhereUniqueInput
+  }
+
+  /**
+   * PropertyPurchase updateMany
+   */
+  export type PropertyPurchaseUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PropertyPurchases.
+     */
+    data: XOR<PropertyPurchaseUpdateManyMutationInput, PropertyPurchaseUncheckedUpdateManyInput>
+    /**
+     * Filter which PropertyPurchases to update
+     */
+    where?: PropertyPurchaseWhereInput
+    /**
+     * Limit how many PropertyPurchases to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PropertyPurchase updateManyAndReturn
+   */
+  export type PropertyPurchaseUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyPurchase
+     */
+    select?: PropertyPurchaseSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyPurchase
+     */
+    omit?: PropertyPurchaseOmit<ExtArgs> | null
+    /**
+     * The data used to update PropertyPurchases.
+     */
+    data: XOR<PropertyPurchaseUpdateManyMutationInput, PropertyPurchaseUncheckedUpdateManyInput>
+    /**
+     * Filter which PropertyPurchases to update
+     */
+    where?: PropertyPurchaseWhereInput
+    /**
+     * Limit how many PropertyPurchases to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyPurchaseIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PropertyPurchase upsert
+   */
+  export type PropertyPurchaseUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyPurchase
+     */
+    select?: PropertyPurchaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyPurchase
+     */
+    omit?: PropertyPurchaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyPurchaseInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PropertyPurchase to update in case it exists.
+     */
+    where: PropertyPurchaseWhereUniqueInput
+    /**
+     * In case the PropertyPurchase found by the `where` argument doesn't exist, create a new PropertyPurchase with this data.
+     */
+    create: XOR<PropertyPurchaseCreateInput, PropertyPurchaseUncheckedCreateInput>
+    /**
+     * In case the PropertyPurchase was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PropertyPurchaseUpdateInput, PropertyPurchaseUncheckedUpdateInput>
+  }
+
+  /**
+   * PropertyPurchase delete
+   */
+  export type PropertyPurchaseDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyPurchase
+     */
+    select?: PropertyPurchaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyPurchase
+     */
+    omit?: PropertyPurchaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyPurchaseInclude<ExtArgs> | null
+    /**
+     * Filter which PropertyPurchase to delete.
+     */
+    where: PropertyPurchaseWhereUniqueInput
+  }
+
+  /**
+   * PropertyPurchase deleteMany
+   */
+  export type PropertyPurchaseDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PropertyPurchases to delete
+     */
+    where?: PropertyPurchaseWhereInput
+    /**
+     * Limit how many PropertyPurchases to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PropertyPurchase without action
+   */
+  export type PropertyPurchaseDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyPurchase
+     */
+    select?: PropertyPurchaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyPurchase
+     */
+    omit?: PropertyPurchaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyPurchaseInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Feedback
+   */
+
+  export type AggregateFeedback = {
+    _count: FeedbackCountAggregateOutputType | null
+    _min: FeedbackMinAggregateOutputType | null
+    _max: FeedbackMaxAggregateOutputType | null
+  }
+
+  export type FeedbackMinAggregateOutputType = {
+    id: string | null
+    content: string | null
+    userId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FeedbackMaxAggregateOutputType = {
+    id: string | null
+    content: string | null
+    userId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FeedbackCountAggregateOutputType = {
+    id: number
+    content: number
+    userId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type FeedbackMinAggregateInputType = {
+    id?: true
+    content?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FeedbackMaxAggregateInputType = {
+    id?: true
+    content?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FeedbackCountAggregateInputType = {
+    id?: true
+    content?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type FeedbackAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Feedback to aggregate.
+     */
+    where?: FeedbackWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Feedbacks to fetch.
+     */
+    orderBy?: FeedbackOrderByWithRelationInput | FeedbackOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FeedbackWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Feedbacks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Feedbacks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Feedbacks
+    **/
+    _count?: true | FeedbackCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FeedbackMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FeedbackMaxAggregateInputType
+  }
+
+  export type GetFeedbackAggregateType<T extends FeedbackAggregateArgs> = {
+        [P in keyof T & keyof AggregateFeedback]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFeedback[P]>
+      : GetScalarType<T[P], AggregateFeedback[P]>
+  }
+
+
+
+
+  export type FeedbackGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FeedbackWhereInput
+    orderBy?: FeedbackOrderByWithAggregationInput | FeedbackOrderByWithAggregationInput[]
+    by: FeedbackScalarFieldEnum[] | FeedbackScalarFieldEnum
+    having?: FeedbackScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FeedbackCountAggregateInputType | true
+    _min?: FeedbackMinAggregateInputType
+    _max?: FeedbackMaxAggregateInputType
+  }
+
+  export type FeedbackGroupByOutputType = {
+    id: string
+    content: string
+    userId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: FeedbackCountAggregateOutputType | null
+    _min: FeedbackMinAggregateOutputType | null
+    _max: FeedbackMaxAggregateOutputType | null
+  }
+
+  type GetFeedbackGroupByPayload<T extends FeedbackGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FeedbackGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FeedbackGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FeedbackGroupByOutputType[P]>
+            : GetScalarType<T[P], FeedbackGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FeedbackSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    content?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["feedback"]>
+
+  export type FeedbackSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    content?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["feedback"]>
+
+  export type FeedbackSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    content?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["feedback"]>
+
+  export type FeedbackSelectScalar = {
+    id?: boolean
+    content?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type FeedbackOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["feedback"]>
+  export type FeedbackInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type FeedbackIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type FeedbackIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $FeedbackPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Feedback"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      content: string
+      userId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["feedback"]>
+    composites: {}
+  }
+
+  type FeedbackGetPayload<S extends boolean | null | undefined | FeedbackDefaultArgs> = $Result.GetResult<Prisma.$FeedbackPayload, S>
+
+  type FeedbackCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<FeedbackFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FeedbackCountAggregateInputType | true
+    }
+
+  export interface FeedbackDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Feedback'], meta: { name: 'Feedback' } }
+    /**
+     * Find zero or one Feedback that matches the filter.
+     * @param {FeedbackFindUniqueArgs} args - Arguments to find a Feedback
+     * @example
+     * // Get one Feedback
+     * const feedback = await prisma.feedback.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FeedbackFindUniqueArgs>(args: SelectSubset<T, FeedbackFindUniqueArgs<ExtArgs>>): Prisma__FeedbackClient<$Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Feedback that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {FeedbackFindUniqueOrThrowArgs} args - Arguments to find a Feedback
+     * @example
+     * // Get one Feedback
+     * const feedback = await prisma.feedback.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FeedbackFindUniqueOrThrowArgs>(args: SelectSubset<T, FeedbackFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FeedbackClient<$Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Feedback that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FeedbackFindFirstArgs} args - Arguments to find a Feedback
+     * @example
+     * // Get one Feedback
+     * const feedback = await prisma.feedback.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FeedbackFindFirstArgs>(args?: SelectSubset<T, FeedbackFindFirstArgs<ExtArgs>>): Prisma__FeedbackClient<$Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Feedback that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FeedbackFindFirstOrThrowArgs} args - Arguments to find a Feedback
+     * @example
+     * // Get one Feedback
+     * const feedback = await prisma.feedback.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FeedbackFindFirstOrThrowArgs>(args?: SelectSubset<T, FeedbackFindFirstOrThrowArgs<ExtArgs>>): Prisma__FeedbackClient<$Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Feedbacks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FeedbackFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Feedbacks
+     * const feedbacks = await prisma.feedback.findMany()
+     * 
+     * // Get first 10 Feedbacks
+     * const feedbacks = await prisma.feedback.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const feedbackWithIdOnly = await prisma.feedback.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FeedbackFindManyArgs>(args?: SelectSubset<T, FeedbackFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Feedback.
+     * @param {FeedbackCreateArgs} args - Arguments to create a Feedback.
+     * @example
+     * // Create one Feedback
+     * const Feedback = await prisma.feedback.create({
+     *   data: {
+     *     // ... data to create a Feedback
+     *   }
+     * })
+     * 
+     */
+    create<T extends FeedbackCreateArgs>(args: SelectSubset<T, FeedbackCreateArgs<ExtArgs>>): Prisma__FeedbackClient<$Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Feedbacks.
+     * @param {FeedbackCreateManyArgs} args - Arguments to create many Feedbacks.
+     * @example
+     * // Create many Feedbacks
+     * const feedback = await prisma.feedback.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FeedbackCreateManyArgs>(args?: SelectSubset<T, FeedbackCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Feedbacks and returns the data saved in the database.
+     * @param {FeedbackCreateManyAndReturnArgs} args - Arguments to create many Feedbacks.
+     * @example
+     * // Create many Feedbacks
+     * const feedback = await prisma.feedback.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Feedbacks and only return the `id`
+     * const feedbackWithIdOnly = await prisma.feedback.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FeedbackCreateManyAndReturnArgs>(args?: SelectSubset<T, FeedbackCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Feedback.
+     * @param {FeedbackDeleteArgs} args - Arguments to delete one Feedback.
+     * @example
+     * // Delete one Feedback
+     * const Feedback = await prisma.feedback.delete({
+     *   where: {
+     *     // ... filter to delete one Feedback
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FeedbackDeleteArgs>(args: SelectSubset<T, FeedbackDeleteArgs<ExtArgs>>): Prisma__FeedbackClient<$Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Feedback.
+     * @param {FeedbackUpdateArgs} args - Arguments to update one Feedback.
+     * @example
+     * // Update one Feedback
+     * const feedback = await prisma.feedback.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FeedbackUpdateArgs>(args: SelectSubset<T, FeedbackUpdateArgs<ExtArgs>>): Prisma__FeedbackClient<$Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Feedbacks.
+     * @param {FeedbackDeleteManyArgs} args - Arguments to filter Feedbacks to delete.
+     * @example
+     * // Delete a few Feedbacks
+     * const { count } = await prisma.feedback.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FeedbackDeleteManyArgs>(args?: SelectSubset<T, FeedbackDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Feedbacks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FeedbackUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Feedbacks
+     * const feedback = await prisma.feedback.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FeedbackUpdateManyArgs>(args: SelectSubset<T, FeedbackUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Feedbacks and returns the data updated in the database.
+     * @param {FeedbackUpdateManyAndReturnArgs} args - Arguments to update many Feedbacks.
+     * @example
+     * // Update many Feedbacks
+     * const feedback = await prisma.feedback.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Feedbacks and only return the `id`
+     * const feedbackWithIdOnly = await prisma.feedback.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends FeedbackUpdateManyAndReturnArgs>(args: SelectSubset<T, FeedbackUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Feedback.
+     * @param {FeedbackUpsertArgs} args - Arguments to update or create a Feedback.
+     * @example
+     * // Update or create a Feedback
+     * const feedback = await prisma.feedback.upsert({
+     *   create: {
+     *     // ... data to create a Feedback
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Feedback we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FeedbackUpsertArgs>(args: SelectSubset<T, FeedbackUpsertArgs<ExtArgs>>): Prisma__FeedbackClient<$Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Feedbacks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FeedbackCountArgs} args - Arguments to filter Feedbacks to count.
+     * @example
+     * // Count the number of Feedbacks
+     * const count = await prisma.feedback.count({
+     *   where: {
+     *     // ... the filter for the Feedbacks we want to count
+     *   }
+     * })
+    **/
+    count<T extends FeedbackCountArgs>(
+      args?: Subset<T, FeedbackCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FeedbackCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Feedback.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FeedbackAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FeedbackAggregateArgs>(args: Subset<T, FeedbackAggregateArgs>): Prisma.PrismaPromise<GetFeedbackAggregateType<T>>
+
+    /**
+     * Group by Feedback.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FeedbackGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FeedbackGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FeedbackGroupByArgs['orderBy'] }
+        : { orderBy?: FeedbackGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FeedbackGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFeedbackGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Feedback model
+   */
+  readonly fields: FeedbackFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Feedback.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FeedbackClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Feedback model
+   */
+  interface FeedbackFieldRefs {
+    readonly id: FieldRef<"Feedback", 'String'>
+    readonly content: FieldRef<"Feedback", 'String'>
+    readonly userId: FieldRef<"Feedback", 'String'>
+    readonly createdAt: FieldRef<"Feedback", 'DateTime'>
+    readonly updatedAt: FieldRef<"Feedback", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Feedback findUnique
+   */
+  export type FeedbackFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Feedback
+     */
+    select?: FeedbackSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Feedback
+     */
+    omit?: FeedbackOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeedbackInclude<ExtArgs> | null
+    /**
+     * Filter, which Feedback to fetch.
+     */
+    where: FeedbackWhereUniqueInput
+  }
+
+  /**
+   * Feedback findUniqueOrThrow
+   */
+  export type FeedbackFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Feedback
+     */
+    select?: FeedbackSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Feedback
+     */
+    omit?: FeedbackOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeedbackInclude<ExtArgs> | null
+    /**
+     * Filter, which Feedback to fetch.
+     */
+    where: FeedbackWhereUniqueInput
+  }
+
+  /**
+   * Feedback findFirst
+   */
+  export type FeedbackFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Feedback
+     */
+    select?: FeedbackSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Feedback
+     */
+    omit?: FeedbackOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeedbackInclude<ExtArgs> | null
+    /**
+     * Filter, which Feedback to fetch.
+     */
+    where?: FeedbackWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Feedbacks to fetch.
+     */
+    orderBy?: FeedbackOrderByWithRelationInput | FeedbackOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Feedbacks.
+     */
+    cursor?: FeedbackWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Feedbacks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Feedbacks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Feedbacks.
+     */
+    distinct?: FeedbackScalarFieldEnum | FeedbackScalarFieldEnum[]
+  }
+
+  /**
+   * Feedback findFirstOrThrow
+   */
+  export type FeedbackFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Feedback
+     */
+    select?: FeedbackSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Feedback
+     */
+    omit?: FeedbackOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeedbackInclude<ExtArgs> | null
+    /**
+     * Filter, which Feedback to fetch.
+     */
+    where?: FeedbackWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Feedbacks to fetch.
+     */
+    orderBy?: FeedbackOrderByWithRelationInput | FeedbackOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Feedbacks.
+     */
+    cursor?: FeedbackWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Feedbacks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Feedbacks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Feedbacks.
+     */
+    distinct?: FeedbackScalarFieldEnum | FeedbackScalarFieldEnum[]
+  }
+
+  /**
+   * Feedback findMany
+   */
+  export type FeedbackFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Feedback
+     */
+    select?: FeedbackSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Feedback
+     */
+    omit?: FeedbackOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeedbackInclude<ExtArgs> | null
+    /**
+     * Filter, which Feedbacks to fetch.
+     */
+    where?: FeedbackWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Feedbacks to fetch.
+     */
+    orderBy?: FeedbackOrderByWithRelationInput | FeedbackOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Feedbacks.
+     */
+    cursor?: FeedbackWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Feedbacks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Feedbacks.
+     */
+    skip?: number
+    distinct?: FeedbackScalarFieldEnum | FeedbackScalarFieldEnum[]
+  }
+
+  /**
+   * Feedback create
+   */
+  export type FeedbackCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Feedback
+     */
+    select?: FeedbackSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Feedback
+     */
+    omit?: FeedbackOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeedbackInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Feedback.
+     */
+    data: XOR<FeedbackCreateInput, FeedbackUncheckedCreateInput>
+  }
+
+  /**
+   * Feedback createMany
+   */
+  export type FeedbackCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Feedbacks.
+     */
+    data: FeedbackCreateManyInput | FeedbackCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Feedback createManyAndReturn
+   */
+  export type FeedbackCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Feedback
+     */
+    select?: FeedbackSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Feedback
+     */
+    omit?: FeedbackOmit<ExtArgs> | null
+    /**
+     * The data used to create many Feedbacks.
+     */
+    data: FeedbackCreateManyInput | FeedbackCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeedbackIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Feedback update
+   */
+  export type FeedbackUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Feedback
+     */
+    select?: FeedbackSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Feedback
+     */
+    omit?: FeedbackOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeedbackInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Feedback.
+     */
+    data: XOR<FeedbackUpdateInput, FeedbackUncheckedUpdateInput>
+    /**
+     * Choose, which Feedback to update.
+     */
+    where: FeedbackWhereUniqueInput
+  }
+
+  /**
+   * Feedback updateMany
+   */
+  export type FeedbackUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Feedbacks.
+     */
+    data: XOR<FeedbackUpdateManyMutationInput, FeedbackUncheckedUpdateManyInput>
+    /**
+     * Filter which Feedbacks to update
+     */
+    where?: FeedbackWhereInput
+    /**
+     * Limit how many Feedbacks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Feedback updateManyAndReturn
+   */
+  export type FeedbackUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Feedback
+     */
+    select?: FeedbackSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Feedback
+     */
+    omit?: FeedbackOmit<ExtArgs> | null
+    /**
+     * The data used to update Feedbacks.
+     */
+    data: XOR<FeedbackUpdateManyMutationInput, FeedbackUncheckedUpdateManyInput>
+    /**
+     * Filter which Feedbacks to update
+     */
+    where?: FeedbackWhereInput
+    /**
+     * Limit how many Feedbacks to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeedbackIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Feedback upsert
+   */
+  export type FeedbackUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Feedback
+     */
+    select?: FeedbackSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Feedback
+     */
+    omit?: FeedbackOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeedbackInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Feedback to update in case it exists.
+     */
+    where: FeedbackWhereUniqueInput
+    /**
+     * In case the Feedback found by the `where` argument doesn't exist, create a new Feedback with this data.
+     */
+    create: XOR<FeedbackCreateInput, FeedbackUncheckedCreateInput>
+    /**
+     * In case the Feedback was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FeedbackUpdateInput, FeedbackUncheckedUpdateInput>
+  }
+
+  /**
+   * Feedback delete
+   */
+  export type FeedbackDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Feedback
+     */
+    select?: FeedbackSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Feedback
+     */
+    omit?: FeedbackOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeedbackInclude<ExtArgs> | null
+    /**
+     * Filter which Feedback to delete.
+     */
+    where: FeedbackWhereUniqueInput
+  }
+
+  /**
+   * Feedback deleteMany
+   */
+  export type FeedbackDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Feedbacks to delete
+     */
+    where?: FeedbackWhereInput
+    /**
+     * Limit how many Feedbacks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Feedback without action
+   */
+  export type FeedbackDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Feedback
+     */
+    select?: FeedbackSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Feedback
+     */
+    omit?: FeedbackOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeedbackInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -9926,6 +12439,7 @@ export namespace Prisma {
     id: 'id',
     type: 'type',
     provider: 'provider',
+    providerId: 'providerId',
     refreshToken: 'refreshToken',
     accessToken: 'accessToken',
     expiresAt: 'expiresAt',
@@ -10007,7 +12521,6 @@ export namespace Prisma {
     rooms: 'rooms',
     address: 'address',
     images: 'images',
-    currentUrl: 'currentUrl',
     propertyRequestStatus: 'propertyRequestStatus',
     rejectionReason: 'rejectionReason',
     propertyId: 'propertyId',
@@ -10017,6 +12530,35 @@ export namespace Prisma {
   };
 
   export type PropertyRequestScalarFieldEnum = (typeof PropertyRequestScalarFieldEnum)[keyof typeof PropertyRequestScalarFieldEnum]
+
+
+  export const PropertyPurchaseScalarFieldEnum: {
+    id: 'id',
+    description: 'description',
+    budget_min: 'budget_min',
+    budget_max: 'budget_max',
+    rooms: 'rooms',
+    area_min: 'area_min',
+    area_max: 'area_max',
+    contact_method: 'contact_method',
+    status: 'status',
+    userId: 'userId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PropertyPurchaseScalarFieldEnum = (typeof PropertyPurchaseScalarFieldEnum)[keyof typeof PropertyPurchaseScalarFieldEnum]
+
+
+  export const FeedbackScalarFieldEnum: {
+    id: 'id',
+    content: 'content',
+    userId: 'userId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type FeedbackScalarFieldEnum = (typeof FeedbackScalarFieldEnum)[keyof typeof FeedbackScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -10221,6 +12763,20 @@ export namespace Prisma {
    */
   export type ListEnumPropertyRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PropertyRequestStatus[]'>
     
+
+
+  /**
+   * Reference to a field of type 'PropertyPurchaseStatus'
+   */
+  export type EnumPropertyPurchaseStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PropertyPurchaseStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'PropertyPurchaseStatus[]'
+   */
+  export type ListEnumPropertyPurchaseStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PropertyPurchaseStatus[]'>
+    
   /**
    * Deep Input Types
    */
@@ -10245,6 +12801,8 @@ export namespace Prisma {
     accounts?: AccountListRelationFilter
     favorite?: FavoriteListRelationFilter
     propertyRequest?: PropertyRequestListRelationFilter
+    propertyPurchase?: PropertyPurchaseListRelationFilter
+    comments?: FeedbackListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -10263,6 +12821,8 @@ export namespace Prisma {
     accounts?: AccountOrderByRelationAggregateInput
     favorite?: FavoriteOrderByRelationAggregateInput
     propertyRequest?: PropertyRequestOrderByRelationAggregateInput
+    propertyPurchase?: PropertyPurchaseOrderByRelationAggregateInput
+    comments?: FeedbackOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -10284,6 +12844,8 @@ export namespace Prisma {
     accounts?: AccountListRelationFilter
     favorite?: FavoriteListRelationFilter
     propertyRequest?: PropertyRequestListRelationFilter
+    propertyPurchase?: PropertyPurchaseListRelationFilter
+    comments?: FeedbackListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -10329,6 +12891,7 @@ export namespace Prisma {
     id?: StringFilter<"Account"> | string
     type?: StringFilter<"Account"> | string
     provider?: StringFilter<"Account"> | string
+    providerId?: StringFilter<"Account"> | string
     refreshToken?: StringNullableFilter<"Account"> | string | null
     accessToken?: StringNullableFilter<"Account"> | string | null
     expiresAt?: IntFilter<"Account"> | number
@@ -10342,6 +12905,7 @@ export namespace Prisma {
     id?: SortOrder
     type?: SortOrder
     provider?: SortOrder
+    providerId?: SortOrder
     refreshToken?: SortOrderInput | SortOrder
     accessToken?: SortOrderInput | SortOrder
     expiresAt?: SortOrder
@@ -10358,6 +12922,7 @@ export namespace Prisma {
     NOT?: AccountWhereInput | AccountWhereInput[]
     type?: StringFilter<"Account"> | string
     provider?: StringFilter<"Account"> | string
+    providerId?: StringFilter<"Account"> | string
     refreshToken?: StringNullableFilter<"Account"> | string | null
     accessToken?: StringNullableFilter<"Account"> | string | null
     expiresAt?: IntFilter<"Account"> | number
@@ -10371,6 +12936,7 @@ export namespace Prisma {
     id?: SortOrder
     type?: SortOrder
     provider?: SortOrder
+    providerId?: SortOrder
     refreshToken?: SortOrderInput | SortOrder
     accessToken?: SortOrderInput | SortOrder
     expiresAt?: SortOrder
@@ -10391,6 +12957,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Account"> | string
     type?: StringWithAggregatesFilter<"Account"> | string
     provider?: StringWithAggregatesFilter<"Account"> | string
+    providerId?: StringWithAggregatesFilter<"Account"> | string
     refreshToken?: StringNullableWithAggregatesFilter<"Account"> | string | null
     accessToken?: StringNullableWithAggregatesFilter<"Account"> | string | null
     expiresAt?: IntWithAggregatesFilter<"Account"> | number
@@ -10484,7 +13051,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Property"> | Date | string
     Favorite?: FavoriteListRelationFilter
     location?: XOR<LocationScalarRelationFilter, LocationWhereInput>
-    PropertyRequest?: PropertyRequestListRelationFilter
+    propertyRequest?: XOR<PropertyRequestNullableScalarRelationFilter, PropertyRequestWhereInput> | null
   }
 
   export type PropertyOrderByWithRelationInput = {
@@ -10512,7 +13079,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     Favorite?: FavoriteOrderByRelationAggregateInput
     location?: LocationOrderByWithRelationInput
-    PropertyRequest?: PropertyRequestOrderByRelationAggregateInput
+    propertyRequest?: PropertyRequestOrderByWithRelationInput
   }
 
   export type PropertyWhereUniqueInput = Prisma.AtLeast<{
@@ -10543,7 +13110,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Property"> | Date | string
     Favorite?: FavoriteListRelationFilter
     location?: XOR<LocationScalarRelationFilter, LocationWhereInput>
-    PropertyRequest?: PropertyRequestListRelationFilter
+    propertyRequest?: XOR<PropertyRequestNullableScalarRelationFilter, PropertyRequestWhereInput> | null
   }, "id">
 
   export type PropertyOrderByWithAggregationInput = {
@@ -10727,7 +13294,6 @@ export namespace Prisma {
     rooms?: IntFilter<"PropertyRequest"> | number
     address?: StringFilter<"PropertyRequest"> | string
     images?: StringNullableListFilter<"PropertyRequest">
-    currentUrl?: StringNullableFilter<"PropertyRequest"> | string | null
     propertyRequestStatus?: EnumPropertyRequestStatusFilter<"PropertyRequest"> | $Enums.PropertyRequestStatus
     rejectionReason?: StringNullableFilter<"PropertyRequest"> | string | null
     propertyId?: StringNullableFilter<"PropertyRequest"> | string | null
@@ -10747,7 +13313,6 @@ export namespace Prisma {
     rooms?: SortOrder
     address?: SortOrder
     images?: SortOrder
-    currentUrl?: SortOrderInput | SortOrder
     propertyRequestStatus?: SortOrder
     rejectionReason?: SortOrderInput | SortOrder
     propertyId?: SortOrderInput | SortOrder
@@ -10760,6 +13325,7 @@ export namespace Prisma {
 
   export type PropertyRequestWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    propertyId?: string
     AND?: PropertyRequestWhereInput | PropertyRequestWhereInput[]
     OR?: PropertyRequestWhereInput[]
     NOT?: PropertyRequestWhereInput | PropertyRequestWhereInput[]
@@ -10770,16 +13336,14 @@ export namespace Prisma {
     rooms?: IntFilter<"PropertyRequest"> | number
     address?: StringFilter<"PropertyRequest"> | string
     images?: StringNullableListFilter<"PropertyRequest">
-    currentUrl?: StringNullableFilter<"PropertyRequest"> | string | null
     propertyRequestStatus?: EnumPropertyRequestStatusFilter<"PropertyRequest"> | $Enums.PropertyRequestStatus
     rejectionReason?: StringNullableFilter<"PropertyRequest"> | string | null
-    propertyId?: StringNullableFilter<"PropertyRequest"> | string | null
     userId?: StringFilter<"PropertyRequest"> | string
     createdAt?: DateTimeFilter<"PropertyRequest"> | Date | string
     updatedAt?: DateTimeFilter<"PropertyRequest"> | Date | string
     property?: XOR<PropertyNullableScalarRelationFilter, PropertyWhereInput> | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id">
+  }, "id" | "propertyId">
 
   export type PropertyRequestOrderByWithAggregationInput = {
     id?: SortOrder
@@ -10790,7 +13354,6 @@ export namespace Prisma {
     rooms?: SortOrder
     address?: SortOrder
     images?: SortOrder
-    currentUrl?: SortOrderInput | SortOrder
     propertyRequestStatus?: SortOrder
     rejectionReason?: SortOrderInput | SortOrder
     propertyId?: SortOrderInput | SortOrder
@@ -10816,13 +13379,159 @@ export namespace Prisma {
     rooms?: IntWithAggregatesFilter<"PropertyRequest"> | number
     address?: StringWithAggregatesFilter<"PropertyRequest"> | string
     images?: StringNullableListFilter<"PropertyRequest">
-    currentUrl?: StringNullableWithAggregatesFilter<"PropertyRequest"> | string | null
     propertyRequestStatus?: EnumPropertyRequestStatusWithAggregatesFilter<"PropertyRequest"> | $Enums.PropertyRequestStatus
     rejectionReason?: StringNullableWithAggregatesFilter<"PropertyRequest"> | string | null
     propertyId?: StringNullableWithAggregatesFilter<"PropertyRequest"> | string | null
     userId?: StringWithAggregatesFilter<"PropertyRequest"> | string
     createdAt?: DateTimeWithAggregatesFilter<"PropertyRequest"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"PropertyRequest"> | Date | string
+  }
+
+  export type PropertyPurchaseWhereInput = {
+    AND?: PropertyPurchaseWhereInput | PropertyPurchaseWhereInput[]
+    OR?: PropertyPurchaseWhereInput[]
+    NOT?: PropertyPurchaseWhereInput | PropertyPurchaseWhereInput[]
+    id?: StringFilter<"PropertyPurchase"> | string
+    description?: StringFilter<"PropertyPurchase"> | string
+    budget_min?: FloatNullableFilter<"PropertyPurchase"> | number | null
+    budget_max?: FloatNullableFilter<"PropertyPurchase"> | number | null
+    rooms?: IntNullableFilter<"PropertyPurchase"> | number | null
+    area_min?: FloatNullableFilter<"PropertyPurchase"> | number | null
+    area_max?: FloatNullableFilter<"PropertyPurchase"> | number | null
+    contact_method?: StringNullableFilter<"PropertyPurchase"> | string | null
+    status?: EnumPropertyPurchaseStatusFilter<"PropertyPurchase"> | $Enums.PropertyPurchaseStatus
+    userId?: StringFilter<"PropertyPurchase"> | string
+    createdAt?: DateTimeFilter<"PropertyPurchase"> | Date | string
+    updatedAt?: DateTimeFilter<"PropertyPurchase"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type PropertyPurchaseOrderByWithRelationInput = {
+    id?: SortOrder
+    description?: SortOrder
+    budget_min?: SortOrderInput | SortOrder
+    budget_max?: SortOrderInput | SortOrder
+    rooms?: SortOrderInput | SortOrder
+    area_min?: SortOrderInput | SortOrder
+    area_max?: SortOrderInput | SortOrder
+    contact_method?: SortOrderInput | SortOrder
+    status?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type PropertyPurchaseWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PropertyPurchaseWhereInput | PropertyPurchaseWhereInput[]
+    OR?: PropertyPurchaseWhereInput[]
+    NOT?: PropertyPurchaseWhereInput | PropertyPurchaseWhereInput[]
+    description?: StringFilter<"PropertyPurchase"> | string
+    budget_min?: FloatNullableFilter<"PropertyPurchase"> | number | null
+    budget_max?: FloatNullableFilter<"PropertyPurchase"> | number | null
+    rooms?: IntNullableFilter<"PropertyPurchase"> | number | null
+    area_min?: FloatNullableFilter<"PropertyPurchase"> | number | null
+    area_max?: FloatNullableFilter<"PropertyPurchase"> | number | null
+    contact_method?: StringNullableFilter<"PropertyPurchase"> | string | null
+    status?: EnumPropertyPurchaseStatusFilter<"PropertyPurchase"> | $Enums.PropertyPurchaseStatus
+    userId?: StringFilter<"PropertyPurchase"> | string
+    createdAt?: DateTimeFilter<"PropertyPurchase"> | Date | string
+    updatedAt?: DateTimeFilter<"PropertyPurchase"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type PropertyPurchaseOrderByWithAggregationInput = {
+    id?: SortOrder
+    description?: SortOrder
+    budget_min?: SortOrderInput | SortOrder
+    budget_max?: SortOrderInput | SortOrder
+    rooms?: SortOrderInput | SortOrder
+    area_min?: SortOrderInput | SortOrder
+    area_max?: SortOrderInput | SortOrder
+    contact_method?: SortOrderInput | SortOrder
+    status?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PropertyPurchaseCountOrderByAggregateInput
+    _avg?: PropertyPurchaseAvgOrderByAggregateInput
+    _max?: PropertyPurchaseMaxOrderByAggregateInput
+    _min?: PropertyPurchaseMinOrderByAggregateInput
+    _sum?: PropertyPurchaseSumOrderByAggregateInput
+  }
+
+  export type PropertyPurchaseScalarWhereWithAggregatesInput = {
+    AND?: PropertyPurchaseScalarWhereWithAggregatesInput | PropertyPurchaseScalarWhereWithAggregatesInput[]
+    OR?: PropertyPurchaseScalarWhereWithAggregatesInput[]
+    NOT?: PropertyPurchaseScalarWhereWithAggregatesInput | PropertyPurchaseScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PropertyPurchase"> | string
+    description?: StringWithAggregatesFilter<"PropertyPurchase"> | string
+    budget_min?: FloatNullableWithAggregatesFilter<"PropertyPurchase"> | number | null
+    budget_max?: FloatNullableWithAggregatesFilter<"PropertyPurchase"> | number | null
+    rooms?: IntNullableWithAggregatesFilter<"PropertyPurchase"> | number | null
+    area_min?: FloatNullableWithAggregatesFilter<"PropertyPurchase"> | number | null
+    area_max?: FloatNullableWithAggregatesFilter<"PropertyPurchase"> | number | null
+    contact_method?: StringNullableWithAggregatesFilter<"PropertyPurchase"> | string | null
+    status?: EnumPropertyPurchaseStatusWithAggregatesFilter<"PropertyPurchase"> | $Enums.PropertyPurchaseStatus
+    userId?: StringWithAggregatesFilter<"PropertyPurchase"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"PropertyPurchase"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PropertyPurchase"> | Date | string
+  }
+
+  export type FeedbackWhereInput = {
+    AND?: FeedbackWhereInput | FeedbackWhereInput[]
+    OR?: FeedbackWhereInput[]
+    NOT?: FeedbackWhereInput | FeedbackWhereInput[]
+    id?: StringFilter<"Feedback"> | string
+    content?: StringFilter<"Feedback"> | string
+    userId?: StringFilter<"Feedback"> | string
+    createdAt?: DateTimeFilter<"Feedback"> | Date | string
+    updatedAt?: DateTimeFilter<"Feedback"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type FeedbackOrderByWithRelationInput = {
+    id?: SortOrder
+    content?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type FeedbackWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: FeedbackWhereInput | FeedbackWhereInput[]
+    OR?: FeedbackWhereInput[]
+    NOT?: FeedbackWhereInput | FeedbackWhereInput[]
+    content?: StringFilter<"Feedback"> | string
+    userId?: StringFilter<"Feedback"> | string
+    createdAt?: DateTimeFilter<"Feedback"> | Date | string
+    updatedAt?: DateTimeFilter<"Feedback"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type FeedbackOrderByWithAggregationInput = {
+    id?: SortOrder
+    content?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: FeedbackCountOrderByAggregateInput
+    _max?: FeedbackMaxOrderByAggregateInput
+    _min?: FeedbackMinOrderByAggregateInput
+  }
+
+  export type FeedbackScalarWhereWithAggregatesInput = {
+    AND?: FeedbackScalarWhereWithAggregatesInput | FeedbackScalarWhereWithAggregatesInput[]
+    OR?: FeedbackScalarWhereWithAggregatesInput[]
+    NOT?: FeedbackScalarWhereWithAggregatesInput | FeedbackScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Feedback"> | string
+    content?: StringWithAggregatesFilter<"Feedback"> | string
+    userId?: StringWithAggregatesFilter<"Feedback"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Feedback"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Feedback"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -10841,6 +13550,8 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     favorite?: FavoriteCreateNestedManyWithoutUserInput
     propertyRequest?: PropertyRequestCreateNestedManyWithoutUserInput
+    propertyPurchase?: PropertyPurchaseCreateNestedManyWithoutUserInput
+    comments?: FeedbackCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -10859,6 +13570,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     favorite?: FavoriteUncheckedCreateNestedManyWithoutUserInput
     propertyRequest?: PropertyRequestUncheckedCreateNestedManyWithoutUserInput
+    propertyPurchase?: PropertyPurchaseUncheckedCreateNestedManyWithoutUserInput
+    comments?: FeedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -10877,6 +13590,8 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     favorite?: FavoriteUpdateManyWithoutUserNestedInput
     propertyRequest?: PropertyRequestUpdateManyWithoutUserNestedInput
+    propertyPurchase?: PropertyPurchaseUpdateManyWithoutUserNestedInput
+    comments?: FeedbackUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -10895,6 +13610,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     favorite?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
     propertyRequest?: PropertyRequestUncheckedUpdateManyWithoutUserNestedInput
+    propertyPurchase?: PropertyPurchaseUncheckedUpdateManyWithoutUserNestedInput
+    comments?: FeedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -10946,6 +13663,7 @@ export namespace Prisma {
     id?: string
     type: string
     provider: string
+    providerId: string
     refreshToken?: string | null
     accessToken?: string | null
     expiresAt: number
@@ -10958,6 +13676,7 @@ export namespace Prisma {
     id?: string
     type: string
     provider: string
+    providerId: string
     refreshToken?: string | null
     accessToken?: string | null
     expiresAt: number
@@ -10970,6 +13689,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
+    providerId?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     expiresAt?: IntFieldUpdateOperationsInput | number
@@ -10982,6 +13702,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
+    providerId?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     expiresAt?: IntFieldUpdateOperationsInput | number
@@ -10994,6 +13715,7 @@ export namespace Prisma {
     id?: string
     type: string
     provider: string
+    providerId: string
     refreshToken?: string | null
     accessToken?: string | null
     expiresAt: number
@@ -11006,6 +13728,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
+    providerId?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     expiresAt?: IntFieldUpdateOperationsInput | number
@@ -11017,6 +13740,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
+    providerId?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     expiresAt?: IntFieldUpdateOperationsInput | number
@@ -11112,7 +13836,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     Favorite?: FavoriteCreateNestedManyWithoutPropertyInput
     location: LocationCreateNestedOneWithoutPropertiesInput
-    PropertyRequest?: PropertyRequestCreateNestedManyWithoutPropertyInput
+    propertyRequest?: PropertyRequestCreateNestedOneWithoutPropertyInput
   }
 
   export type PropertyUncheckedCreateInput = {
@@ -11139,7 +13863,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     Favorite?: FavoriteUncheckedCreateNestedManyWithoutPropertyInput
-    PropertyRequest?: PropertyRequestUncheckedCreateNestedManyWithoutPropertyInput
+    propertyRequest?: PropertyRequestUncheckedCreateNestedOneWithoutPropertyInput
   }
 
   export type PropertyUpdateInput = {
@@ -11166,7 +13890,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Favorite?: FavoriteUpdateManyWithoutPropertyNestedInput
     location?: LocationUpdateOneRequiredWithoutPropertiesNestedInput
-    PropertyRequest?: PropertyRequestUpdateManyWithoutPropertyNestedInput
+    propertyRequest?: PropertyRequestUpdateOneWithoutPropertyNestedInput
   }
 
   export type PropertyUncheckedUpdateInput = {
@@ -11193,7 +13917,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Favorite?: FavoriteUncheckedUpdateManyWithoutPropertyNestedInput
-    PropertyRequest?: PropertyRequestUncheckedUpdateManyWithoutPropertyNestedInput
+    propertyRequest?: PropertyRequestUncheckedUpdateOneWithoutPropertyNestedInput
   }
 
   export type PropertyCreateManyInput = {
@@ -11383,7 +14107,6 @@ export namespace Prisma {
     rooms: number
     address: string
     images?: PropertyRequestCreateimagesInput | string[]
-    currentUrl?: string | null
     propertyRequestStatus?: $Enums.PropertyRequestStatus
     rejectionReason?: string | null
     createdAt?: Date | string
@@ -11401,7 +14124,6 @@ export namespace Prisma {
     rooms: number
     address: string
     images?: PropertyRequestCreateimagesInput | string[]
-    currentUrl?: string | null
     propertyRequestStatus?: $Enums.PropertyRequestStatus
     rejectionReason?: string | null
     propertyId?: string | null
@@ -11419,7 +14141,6 @@ export namespace Prisma {
     rooms?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     images?: PropertyRequestUpdateimagesInput | string[]
-    currentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     propertyRequestStatus?: EnumPropertyRequestStatusFieldUpdateOperationsInput | $Enums.PropertyRequestStatus
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11437,7 +14158,6 @@ export namespace Prisma {
     rooms?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     images?: PropertyRequestUpdateimagesInput | string[]
-    currentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     propertyRequestStatus?: EnumPropertyRequestStatusFieldUpdateOperationsInput | $Enums.PropertyRequestStatus
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     propertyId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11455,7 +14175,6 @@ export namespace Prisma {
     rooms: number
     address: string
     images?: PropertyRequestCreateimagesInput | string[]
-    currentUrl?: string | null
     propertyRequestStatus?: $Enums.PropertyRequestStatus
     rejectionReason?: string | null
     propertyId?: string | null
@@ -11473,7 +14192,6 @@ export namespace Prisma {
     rooms?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     images?: PropertyRequestUpdateimagesInput | string[]
-    currentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     propertyRequestStatus?: EnumPropertyRequestStatusFieldUpdateOperationsInput | $Enums.PropertyRequestStatus
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11489,10 +14207,168 @@ export namespace Prisma {
     rooms?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     images?: PropertyRequestUpdateimagesInput | string[]
-    currentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     propertyRequestStatus?: EnumPropertyRequestStatusFieldUpdateOperationsInput | $Enums.PropertyRequestStatus
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     propertyId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PropertyPurchaseCreateInput = {
+    id?: string
+    description: string
+    budget_min?: number | null
+    budget_max?: number | null
+    rooms?: number | null
+    area_min?: number | null
+    area_max?: number | null
+    contact_method?: string | null
+    status: $Enums.PropertyPurchaseStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutPropertyPurchaseInput
+  }
+
+  export type PropertyPurchaseUncheckedCreateInput = {
+    id?: string
+    description: string
+    budget_min?: number | null
+    budget_max?: number | null
+    rooms?: number | null
+    area_min?: number | null
+    area_max?: number | null
+    contact_method?: string | null
+    status: $Enums.PropertyPurchaseStatus
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PropertyPurchaseUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    budget_min?: NullableFloatFieldUpdateOperationsInput | number | null
+    budget_max?: NullableFloatFieldUpdateOperationsInput | number | null
+    rooms?: NullableIntFieldUpdateOperationsInput | number | null
+    area_min?: NullableFloatFieldUpdateOperationsInput | number | null
+    area_max?: NullableFloatFieldUpdateOperationsInput | number | null
+    contact_method?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPropertyPurchaseStatusFieldUpdateOperationsInput | $Enums.PropertyPurchaseStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutPropertyPurchaseNestedInput
+  }
+
+  export type PropertyPurchaseUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    budget_min?: NullableFloatFieldUpdateOperationsInput | number | null
+    budget_max?: NullableFloatFieldUpdateOperationsInput | number | null
+    rooms?: NullableIntFieldUpdateOperationsInput | number | null
+    area_min?: NullableFloatFieldUpdateOperationsInput | number | null
+    area_max?: NullableFloatFieldUpdateOperationsInput | number | null
+    contact_method?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPropertyPurchaseStatusFieldUpdateOperationsInput | $Enums.PropertyPurchaseStatus
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PropertyPurchaseCreateManyInput = {
+    id?: string
+    description: string
+    budget_min?: number | null
+    budget_max?: number | null
+    rooms?: number | null
+    area_min?: number | null
+    area_max?: number | null
+    contact_method?: string | null
+    status: $Enums.PropertyPurchaseStatus
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PropertyPurchaseUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    budget_min?: NullableFloatFieldUpdateOperationsInput | number | null
+    budget_max?: NullableFloatFieldUpdateOperationsInput | number | null
+    rooms?: NullableIntFieldUpdateOperationsInput | number | null
+    area_min?: NullableFloatFieldUpdateOperationsInput | number | null
+    area_max?: NullableFloatFieldUpdateOperationsInput | number | null
+    contact_method?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPropertyPurchaseStatusFieldUpdateOperationsInput | $Enums.PropertyPurchaseStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PropertyPurchaseUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    budget_min?: NullableFloatFieldUpdateOperationsInput | number | null
+    budget_max?: NullableFloatFieldUpdateOperationsInput | number | null
+    rooms?: NullableIntFieldUpdateOperationsInput | number | null
+    area_min?: NullableFloatFieldUpdateOperationsInput | number | null
+    area_max?: NullableFloatFieldUpdateOperationsInput | number | null
+    contact_method?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPropertyPurchaseStatusFieldUpdateOperationsInput | $Enums.PropertyPurchaseStatus
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FeedbackCreateInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutCommentsInput
+  }
+
+  export type FeedbackUncheckedCreateInput = {
+    id?: string
+    content: string
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FeedbackUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutCommentsNestedInput
+  }
+
+  export type FeedbackUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FeedbackCreateManyInput = {
+    id?: string
+    content: string
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FeedbackUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FeedbackUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11576,6 +14452,18 @@ export namespace Prisma {
     none?: PropertyRequestWhereInput
   }
 
+  export type PropertyPurchaseListRelationFilter = {
+    every?: PropertyPurchaseWhereInput
+    some?: PropertyPurchaseWhereInput
+    none?: PropertyPurchaseWhereInput
+  }
+
+  export type FeedbackListRelationFilter = {
+    every?: FeedbackWhereInput
+    some?: FeedbackWhereInput
+    none?: FeedbackWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -11590,6 +14478,14 @@ export namespace Prisma {
   }
 
   export type PropertyRequestOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PropertyPurchaseOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FeedbackOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11736,6 +14632,7 @@ export namespace Prisma {
     id?: SortOrder
     type?: SortOrder
     provider?: SortOrder
+    providerId?: SortOrder
     refreshToken?: SortOrder
     accessToken?: SortOrder
     expiresAt?: SortOrder
@@ -11752,6 +14649,7 @@ export namespace Prisma {
     id?: SortOrder
     type?: SortOrder
     provider?: SortOrder
+    providerId?: SortOrder
     refreshToken?: SortOrder
     accessToken?: SortOrder
     expiresAt?: SortOrder
@@ -11764,6 +14662,7 @@ export namespace Prisma {
     id?: SortOrder
     type?: SortOrder
     provider?: SortOrder
+    providerId?: SortOrder
     refreshToken?: SortOrder
     accessToken?: SortOrder
     expiresAt?: SortOrder
@@ -11913,6 +14812,11 @@ export namespace Prisma {
   export type LocationScalarRelationFilter = {
     is?: LocationWhereInput
     isNot?: LocationWhereInput
+  }
+
+  export type PropertyRequestNullableScalarRelationFilter = {
+    is?: PropertyRequestWhereInput | null
+    isNot?: PropertyRequestWhereInput | null
   }
 
   export type PropertyCountOrderByAggregateInput = {
@@ -12208,7 +15112,6 @@ export namespace Prisma {
     rooms?: SortOrder
     address?: SortOrder
     images?: SortOrder
-    currentUrl?: SortOrder
     propertyRequestStatus?: SortOrder
     rejectionReason?: SortOrder
     propertyId?: SortOrder
@@ -12231,7 +15134,6 @@ export namespace Prisma {
     square?: SortOrder
     rooms?: SortOrder
     address?: SortOrder
-    currentUrl?: SortOrder
     propertyRequestStatus?: SortOrder
     rejectionReason?: SortOrder
     propertyId?: SortOrder
@@ -12248,7 +15150,6 @@ export namespace Prisma {
     square?: SortOrder
     rooms?: SortOrder
     address?: SortOrder
-    currentUrl?: SortOrder
     propertyRequestStatus?: SortOrder
     rejectionReason?: SortOrder
     propertyId?: SortOrder
@@ -12273,6 +15174,108 @@ export namespace Prisma {
     _max?: NestedEnumPropertyRequestStatusFilter<$PrismaModel>
   }
 
+  export type EnumPropertyPurchaseStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.PropertyPurchaseStatus | EnumPropertyPurchaseStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PropertyPurchaseStatus[] | ListEnumPropertyPurchaseStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PropertyPurchaseStatus[] | ListEnumPropertyPurchaseStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPropertyPurchaseStatusFilter<$PrismaModel> | $Enums.PropertyPurchaseStatus
+  }
+
+  export type PropertyPurchaseCountOrderByAggregateInput = {
+    id?: SortOrder
+    description?: SortOrder
+    budget_min?: SortOrder
+    budget_max?: SortOrder
+    rooms?: SortOrder
+    area_min?: SortOrder
+    area_max?: SortOrder
+    contact_method?: SortOrder
+    status?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PropertyPurchaseAvgOrderByAggregateInput = {
+    budget_min?: SortOrder
+    budget_max?: SortOrder
+    rooms?: SortOrder
+    area_min?: SortOrder
+    area_max?: SortOrder
+  }
+
+  export type PropertyPurchaseMaxOrderByAggregateInput = {
+    id?: SortOrder
+    description?: SortOrder
+    budget_min?: SortOrder
+    budget_max?: SortOrder
+    rooms?: SortOrder
+    area_min?: SortOrder
+    area_max?: SortOrder
+    contact_method?: SortOrder
+    status?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PropertyPurchaseMinOrderByAggregateInput = {
+    id?: SortOrder
+    description?: SortOrder
+    budget_min?: SortOrder
+    budget_max?: SortOrder
+    rooms?: SortOrder
+    area_min?: SortOrder
+    area_max?: SortOrder
+    contact_method?: SortOrder
+    status?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PropertyPurchaseSumOrderByAggregateInput = {
+    budget_min?: SortOrder
+    budget_max?: SortOrder
+    rooms?: SortOrder
+    area_min?: SortOrder
+    area_max?: SortOrder
+  }
+
+  export type EnumPropertyPurchaseStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PropertyPurchaseStatus | EnumPropertyPurchaseStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PropertyPurchaseStatus[] | ListEnumPropertyPurchaseStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PropertyPurchaseStatus[] | ListEnumPropertyPurchaseStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPropertyPurchaseStatusWithAggregatesFilter<$PrismaModel> | $Enums.PropertyPurchaseStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPropertyPurchaseStatusFilter<$PrismaModel>
+    _max?: NestedEnumPropertyPurchaseStatusFilter<$PrismaModel>
+  }
+
+  export type FeedbackCountOrderByAggregateInput = {
+    id?: SortOrder
+    content?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FeedbackMaxOrderByAggregateInput = {
+    id?: SortOrder
+    content?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FeedbackMinOrderByAggregateInput = {
+    id?: SortOrder
+    content?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type AccountCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -12294,6 +15297,20 @@ export namespace Prisma {
     connect?: PropertyRequestWhereUniqueInput | PropertyRequestWhereUniqueInput[]
   }
 
+  export type PropertyPurchaseCreateNestedManyWithoutUserInput = {
+    create?: XOR<PropertyPurchaseCreateWithoutUserInput, PropertyPurchaseUncheckedCreateWithoutUserInput> | PropertyPurchaseCreateWithoutUserInput[] | PropertyPurchaseUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PropertyPurchaseCreateOrConnectWithoutUserInput | PropertyPurchaseCreateOrConnectWithoutUserInput[]
+    createMany?: PropertyPurchaseCreateManyUserInputEnvelope
+    connect?: PropertyPurchaseWhereUniqueInput | PropertyPurchaseWhereUniqueInput[]
+  }
+
+  export type FeedbackCreateNestedManyWithoutUserInput = {
+    create?: XOR<FeedbackCreateWithoutUserInput, FeedbackUncheckedCreateWithoutUserInput> | FeedbackCreateWithoutUserInput[] | FeedbackUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FeedbackCreateOrConnectWithoutUserInput | FeedbackCreateOrConnectWithoutUserInput[]
+    createMany?: FeedbackCreateManyUserInputEnvelope
+    connect?: FeedbackWhereUniqueInput | FeedbackWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -12313,6 +15330,20 @@ export namespace Prisma {
     connectOrCreate?: PropertyRequestCreateOrConnectWithoutUserInput | PropertyRequestCreateOrConnectWithoutUserInput[]
     createMany?: PropertyRequestCreateManyUserInputEnvelope
     connect?: PropertyRequestWhereUniqueInput | PropertyRequestWhereUniqueInput[]
+  }
+
+  export type PropertyPurchaseUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PropertyPurchaseCreateWithoutUserInput, PropertyPurchaseUncheckedCreateWithoutUserInput> | PropertyPurchaseCreateWithoutUserInput[] | PropertyPurchaseUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PropertyPurchaseCreateOrConnectWithoutUserInput | PropertyPurchaseCreateOrConnectWithoutUserInput[]
+    createMany?: PropertyPurchaseCreateManyUserInputEnvelope
+    connect?: PropertyPurchaseWhereUniqueInput | PropertyPurchaseWhereUniqueInput[]
+  }
+
+  export type FeedbackUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<FeedbackCreateWithoutUserInput, FeedbackUncheckedCreateWithoutUserInput> | FeedbackCreateWithoutUserInput[] | FeedbackUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FeedbackCreateOrConnectWithoutUserInput | FeedbackCreateOrConnectWithoutUserInput[]
+    createMany?: FeedbackCreateManyUserInputEnvelope
+    connect?: FeedbackWhereUniqueInput | FeedbackWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -12381,6 +15412,34 @@ export namespace Prisma {
     deleteMany?: PropertyRequestScalarWhereInput | PropertyRequestScalarWhereInput[]
   }
 
+  export type PropertyPurchaseUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PropertyPurchaseCreateWithoutUserInput, PropertyPurchaseUncheckedCreateWithoutUserInput> | PropertyPurchaseCreateWithoutUserInput[] | PropertyPurchaseUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PropertyPurchaseCreateOrConnectWithoutUserInput | PropertyPurchaseCreateOrConnectWithoutUserInput[]
+    upsert?: PropertyPurchaseUpsertWithWhereUniqueWithoutUserInput | PropertyPurchaseUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PropertyPurchaseCreateManyUserInputEnvelope
+    set?: PropertyPurchaseWhereUniqueInput | PropertyPurchaseWhereUniqueInput[]
+    disconnect?: PropertyPurchaseWhereUniqueInput | PropertyPurchaseWhereUniqueInput[]
+    delete?: PropertyPurchaseWhereUniqueInput | PropertyPurchaseWhereUniqueInput[]
+    connect?: PropertyPurchaseWhereUniqueInput | PropertyPurchaseWhereUniqueInput[]
+    update?: PropertyPurchaseUpdateWithWhereUniqueWithoutUserInput | PropertyPurchaseUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PropertyPurchaseUpdateManyWithWhereWithoutUserInput | PropertyPurchaseUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PropertyPurchaseScalarWhereInput | PropertyPurchaseScalarWhereInput[]
+  }
+
+  export type FeedbackUpdateManyWithoutUserNestedInput = {
+    create?: XOR<FeedbackCreateWithoutUserInput, FeedbackUncheckedCreateWithoutUserInput> | FeedbackCreateWithoutUserInput[] | FeedbackUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FeedbackCreateOrConnectWithoutUserInput | FeedbackCreateOrConnectWithoutUserInput[]
+    upsert?: FeedbackUpsertWithWhereUniqueWithoutUserInput | FeedbackUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: FeedbackCreateManyUserInputEnvelope
+    set?: FeedbackWhereUniqueInput | FeedbackWhereUniqueInput[]
+    disconnect?: FeedbackWhereUniqueInput | FeedbackWhereUniqueInput[]
+    delete?: FeedbackWhereUniqueInput | FeedbackWhereUniqueInput[]
+    connect?: FeedbackWhereUniqueInput | FeedbackWhereUniqueInput[]
+    update?: FeedbackUpdateWithWhereUniqueWithoutUserInput | FeedbackUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: FeedbackUpdateManyWithWhereWithoutUserInput | FeedbackUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: FeedbackScalarWhereInput | FeedbackScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -12421,6 +15480,34 @@ export namespace Prisma {
     update?: PropertyRequestUpdateWithWhereUniqueWithoutUserInput | PropertyRequestUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: PropertyRequestUpdateManyWithWhereWithoutUserInput | PropertyRequestUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: PropertyRequestScalarWhereInput | PropertyRequestScalarWhereInput[]
+  }
+
+  export type PropertyPurchaseUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PropertyPurchaseCreateWithoutUserInput, PropertyPurchaseUncheckedCreateWithoutUserInput> | PropertyPurchaseCreateWithoutUserInput[] | PropertyPurchaseUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PropertyPurchaseCreateOrConnectWithoutUserInput | PropertyPurchaseCreateOrConnectWithoutUserInput[]
+    upsert?: PropertyPurchaseUpsertWithWhereUniqueWithoutUserInput | PropertyPurchaseUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PropertyPurchaseCreateManyUserInputEnvelope
+    set?: PropertyPurchaseWhereUniqueInput | PropertyPurchaseWhereUniqueInput[]
+    disconnect?: PropertyPurchaseWhereUniqueInput | PropertyPurchaseWhereUniqueInput[]
+    delete?: PropertyPurchaseWhereUniqueInput | PropertyPurchaseWhereUniqueInput[]
+    connect?: PropertyPurchaseWhereUniqueInput | PropertyPurchaseWhereUniqueInput[]
+    update?: PropertyPurchaseUpdateWithWhereUniqueWithoutUserInput | PropertyPurchaseUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PropertyPurchaseUpdateManyWithWhereWithoutUserInput | PropertyPurchaseUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PropertyPurchaseScalarWhereInput | PropertyPurchaseScalarWhereInput[]
+  }
+
+  export type FeedbackUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<FeedbackCreateWithoutUserInput, FeedbackUncheckedCreateWithoutUserInput> | FeedbackCreateWithoutUserInput[] | FeedbackUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FeedbackCreateOrConnectWithoutUserInput | FeedbackCreateOrConnectWithoutUserInput[]
+    upsert?: FeedbackUpsertWithWhereUniqueWithoutUserInput | FeedbackUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: FeedbackCreateManyUserInputEnvelope
+    set?: FeedbackWhereUniqueInput | FeedbackWhereUniqueInput[]
+    disconnect?: FeedbackWhereUniqueInput | FeedbackWhereUniqueInput[]
+    delete?: FeedbackWhereUniqueInput | FeedbackWhereUniqueInput[]
+    connect?: FeedbackWhereUniqueInput | FeedbackWhereUniqueInput[]
+    update?: FeedbackUpdateWithWhereUniqueWithoutUserInput | FeedbackUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: FeedbackUpdateManyWithWhereWithoutUserInput | FeedbackUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: FeedbackScalarWhereInput | FeedbackScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutAccountsInput = {
@@ -12468,11 +15555,10 @@ export namespace Prisma {
     connect?: LocationWhereUniqueInput
   }
 
-  export type PropertyRequestCreateNestedManyWithoutPropertyInput = {
-    create?: XOR<PropertyRequestCreateWithoutPropertyInput, PropertyRequestUncheckedCreateWithoutPropertyInput> | PropertyRequestCreateWithoutPropertyInput[] | PropertyRequestUncheckedCreateWithoutPropertyInput[]
-    connectOrCreate?: PropertyRequestCreateOrConnectWithoutPropertyInput | PropertyRequestCreateOrConnectWithoutPropertyInput[]
-    createMany?: PropertyRequestCreateManyPropertyInputEnvelope
-    connect?: PropertyRequestWhereUniqueInput | PropertyRequestWhereUniqueInput[]
+  export type PropertyRequestCreateNestedOneWithoutPropertyInput = {
+    create?: XOR<PropertyRequestCreateWithoutPropertyInput, PropertyRequestUncheckedCreateWithoutPropertyInput>
+    connectOrCreate?: PropertyRequestCreateOrConnectWithoutPropertyInput
+    connect?: PropertyRequestWhereUniqueInput
   }
 
   export type FavoriteUncheckedCreateNestedManyWithoutPropertyInput = {
@@ -12482,11 +15568,10 @@ export namespace Prisma {
     connect?: FavoriteWhereUniqueInput | FavoriteWhereUniqueInput[]
   }
 
-  export type PropertyRequestUncheckedCreateNestedManyWithoutPropertyInput = {
-    create?: XOR<PropertyRequestCreateWithoutPropertyInput, PropertyRequestUncheckedCreateWithoutPropertyInput> | PropertyRequestCreateWithoutPropertyInput[] | PropertyRequestUncheckedCreateWithoutPropertyInput[]
-    connectOrCreate?: PropertyRequestCreateOrConnectWithoutPropertyInput | PropertyRequestCreateOrConnectWithoutPropertyInput[]
-    createMany?: PropertyRequestCreateManyPropertyInputEnvelope
-    connect?: PropertyRequestWhereUniqueInput | PropertyRequestWhereUniqueInput[]
+  export type PropertyRequestUncheckedCreateNestedOneWithoutPropertyInput = {
+    create?: XOR<PropertyRequestCreateWithoutPropertyInput, PropertyRequestUncheckedCreateWithoutPropertyInput>
+    connectOrCreate?: PropertyRequestCreateOrConnectWithoutPropertyInput
+    connect?: PropertyRequestWhereUniqueInput
   }
 
   export type PropertyUpdateimagesInput = {
@@ -12560,18 +15645,14 @@ export namespace Prisma {
     update?: XOR<XOR<LocationUpdateToOneWithWhereWithoutPropertiesInput, LocationUpdateWithoutPropertiesInput>, LocationUncheckedUpdateWithoutPropertiesInput>
   }
 
-  export type PropertyRequestUpdateManyWithoutPropertyNestedInput = {
-    create?: XOR<PropertyRequestCreateWithoutPropertyInput, PropertyRequestUncheckedCreateWithoutPropertyInput> | PropertyRequestCreateWithoutPropertyInput[] | PropertyRequestUncheckedCreateWithoutPropertyInput[]
-    connectOrCreate?: PropertyRequestCreateOrConnectWithoutPropertyInput | PropertyRequestCreateOrConnectWithoutPropertyInput[]
-    upsert?: PropertyRequestUpsertWithWhereUniqueWithoutPropertyInput | PropertyRequestUpsertWithWhereUniqueWithoutPropertyInput[]
-    createMany?: PropertyRequestCreateManyPropertyInputEnvelope
-    set?: PropertyRequestWhereUniqueInput | PropertyRequestWhereUniqueInput[]
-    disconnect?: PropertyRequestWhereUniqueInput | PropertyRequestWhereUniqueInput[]
-    delete?: PropertyRequestWhereUniqueInput | PropertyRequestWhereUniqueInput[]
-    connect?: PropertyRequestWhereUniqueInput | PropertyRequestWhereUniqueInput[]
-    update?: PropertyRequestUpdateWithWhereUniqueWithoutPropertyInput | PropertyRequestUpdateWithWhereUniqueWithoutPropertyInput[]
-    updateMany?: PropertyRequestUpdateManyWithWhereWithoutPropertyInput | PropertyRequestUpdateManyWithWhereWithoutPropertyInput[]
-    deleteMany?: PropertyRequestScalarWhereInput | PropertyRequestScalarWhereInput[]
+  export type PropertyRequestUpdateOneWithoutPropertyNestedInput = {
+    create?: XOR<PropertyRequestCreateWithoutPropertyInput, PropertyRequestUncheckedCreateWithoutPropertyInput>
+    connectOrCreate?: PropertyRequestCreateOrConnectWithoutPropertyInput
+    upsert?: PropertyRequestUpsertWithoutPropertyInput
+    disconnect?: PropertyRequestWhereInput | boolean
+    delete?: PropertyRequestWhereInput | boolean
+    connect?: PropertyRequestWhereUniqueInput
+    update?: XOR<XOR<PropertyRequestUpdateToOneWithWhereWithoutPropertyInput, PropertyRequestUpdateWithoutPropertyInput>, PropertyRequestUncheckedUpdateWithoutPropertyInput>
   }
 
   export type FavoriteUncheckedUpdateManyWithoutPropertyNestedInput = {
@@ -12588,18 +15669,14 @@ export namespace Prisma {
     deleteMany?: FavoriteScalarWhereInput | FavoriteScalarWhereInput[]
   }
 
-  export type PropertyRequestUncheckedUpdateManyWithoutPropertyNestedInput = {
-    create?: XOR<PropertyRequestCreateWithoutPropertyInput, PropertyRequestUncheckedCreateWithoutPropertyInput> | PropertyRequestCreateWithoutPropertyInput[] | PropertyRequestUncheckedCreateWithoutPropertyInput[]
-    connectOrCreate?: PropertyRequestCreateOrConnectWithoutPropertyInput | PropertyRequestCreateOrConnectWithoutPropertyInput[]
-    upsert?: PropertyRequestUpsertWithWhereUniqueWithoutPropertyInput | PropertyRequestUpsertWithWhereUniqueWithoutPropertyInput[]
-    createMany?: PropertyRequestCreateManyPropertyInputEnvelope
-    set?: PropertyRequestWhereUniqueInput | PropertyRequestWhereUniqueInput[]
-    disconnect?: PropertyRequestWhereUniqueInput | PropertyRequestWhereUniqueInput[]
-    delete?: PropertyRequestWhereUniqueInput | PropertyRequestWhereUniqueInput[]
-    connect?: PropertyRequestWhereUniqueInput | PropertyRequestWhereUniqueInput[]
-    update?: PropertyRequestUpdateWithWhereUniqueWithoutPropertyInput | PropertyRequestUpdateWithWhereUniqueWithoutPropertyInput[]
-    updateMany?: PropertyRequestUpdateManyWithWhereWithoutPropertyInput | PropertyRequestUpdateManyWithWhereWithoutPropertyInput[]
-    deleteMany?: PropertyRequestScalarWhereInput | PropertyRequestScalarWhereInput[]
+  export type PropertyRequestUncheckedUpdateOneWithoutPropertyNestedInput = {
+    create?: XOR<PropertyRequestCreateWithoutPropertyInput, PropertyRequestUncheckedCreateWithoutPropertyInput>
+    connectOrCreate?: PropertyRequestCreateOrConnectWithoutPropertyInput
+    upsert?: PropertyRequestUpsertWithoutPropertyInput
+    disconnect?: PropertyRequestWhereInput | boolean
+    delete?: PropertyRequestWhereInput | boolean
+    connect?: PropertyRequestWhereUniqueInput
+    update?: XOR<XOR<PropertyRequestUpdateToOneWithWhereWithoutPropertyInput, PropertyRequestUpdateWithoutPropertyInput>, PropertyRequestUncheckedUpdateWithoutPropertyInput>
   }
 
   export type PropertyCreateNestedManyWithoutLocationInput = {
@@ -12717,6 +15794,38 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutPropertyRequestInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPropertyRequestInput, UserUpdateWithoutPropertyRequestInput>, UserUncheckedUpdateWithoutPropertyRequestInput>
+  }
+
+  export type UserCreateNestedOneWithoutPropertyPurchaseInput = {
+    create?: XOR<UserCreateWithoutPropertyPurchaseInput, UserUncheckedCreateWithoutPropertyPurchaseInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPropertyPurchaseInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumPropertyPurchaseStatusFieldUpdateOperationsInput = {
+    set?: $Enums.PropertyPurchaseStatus
+  }
+
+  export type UserUpdateOneRequiredWithoutPropertyPurchaseNestedInput = {
+    create?: XOR<UserCreateWithoutPropertyPurchaseInput, UserUncheckedCreateWithoutPropertyPurchaseInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPropertyPurchaseInput
+    upsert?: UserUpsertWithoutPropertyPurchaseInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPropertyPurchaseInput, UserUpdateWithoutPropertyPurchaseInput>, UserUncheckedUpdateWithoutPropertyPurchaseInput>
+  }
+
+  export type UserCreateNestedOneWithoutCommentsInput = {
+    create?: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCommentsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutCommentsNestedInput = {
+    create?: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCommentsInput
+    upsert?: UserUpsertWithoutCommentsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCommentsInput, UserUpdateWithoutCommentsInput>, UserUncheckedUpdateWithoutCommentsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -13076,10 +16185,28 @@ export namespace Prisma {
     _max?: NestedEnumPropertyRequestStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumPropertyPurchaseStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.PropertyPurchaseStatus | EnumPropertyPurchaseStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PropertyPurchaseStatus[] | ListEnumPropertyPurchaseStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PropertyPurchaseStatus[] | ListEnumPropertyPurchaseStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPropertyPurchaseStatusFilter<$PrismaModel> | $Enums.PropertyPurchaseStatus
+  }
+
+  export type NestedEnumPropertyPurchaseStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PropertyPurchaseStatus | EnumPropertyPurchaseStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PropertyPurchaseStatus[] | ListEnumPropertyPurchaseStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PropertyPurchaseStatus[] | ListEnumPropertyPurchaseStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPropertyPurchaseStatusWithAggregatesFilter<$PrismaModel> | $Enums.PropertyPurchaseStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPropertyPurchaseStatusFilter<$PrismaModel>
+    _max?: NestedEnumPropertyPurchaseStatusFilter<$PrismaModel>
+  }
+
   export type AccountCreateWithoutUserInput = {
     id?: string
     type: string
     provider: string
+    providerId: string
     refreshToken?: string | null
     accessToken?: string | null
     expiresAt: number
@@ -13091,6 +16218,7 @@ export namespace Prisma {
     id?: string
     type: string
     provider: string
+    providerId: string
     refreshToken?: string | null
     accessToken?: string | null
     expiresAt: number
@@ -13137,7 +16265,6 @@ export namespace Prisma {
     rooms: number
     address: string
     images?: PropertyRequestCreateimagesInput | string[]
-    currentUrl?: string | null
     propertyRequestStatus?: $Enums.PropertyRequestStatus
     rejectionReason?: string | null
     createdAt?: Date | string
@@ -13154,7 +16281,6 @@ export namespace Prisma {
     rooms: number
     address: string
     images?: PropertyRequestCreateimagesInput | string[]
-    currentUrl?: string | null
     propertyRequestStatus?: $Enums.PropertyRequestStatus
     rejectionReason?: string | null
     propertyId?: string | null
@@ -13169,6 +16295,68 @@ export namespace Prisma {
 
   export type PropertyRequestCreateManyUserInputEnvelope = {
     data: PropertyRequestCreateManyUserInput | PropertyRequestCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PropertyPurchaseCreateWithoutUserInput = {
+    id?: string
+    description: string
+    budget_min?: number | null
+    budget_max?: number | null
+    rooms?: number | null
+    area_min?: number | null
+    area_max?: number | null
+    contact_method?: string | null
+    status: $Enums.PropertyPurchaseStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PropertyPurchaseUncheckedCreateWithoutUserInput = {
+    id?: string
+    description: string
+    budget_min?: number | null
+    budget_max?: number | null
+    rooms?: number | null
+    area_min?: number | null
+    area_max?: number | null
+    contact_method?: string | null
+    status: $Enums.PropertyPurchaseStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PropertyPurchaseCreateOrConnectWithoutUserInput = {
+    where: PropertyPurchaseWhereUniqueInput
+    create: XOR<PropertyPurchaseCreateWithoutUserInput, PropertyPurchaseUncheckedCreateWithoutUserInput>
+  }
+
+  export type PropertyPurchaseCreateManyUserInputEnvelope = {
+    data: PropertyPurchaseCreateManyUserInput | PropertyPurchaseCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FeedbackCreateWithoutUserInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FeedbackUncheckedCreateWithoutUserInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FeedbackCreateOrConnectWithoutUserInput = {
+    where: FeedbackWhereUniqueInput
+    create: XOR<FeedbackCreateWithoutUserInput, FeedbackUncheckedCreateWithoutUserInput>
+  }
+
+  export type FeedbackCreateManyUserInputEnvelope = {
+    data: FeedbackCreateManyUserInput | FeedbackCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -13195,6 +16383,7 @@ export namespace Prisma {
     id?: StringFilter<"Account"> | string
     type?: StringFilter<"Account"> | string
     provider?: StringFilter<"Account"> | string
+    providerId?: StringFilter<"Account"> | string
     refreshToken?: StringNullableFilter<"Account"> | string | null
     accessToken?: StringNullableFilter<"Account"> | string | null
     expiresAt?: IntFilter<"Account"> | number
@@ -13256,13 +16445,73 @@ export namespace Prisma {
     rooms?: IntFilter<"PropertyRequest"> | number
     address?: StringFilter<"PropertyRequest"> | string
     images?: StringNullableListFilter<"PropertyRequest">
-    currentUrl?: StringNullableFilter<"PropertyRequest"> | string | null
     propertyRequestStatus?: EnumPropertyRequestStatusFilter<"PropertyRequest"> | $Enums.PropertyRequestStatus
     rejectionReason?: StringNullableFilter<"PropertyRequest"> | string | null
     propertyId?: StringNullableFilter<"PropertyRequest"> | string | null
     userId?: StringFilter<"PropertyRequest"> | string
     createdAt?: DateTimeFilter<"PropertyRequest"> | Date | string
     updatedAt?: DateTimeFilter<"PropertyRequest"> | Date | string
+  }
+
+  export type PropertyPurchaseUpsertWithWhereUniqueWithoutUserInput = {
+    where: PropertyPurchaseWhereUniqueInput
+    update: XOR<PropertyPurchaseUpdateWithoutUserInput, PropertyPurchaseUncheckedUpdateWithoutUserInput>
+    create: XOR<PropertyPurchaseCreateWithoutUserInput, PropertyPurchaseUncheckedCreateWithoutUserInput>
+  }
+
+  export type PropertyPurchaseUpdateWithWhereUniqueWithoutUserInput = {
+    where: PropertyPurchaseWhereUniqueInput
+    data: XOR<PropertyPurchaseUpdateWithoutUserInput, PropertyPurchaseUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PropertyPurchaseUpdateManyWithWhereWithoutUserInput = {
+    where: PropertyPurchaseScalarWhereInput
+    data: XOR<PropertyPurchaseUpdateManyMutationInput, PropertyPurchaseUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type PropertyPurchaseScalarWhereInput = {
+    AND?: PropertyPurchaseScalarWhereInput | PropertyPurchaseScalarWhereInput[]
+    OR?: PropertyPurchaseScalarWhereInput[]
+    NOT?: PropertyPurchaseScalarWhereInput | PropertyPurchaseScalarWhereInput[]
+    id?: StringFilter<"PropertyPurchase"> | string
+    description?: StringFilter<"PropertyPurchase"> | string
+    budget_min?: FloatNullableFilter<"PropertyPurchase"> | number | null
+    budget_max?: FloatNullableFilter<"PropertyPurchase"> | number | null
+    rooms?: IntNullableFilter<"PropertyPurchase"> | number | null
+    area_min?: FloatNullableFilter<"PropertyPurchase"> | number | null
+    area_max?: FloatNullableFilter<"PropertyPurchase"> | number | null
+    contact_method?: StringNullableFilter<"PropertyPurchase"> | string | null
+    status?: EnumPropertyPurchaseStatusFilter<"PropertyPurchase"> | $Enums.PropertyPurchaseStatus
+    userId?: StringFilter<"PropertyPurchase"> | string
+    createdAt?: DateTimeFilter<"PropertyPurchase"> | Date | string
+    updatedAt?: DateTimeFilter<"PropertyPurchase"> | Date | string
+  }
+
+  export type FeedbackUpsertWithWhereUniqueWithoutUserInput = {
+    where: FeedbackWhereUniqueInput
+    update: XOR<FeedbackUpdateWithoutUserInput, FeedbackUncheckedUpdateWithoutUserInput>
+    create: XOR<FeedbackCreateWithoutUserInput, FeedbackUncheckedCreateWithoutUserInput>
+  }
+
+  export type FeedbackUpdateWithWhereUniqueWithoutUserInput = {
+    where: FeedbackWhereUniqueInput
+    data: XOR<FeedbackUpdateWithoutUserInput, FeedbackUncheckedUpdateWithoutUserInput>
+  }
+
+  export type FeedbackUpdateManyWithWhereWithoutUserInput = {
+    where: FeedbackScalarWhereInput
+    data: XOR<FeedbackUpdateManyMutationInput, FeedbackUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type FeedbackScalarWhereInput = {
+    AND?: FeedbackScalarWhereInput | FeedbackScalarWhereInput[]
+    OR?: FeedbackScalarWhereInput[]
+    NOT?: FeedbackScalarWhereInput | FeedbackScalarWhereInput[]
+    id?: StringFilter<"Feedback"> | string
+    content?: StringFilter<"Feedback"> | string
+    userId?: StringFilter<"Feedback"> | string
+    createdAt?: DateTimeFilter<"Feedback"> | Date | string
+    updatedAt?: DateTimeFilter<"Feedback"> | Date | string
   }
 
   export type UserCreateWithoutAccountsInput = {
@@ -13280,6 +16529,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     favorite?: FavoriteCreateNestedManyWithoutUserInput
     propertyRequest?: PropertyRequestCreateNestedManyWithoutUserInput
+    propertyPurchase?: PropertyPurchaseCreateNestedManyWithoutUserInput
+    comments?: FeedbackCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -13297,6 +16548,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     favorite?: FavoriteUncheckedCreateNestedManyWithoutUserInput
     propertyRequest?: PropertyRequestUncheckedCreateNestedManyWithoutUserInput
+    propertyPurchase?: PropertyPurchaseUncheckedCreateNestedManyWithoutUserInput
+    comments?: FeedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -13330,6 +16583,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     favorite?: FavoriteUpdateManyWithoutUserNestedInput
     propertyRequest?: PropertyRequestUpdateManyWithoutUserNestedInput
+    propertyPurchase?: PropertyPurchaseUpdateManyWithoutUserNestedInput
+    comments?: FeedbackUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -13347,6 +16602,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     favorite?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
     propertyRequest?: PropertyRequestUncheckedUpdateManyWithoutUserNestedInput
+    propertyPurchase?: PropertyPurchaseUncheckedUpdateManyWithoutUserNestedInput
+    comments?: FeedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type FavoriteCreateWithoutPropertyInput = {
@@ -13400,7 +16657,6 @@ export namespace Prisma {
     rooms: number
     address: string
     images?: PropertyRequestCreateimagesInput | string[]
-    currentUrl?: string | null
     propertyRequestStatus?: $Enums.PropertyRequestStatus
     rejectionReason?: string | null
     createdAt?: Date | string
@@ -13417,7 +16673,6 @@ export namespace Prisma {
     rooms: number
     address: string
     images?: PropertyRequestCreateimagesInput | string[]
-    currentUrl?: string | null
     propertyRequestStatus?: $Enums.PropertyRequestStatus
     rejectionReason?: string | null
     userId: string
@@ -13428,11 +16683,6 @@ export namespace Prisma {
   export type PropertyRequestCreateOrConnectWithoutPropertyInput = {
     where: PropertyRequestWhereUniqueInput
     create: XOR<PropertyRequestCreateWithoutPropertyInput, PropertyRequestUncheckedCreateWithoutPropertyInput>
-  }
-
-  export type PropertyRequestCreateManyPropertyInputEnvelope = {
-    data: PropertyRequestCreateManyPropertyInput | PropertyRequestCreateManyPropertyInput[]
-    skipDuplicates?: boolean
   }
 
   export type FavoriteUpsertWithWhereUniqueWithoutPropertyInput = {
@@ -13479,20 +16729,47 @@ export namespace Prisma {
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
-  export type PropertyRequestUpsertWithWhereUniqueWithoutPropertyInput = {
-    where: PropertyRequestWhereUniqueInput
+  export type PropertyRequestUpsertWithoutPropertyInput = {
     update: XOR<PropertyRequestUpdateWithoutPropertyInput, PropertyRequestUncheckedUpdateWithoutPropertyInput>
     create: XOR<PropertyRequestCreateWithoutPropertyInput, PropertyRequestUncheckedCreateWithoutPropertyInput>
+    where?: PropertyRequestWhereInput
   }
 
-  export type PropertyRequestUpdateWithWhereUniqueWithoutPropertyInput = {
-    where: PropertyRequestWhereUniqueInput
+  export type PropertyRequestUpdateToOneWithWhereWithoutPropertyInput = {
+    where?: PropertyRequestWhereInput
     data: XOR<PropertyRequestUpdateWithoutPropertyInput, PropertyRequestUncheckedUpdateWithoutPropertyInput>
   }
 
-  export type PropertyRequestUpdateManyWithWhereWithoutPropertyInput = {
-    where: PropertyRequestScalarWhereInput
-    data: XOR<PropertyRequestUpdateManyMutationInput, PropertyRequestUncheckedUpdateManyWithoutPropertyInput>
+  export type PropertyRequestUpdateWithoutPropertyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    square?: FloatFieldUpdateOperationsInput | number
+    rooms?: IntFieldUpdateOperationsInput | number
+    address?: StringFieldUpdateOperationsInput | string
+    images?: PropertyRequestUpdateimagesInput | string[]
+    propertyRequestStatus?: EnumPropertyRequestStatusFieldUpdateOperationsInput | $Enums.PropertyRequestStatus
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutPropertyRequestNestedInput
+  }
+
+  export type PropertyRequestUncheckedUpdateWithoutPropertyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    square?: FloatFieldUpdateOperationsInput | number
+    rooms?: IntFieldUpdateOperationsInput | number
+    address?: StringFieldUpdateOperationsInput | string
+    images?: PropertyRequestUpdateimagesInput | string[]
+    propertyRequestStatus?: EnumPropertyRequestStatusFieldUpdateOperationsInput | $Enums.PropertyRequestStatus
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PropertyCreateWithoutLocationInput = {
@@ -13518,7 +16795,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     Favorite?: FavoriteCreateNestedManyWithoutPropertyInput
-    PropertyRequest?: PropertyRequestCreateNestedManyWithoutPropertyInput
+    propertyRequest?: PropertyRequestCreateNestedOneWithoutPropertyInput
   }
 
   export type PropertyUncheckedCreateWithoutLocationInput = {
@@ -13544,7 +16821,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     Favorite?: FavoriteUncheckedCreateNestedManyWithoutPropertyInput
-    PropertyRequest?: PropertyRequestUncheckedCreateNestedManyWithoutPropertyInput
+    propertyRequest?: PropertyRequestUncheckedCreateNestedOneWithoutPropertyInput
   }
 
   export type PropertyCreateOrConnectWithoutLocationInput = {
@@ -13616,6 +16893,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
     propertyRequest?: PropertyRequestCreateNestedManyWithoutUserInput
+    propertyPurchase?: PropertyPurchaseCreateNestedManyWithoutUserInput
+    comments?: FeedbackCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFavoriteInput = {
@@ -13633,6 +16912,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     propertyRequest?: PropertyRequestUncheckedCreateNestedManyWithoutUserInput
+    propertyPurchase?: PropertyPurchaseUncheckedCreateNestedManyWithoutUserInput
+    comments?: FeedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFavoriteInput = {
@@ -13663,7 +16944,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     location: LocationCreateNestedOneWithoutPropertiesInput
-    PropertyRequest?: PropertyRequestCreateNestedManyWithoutPropertyInput
+    propertyRequest?: PropertyRequestCreateNestedOneWithoutPropertyInput
   }
 
   export type PropertyUncheckedCreateWithoutFavoriteInput = {
@@ -13689,7 +16970,7 @@ export namespace Prisma {
     userId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    PropertyRequest?: PropertyRequestUncheckedCreateNestedManyWithoutPropertyInput
+    propertyRequest?: PropertyRequestUncheckedCreateNestedOneWithoutPropertyInput
   }
 
   export type PropertyCreateOrConnectWithoutFavoriteInput = {
@@ -13723,6 +17004,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     propertyRequest?: PropertyRequestUpdateManyWithoutUserNestedInput
+    propertyPurchase?: PropertyPurchaseUpdateManyWithoutUserNestedInput
+    comments?: FeedbackUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFavoriteInput = {
@@ -13740,6 +17023,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     propertyRequest?: PropertyRequestUncheckedUpdateManyWithoutUserNestedInput
+    propertyPurchase?: PropertyPurchaseUncheckedUpdateManyWithoutUserNestedInput
+    comments?: FeedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PropertyUpsertWithoutFavoriteInput = {
@@ -13776,7 +17061,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: LocationUpdateOneRequiredWithoutPropertiesNestedInput
-    PropertyRequest?: PropertyRequestUpdateManyWithoutPropertyNestedInput
+    propertyRequest?: PropertyRequestUpdateOneWithoutPropertyNestedInput
   }
 
   export type PropertyUncheckedUpdateWithoutFavoriteInput = {
@@ -13802,7 +17087,7 @@ export namespace Prisma {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    PropertyRequest?: PropertyRequestUncheckedUpdateManyWithoutPropertyNestedInput
+    propertyRequest?: PropertyRequestUncheckedUpdateOneWithoutPropertyNestedInput
   }
 
   export type PropertyCreateWithoutPropertyRequestInput = {
@@ -13877,6 +17162,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
     favorite?: FavoriteCreateNestedManyWithoutUserInput
+    propertyPurchase?: PropertyPurchaseCreateNestedManyWithoutUserInput
+    comments?: FeedbackCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPropertyRequestInput = {
@@ -13894,6 +17181,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     favorite?: FavoriteUncheckedCreateNestedManyWithoutUserInput
+    propertyPurchase?: PropertyPurchaseUncheckedCreateNestedManyWithoutUserInput
+    comments?: FeedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPropertyRequestInput = {
@@ -13990,6 +17279,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     favorite?: FavoriteUpdateManyWithoutUserNestedInput
+    propertyPurchase?: PropertyPurchaseUpdateManyWithoutUserNestedInput
+    comments?: FeedbackUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPropertyRequestInput = {
@@ -14007,12 +17298,199 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     favorite?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
+    propertyPurchase?: PropertyPurchaseUncheckedUpdateManyWithoutUserNestedInput
+    comments?: FeedbackUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutPropertyPurchaseInput = {
+    id?: string
+    email: string
+    password: string
+    phoneNumber?: string | null
+    displayName: string
+    picture?: string | null
+    role?: $Enums.UserRole
+    isVerified?: boolean
+    isTwoFactorEnabled?: boolean
+    method: $Enums.AuthMethod
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    favorite?: FavoriteCreateNestedManyWithoutUserInput
+    propertyRequest?: PropertyRequestCreateNestedManyWithoutUserInput
+    comments?: FeedbackCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutPropertyPurchaseInput = {
+    id?: string
+    email: string
+    password: string
+    phoneNumber?: string | null
+    displayName: string
+    picture?: string | null
+    role?: $Enums.UserRole
+    isVerified?: boolean
+    isTwoFactorEnabled?: boolean
+    method: $Enums.AuthMethod
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    favorite?: FavoriteUncheckedCreateNestedManyWithoutUserInput
+    propertyRequest?: PropertyRequestUncheckedCreateNestedManyWithoutUserInput
+    comments?: FeedbackUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutPropertyPurchaseInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPropertyPurchaseInput, UserUncheckedCreateWithoutPropertyPurchaseInput>
+  }
+
+  export type UserUpsertWithoutPropertyPurchaseInput = {
+    update: XOR<UserUpdateWithoutPropertyPurchaseInput, UserUncheckedUpdateWithoutPropertyPurchaseInput>
+    create: XOR<UserCreateWithoutPropertyPurchaseInput, UserUncheckedCreateWithoutPropertyPurchaseInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPropertyPurchaseInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPropertyPurchaseInput, UserUncheckedUpdateWithoutPropertyPurchaseInput>
+  }
+
+  export type UserUpdateWithoutPropertyPurchaseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    displayName?: StringFieldUpdateOperationsInput | string
+    picture?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isTwoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    method?: EnumAuthMethodFieldUpdateOperationsInput | $Enums.AuthMethod
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    favorite?: FavoriteUpdateManyWithoutUserNestedInput
+    propertyRequest?: PropertyRequestUpdateManyWithoutUserNestedInput
+    comments?: FeedbackUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPropertyPurchaseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    displayName?: StringFieldUpdateOperationsInput | string
+    picture?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isTwoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    method?: EnumAuthMethodFieldUpdateOperationsInput | $Enums.AuthMethod
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    favorite?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
+    propertyRequest?: PropertyRequestUncheckedUpdateManyWithoutUserNestedInput
+    comments?: FeedbackUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutCommentsInput = {
+    id?: string
+    email: string
+    password: string
+    phoneNumber?: string | null
+    displayName: string
+    picture?: string | null
+    role?: $Enums.UserRole
+    isVerified?: boolean
+    isTwoFactorEnabled?: boolean
+    method: $Enums.AuthMethod
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    favorite?: FavoriteCreateNestedManyWithoutUserInput
+    propertyRequest?: PropertyRequestCreateNestedManyWithoutUserInput
+    propertyPurchase?: PropertyPurchaseCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutCommentsInput = {
+    id?: string
+    email: string
+    password: string
+    phoneNumber?: string | null
+    displayName: string
+    picture?: string | null
+    role?: $Enums.UserRole
+    isVerified?: boolean
+    isTwoFactorEnabled?: boolean
+    method: $Enums.AuthMethod
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    favorite?: FavoriteUncheckedCreateNestedManyWithoutUserInput
+    propertyRequest?: PropertyRequestUncheckedCreateNestedManyWithoutUserInput
+    propertyPurchase?: PropertyPurchaseUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutCommentsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
+  }
+
+  export type UserUpsertWithoutCommentsInput = {
+    update: XOR<UserUpdateWithoutCommentsInput, UserUncheckedUpdateWithoutCommentsInput>
+    create: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCommentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCommentsInput, UserUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type UserUpdateWithoutCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    displayName?: StringFieldUpdateOperationsInput | string
+    picture?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isTwoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    method?: EnumAuthMethodFieldUpdateOperationsInput | $Enums.AuthMethod
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    favorite?: FavoriteUpdateManyWithoutUserNestedInput
+    propertyRequest?: PropertyRequestUpdateManyWithoutUserNestedInput
+    propertyPurchase?: PropertyPurchaseUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    displayName?: StringFieldUpdateOperationsInput | string
+    picture?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isTwoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    method?: EnumAuthMethodFieldUpdateOperationsInput | $Enums.AuthMethod
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    favorite?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
+    propertyRequest?: PropertyRequestUncheckedUpdateManyWithoutUserNestedInput
+    propertyPurchase?: PropertyPurchaseUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AccountCreateManyUserInput = {
     id?: string
     type: string
     provider: string
+    providerId: string
     refreshToken?: string | null
     accessToken?: string | null
     expiresAt: number
@@ -14034,10 +17512,30 @@ export namespace Prisma {
     rooms: number
     address: string
     images?: PropertyRequestCreateimagesInput | string[]
-    currentUrl?: string | null
     propertyRequestStatus?: $Enums.PropertyRequestStatus
     rejectionReason?: string | null
     propertyId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PropertyPurchaseCreateManyUserInput = {
+    id?: string
+    description: string
+    budget_min?: number | null
+    budget_max?: number | null
+    rooms?: number | null
+    area_min?: number | null
+    area_max?: number | null
+    contact_method?: string | null
+    status: $Enums.PropertyPurchaseStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FeedbackCreateManyUserInput = {
+    id?: string
+    content: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14046,6 +17544,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
+    providerId?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     expiresAt?: IntFieldUpdateOperationsInput | number
@@ -14057,6 +17556,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
+    providerId?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     expiresAt?: IntFieldUpdateOperationsInput | number
@@ -14068,6 +17568,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
+    providerId?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     expiresAt?: IntFieldUpdateOperationsInput | number
@@ -14099,7 +17600,6 @@ export namespace Prisma {
     rooms?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     images?: PropertyRequestUpdateimagesInput | string[]
-    currentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     propertyRequestStatus?: EnumPropertyRequestStatusFieldUpdateOperationsInput | $Enums.PropertyRequestStatus
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14116,7 +17616,6 @@ export namespace Prisma {
     rooms?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     images?: PropertyRequestUpdateimagesInput | string[]
-    currentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     propertyRequestStatus?: EnumPropertyRequestStatusFieldUpdateOperationsInput | $Enums.PropertyRequestStatus
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     propertyId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14133,7 +17632,6 @@ export namespace Prisma {
     rooms?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     images?: PropertyRequestUpdateimagesInput | string[]
-    currentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     propertyRequestStatus?: EnumPropertyRequestStatusFieldUpdateOperationsInput | $Enums.PropertyRequestStatus
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     propertyId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14141,26 +17639,72 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PropertyPurchaseUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    budget_min?: NullableFloatFieldUpdateOperationsInput | number | null
+    budget_max?: NullableFloatFieldUpdateOperationsInput | number | null
+    rooms?: NullableIntFieldUpdateOperationsInput | number | null
+    area_min?: NullableFloatFieldUpdateOperationsInput | number | null
+    area_max?: NullableFloatFieldUpdateOperationsInput | number | null
+    contact_method?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPropertyPurchaseStatusFieldUpdateOperationsInput | $Enums.PropertyPurchaseStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PropertyPurchaseUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    budget_min?: NullableFloatFieldUpdateOperationsInput | number | null
+    budget_max?: NullableFloatFieldUpdateOperationsInput | number | null
+    rooms?: NullableIntFieldUpdateOperationsInput | number | null
+    area_min?: NullableFloatFieldUpdateOperationsInput | number | null
+    area_max?: NullableFloatFieldUpdateOperationsInput | number | null
+    contact_method?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPropertyPurchaseStatusFieldUpdateOperationsInput | $Enums.PropertyPurchaseStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PropertyPurchaseUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    budget_min?: NullableFloatFieldUpdateOperationsInput | number | null
+    budget_max?: NullableFloatFieldUpdateOperationsInput | number | null
+    rooms?: NullableIntFieldUpdateOperationsInput | number | null
+    area_min?: NullableFloatFieldUpdateOperationsInput | number | null
+    area_max?: NullableFloatFieldUpdateOperationsInput | number | null
+    contact_method?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPropertyPurchaseStatusFieldUpdateOperationsInput | $Enums.PropertyPurchaseStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FeedbackUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FeedbackUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FeedbackUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type FavoriteCreateManyPropertyInput = {
     userId: string
     favoritedAt?: Date | string
-  }
-
-  export type PropertyRequestCreateManyPropertyInput = {
-    id?: string
-    title: string
-    description: string
-    price: number
-    square: number
-    rooms: number
-    address: string
-    images?: PropertyRequestCreateimagesInput | string[]
-    currentUrl?: string | null
-    propertyRequestStatus?: $Enums.PropertyRequestStatus
-    rejectionReason?: string | null
-    userId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
   export type FavoriteUpdateWithoutPropertyInput = {
@@ -14176,57 +17720,6 @@ export namespace Prisma {
   export type FavoriteUncheckedUpdateManyWithoutPropertyInput = {
     userId?: StringFieldUpdateOperationsInput | string
     favoritedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type PropertyRequestUpdateWithoutPropertyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    price?: IntFieldUpdateOperationsInput | number
-    square?: FloatFieldUpdateOperationsInput | number
-    rooms?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    images?: PropertyRequestUpdateimagesInput | string[]
-    currentUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    propertyRequestStatus?: EnumPropertyRequestStatusFieldUpdateOperationsInput | $Enums.PropertyRequestStatus
-    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutPropertyRequestNestedInput
-  }
-
-  export type PropertyRequestUncheckedUpdateWithoutPropertyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    price?: IntFieldUpdateOperationsInput | number
-    square?: FloatFieldUpdateOperationsInput | number
-    rooms?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    images?: PropertyRequestUpdateimagesInput | string[]
-    currentUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    propertyRequestStatus?: EnumPropertyRequestStatusFieldUpdateOperationsInput | $Enums.PropertyRequestStatus
-    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
-    userId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type PropertyRequestUncheckedUpdateManyWithoutPropertyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    price?: IntFieldUpdateOperationsInput | number
-    square?: FloatFieldUpdateOperationsInput | number
-    rooms?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    images?: PropertyRequestUpdateimagesInput | string[]
-    currentUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    propertyRequestStatus?: EnumPropertyRequestStatusFieldUpdateOperationsInput | $Enums.PropertyRequestStatus
-    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
-    userId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PropertyCreateManyLocationInput = {
@@ -14276,7 +17769,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Favorite?: FavoriteUpdateManyWithoutPropertyNestedInput
-    PropertyRequest?: PropertyRequestUpdateManyWithoutPropertyNestedInput
+    propertyRequest?: PropertyRequestUpdateOneWithoutPropertyNestedInput
   }
 
   export type PropertyUncheckedUpdateWithoutLocationInput = {
@@ -14302,7 +17795,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Favorite?: FavoriteUncheckedUpdateManyWithoutPropertyNestedInput
-    PropertyRequest?: PropertyRequestUncheckedUpdateManyWithoutPropertyNestedInput
+    propertyRequest?: PropertyRequestUncheckedUpdateOneWithoutPropertyNestedInput
   }
 
   export type PropertyUncheckedUpdateManyWithoutLocationInput = {

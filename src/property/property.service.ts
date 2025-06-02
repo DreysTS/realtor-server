@@ -4,24 +4,54 @@ import {
 	NotFoundException
 } from '@nestjs/common'
 import { PropertyStatus } from 'prisma/__generated__'
-import { FileService } from 'src/file/file.service'
 import { PrismaService } from 'src/prisma/prisma.service'
 
 import { CreateProperty } from './dto/create-property.dto'
-import { UpdateProperty } from './dto/update-property.dto'
+import { PropertyFiltersDto } from './dto/property-filters.dto'
+import { UpdatePropertyDto } from './dto/update-property.dto'
 
 @Injectable()
 export class PropertyService {
-	public constructor(
-		private readonly prismaService: PrismaService,
-		private readonly fileService: FileService
-	) {}
+	public constructor(private readonly prismaService: PrismaService) {}
 
-	public async findAll() {
+	public async findAll(filters: PropertyFiltersDto, signal?: AbortSignal) {
+		const where: any = {
+			status: PropertyStatus.ACTIVE
+		}
+
+		if (filters.rooms !== undefined) {
+			where.rooms = filters.rooms
+		}
+
+		if (filters.minPrice !== undefined || filters.maxPrice !== undefined) {
+			where.price = {}
+
+			if (filters.minPrice !== undefined) {
+				where.price.gte = filters.minPrice
+			}
+
+			if (filters.maxPrice !== undefined) {
+				where.price.lte = filters.maxPrice
+			}
+		}
+
+		if (
+			filters.minSquare !== undefined ||
+			filters.maxSquare !== undefined
+		) {
+			where.square = {}
+
+			if (filters.minSquare !== undefined) {
+				where.square.gte = filters.minSquare
+			}
+
+			if (filters.maxSquare !== undefined) {
+				where.square.lte = filters.maxSquare
+			}
+		}
+
 		return await this.prismaService.property.findMany({
-			where: {
-				status: PropertyStatus.ACTIVE
-			},
+			where,
 			include: {
 				location: true
 			},
@@ -38,6 +68,17 @@ export class PropertyService {
 			},
 			orderBy: {
 				createdAt: 'desc'
+			}
+		})
+	}
+
+	public async realtorFindById(propertyId: string) {
+		return await this.prismaService.property.findFirst({
+			where: {
+				id: propertyId
+			},
+			include: {
+				location: true
 			}
 		})
 	}
@@ -72,14 +113,12 @@ export class PropertyService {
 		})
 	}
 
-	public async create(files: Express.Multer.File[], dto: CreateProperty) {
-		const images = await this.fileService.saveImages(files)
-
+	public async create(dto: CreateProperty) {
 		return await this.prismaService.property.create({
 			data: {
 				title: dto.title,
 				description: dto.description,
-				images,
+				images: dto.images,
 				price: dto.price,
 				square: dto.square,
 				rooms: dto.rooms,
@@ -109,32 +148,15 @@ export class PropertyService {
 		})
 	}
 
-	public async update(
-		id: string,
-		files: Express.Multer.File[],
-		dto: UpdateProperty
-	) {
-		const property = await this.prismaService.property.findFirst({
-			select: {
-				images: true
-			},
+	public async update(id: string, dto: UpdatePropertyDto) {
+		return await this.prismaService.property.update({
 			where: {
 				id
-			}
-		})
-
-		const existingImages = property.images
-
-		const images = await this.fileService.processPropertyImages(
-			existingImages,
-			files
-		)
-
-		await this.prismaService.property.create({
+			},
 			data: {
 				title: dto.title,
 				description: dto.description,
-				images,
+				images: dto.images,
 				price: dto.price,
 				square: dto.square,
 				rooms: dto.rooms,
@@ -160,60 +182,23 @@ export class PropertyService {
 			},
 			include: {
 				location: true
-			}
-		})
-	}
-
-	public async setDraftStatus(id: string) {
-		return await this.prismaService.property.update({
-			where: {
-				id
-			},
-			data: {
-				status: PropertyStatus.DRAFT
-			}
-		})
-	}
-
-	public async setActiveStatus(id: string) {
-		return await this.prismaService.property.update({
-			where: {
-				id
-			},
-			data: {
-				status: PropertyStatus.ACTIVE
-			}
-		})
-	}
-
-	public async setArchiveStatus(id: string) {
-		return await this.prismaService.property.update({
-			where: {
-				id
-			},
-			data: {
-				status: PropertyStatus.ARCHIVED
 			}
 		})
 	}
 
 	public async setStatus(id: string, status: string) {
-		const normalizedStatus = status.toUpperCase()
+		const normalizedStatus = status.toUpperCase() as PropertyStatus
 
-		if (
-			!Object.values(PropertyStatus).includes(
-				normalizedStatus as PropertyStatus
-			)
-		) {
+		if (!Object.values(PropertyStatus).includes(normalizedStatus)) {
 			throw new BadRequestException('Некорректный статус.')
 		}
 
-		return this.prismaService.property.update({
+		return await this.prismaService.property.update({
 			where: {
 				id
 			},
 			data: {
-				status: normalizedStatus as PropertyStatus
+				status: normalizedStatus
 			}
 		})
 	}

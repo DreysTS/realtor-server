@@ -47,7 +47,7 @@ export class FavoritesController {
 	) {
 		return this.favoritesService.addToFavorite(id, propertyId)
 	}
-
+Ё
 	@Authorization()
 	@Delete(':propertyId')
 	public async removeFromFavorite(

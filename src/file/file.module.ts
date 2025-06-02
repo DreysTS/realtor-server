@@ -1,10 +1,10 @@
-import { Global, Module } from '@nestjs/common'
+import { Module } from '@nestjs/common'
 import { ServeStaticModule } from '@nestjs/serve-static'
 import * as path from 'path'
 
+import { FileController } from './file.controller'
 import { FileService } from './file.service'
 
-@Global()
 @Module({
 	imports: [
 		ServeStaticModule.forRoot({
@@ -12,7 +12,7 @@ import { FileService } from './file.service'
 			serveRoot: '/static'
 		})
 	],
-	providers: [FileService],
-	exports: [FileService]
+	controllers: [FileController],
+	providers: [FileService]
 })
 export class FileModule {}

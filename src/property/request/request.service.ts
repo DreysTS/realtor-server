@@ -1,25 +1,19 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
 import {
 	PropertyRequestStatus,
 	PropertyStatus,
 	PropertyType
 } from 'prisma/__generated__'
-import { FileService } from 'src/file/file.service'
 import { PrismaService } from 'src/prisma/prisma.service'
 
-import { CreateSellRequest } from './dto/create-sell-request.dto'
+import { CreateRequest } from './dto/create-request.dto'
 import { DeclineRequestDto } from './dto/decline-request.dto'
 
 @Injectable()
 export class RequestService {
-	public constructor(
-		private readonly prismaService: PrismaService,
-		private readonly fileService: FileService,
-		private readonly configService: ConfigService
-	) {}
+	public constructor(private readonly prismaService: PrismaService) {}
 
-	public async findUserRequests(userId: string) {
+	public async findRequests(userId: string) {
 		return await this.prismaService.propertyRequest.findMany({
 			where: {
 				userId
@@ -30,22 +24,29 @@ export class RequestService {
 		})
 	}
 
-	public async findUsersRequests() {
+	public async findUserRequests(targetUserId: string) {
 		return await this.prismaService.propertyRequest.findMany({
+			where: {
+				userId: targetUserId
+			},
 			orderBy: {
-				userId: 'asc',
 				createdAt: 'asc'
 			}
 		})
 	}
 
-	public async createRequest(
-		userId: string,
-		dto: CreateSellRequest,
-		files: Express.Multer.File[]
-	) {
-		const images = await this.fileService.saveImages(files)
+	public async findUsersRequests() {
+		return await this.prismaService.propertyRequest.findMany({
+			orderBy: {
+				createdAt: 'desc'
+			},
+			include: {
+				user: true
+			}
+		})
+	}
 
+	public async createRequest(userId: string, dto: CreateRequest) {
 		return await this.prismaService.propertyRequest.create({
 			data: {
 				title: dto.title,
@@ -54,7 +55,7 @@ export class RequestService {
 				square: dto.square,
 				rooms: dto.rooms,
 				address: dto.address,
-				images,
+				images: dto.images,
 				userId
 			}
 		})
@@ -88,6 +89,7 @@ export class RequestService {
 				images: propertyRequest.images,
 				propertyType: PropertyType.FLAT,
 				status: PropertyStatus.DRAFT,
+				userId: propertyRequest.userId,
 				location: {
 					create: {
 						address: propertyRequest.address
@@ -102,7 +104,7 @@ export class RequestService {
 			},
 			data: {
 				propertyRequestStatus: PropertyRequestStatus.APPROWED,
-				currentUrl: `${this.configService.getOrThrow<string>('ALLOWED_ORIGIN')}/profile/requests/${property.id}`
+				propertyId: property.id
 			}
 		})
 	}
@@ -119,11 +121,14 @@ export class RequestService {
 		})
 	}
 
-	private async findRequestById(id: string) {
+	public async findRequestById(id: string) {
 		const propertyRequest =
 			await this.prismaService.propertyRequest.findFirst({
 				where: {
 					id
+				},
+				include: {
+					user: true
 				}
 			})
 

@@ -32,6 +32,13 @@ export class UserController {
 		return this.userService.findById(id)
 	}
 
+	@Authorization(UserRole.REALTOR)
+	@HttpCode(HttpStatus.OK)
+	@Get()
+	public async findAllUsers() {
+		return this.userService.findAllUsers()
+	}
+
 	@Authorization()
 	@HttpCode(HttpStatus.OK)
 	@Patch('profile')
