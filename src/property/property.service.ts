@@ -23,6 +23,18 @@ export class PropertyService {
 			where.rooms = filters.rooms
 		}
 
+		if (filters.buildingType !== undefined) {
+			where.buildingType = filters.buildingType
+		}
+
+		if (filters.propertyType !== undefined) {
+			where.propertyType = filters.propertyType
+		}
+
+		if (filters.isSecondary !== undefined) {
+			where.isSecondary = filters.isSecondary
+		}
+
 		if (filters.minPrice !== undefined || filters.maxPrice !== undefined) {
 			where.price = {}
 
@@ -50,15 +62,42 @@ export class PropertyService {
 			}
 		}
 
-		return await this.prismaService.property.findMany({
-			where,
-			include: {
-				location: true
-			},
-			orderBy: {
-				createdAt: 'desc'
+		const page = filters.page ? parseInt(filters.page.toString()) : 1
+		const limit = 10
+		const skip = (page - 1) * limit
+
+		const orderBy: Record<string, string> = {}
+		if (
+			filters.sortBy &&
+			Array.isArray(filters.sortBy) &&
+			filters.sortBy.length === 2
+		) {
+			const [field, direction] = filters.sortBy
+			orderBy[field] = direction
+		} else {
+			orderBy.createdAt = 'desc'
+		}
+
+		const [properties, totalCount] = await Promise.all([
+			this.prismaService.property.findMany({
+				where,
+				include: { location: true },
+				orderBy,
+				skip,
+				take: limit
+			}),
+			this.prismaService.property.count({ where })
+		])
+
+		return {
+			data: properties,
+			pagination: {
+				total: totalCount,
+				page,
+				limit,
+				hasMore: page * limit < totalCount
 			}
-		})
+		}
 	}
 
 	public async realtorFindAll() {

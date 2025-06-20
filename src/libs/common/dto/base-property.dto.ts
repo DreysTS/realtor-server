@@ -32,7 +32,6 @@ export class BaseProperty {
 	square: number
 
 	@IsInt({ message: 'Количество комнат должно быть целочисловым значением.' })
-	@IsPositive({ message: 'Количество комнат должно быть положительным.' })
 	@IsNotEmpty({ message: 'Количество комнат не должно быть пустым.' })
 	rooms: number
 
