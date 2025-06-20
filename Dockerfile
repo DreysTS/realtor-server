@@ -22,9 +22,10 @@ ENV NODE_ENV=production
 
 WORKDIR /app
 
-COPY --from=build /app/package.json /app/package-lock.json
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/package.json .
 
-RUN npm install --omit=dev
+RUN npm prune --omit=dev
 
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/prisma/__generated__ ./prisma/__generated__
