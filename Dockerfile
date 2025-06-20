@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY package.json package-lock.json ./
 
-RUN npm ci --no-audit --no-fund
+RUN npm ci
 
 FROM base AS build
 
