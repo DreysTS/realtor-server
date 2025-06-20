@@ -6,8 +6,7 @@ WORKDIR /app
 
 COPY package.json package-lock.json ./
 
-RUN npm install --package-lock-only --no-audit --no-fund && \
-    npm ci --no-audit --no-fund
+RUN npm ci --no-audit --no-fund
 
 FROM base AS build
 
@@ -25,7 +24,7 @@ WORKDIR /app
 
 COPY --from=build /app/package.json /app/package-lock.json
 
-RUN npm install --omit=dev --no-audit --no-fund
+RUN npm install --production
 
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/prisma/__generated__ ./prisma/__generated__
