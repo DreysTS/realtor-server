@@ -14,53 +14,8 @@ import { UpdatePropertyDto } from './dto/update-property.dto'
 export class PropertyService {
 	public constructor(private readonly prismaService: PrismaService) {}
 
-	public async findAll(filters: PropertyFiltersDto, signal?: AbortSignal) {
-		const where: any = {
-			status: PropertyStatus.ACTIVE
-		}
-
-		if (filters.rooms !== undefined) {
-			where.rooms = filters.rooms
-		}
-
-		if (filters.buildingType !== undefined) {
-			where.buildingType = filters.buildingType
-		}
-
-		if (filters.propertyType !== undefined) {
-			where.propertyType = filters.propertyType
-		}
-
-		if (filters.isSecondary !== undefined) {
-			where.isSecondary = filters.isSecondary
-		}
-
-		if (filters.minPrice !== undefined || filters.maxPrice !== undefined) {
-			where.price = {}
-
-			if (filters.minPrice !== undefined) {
-				where.price.gte = filters.minPrice
-			}
-
-			if (filters.maxPrice !== undefined) {
-				where.price.lte = filters.maxPrice
-			}
-		}
-
-		if (
-			filters.minSquare !== undefined ||
-			filters.maxSquare !== undefined
-		) {
-			where.square = {}
-
-			if (filters.minSquare !== undefined) {
-				where.square.gte = filters.minSquare
-			}
-
-			if (filters.maxSquare !== undefined) {
-				where.square.lte = filters.maxSquare
-			}
-		}
+	public async findAll(filters: PropertyFiltersDto) {
+		const where = this.generateWhere(filters)
 
 		const page = filters.page ? parseInt(filters.page.toString()) : 1
 		const limit = 10
@@ -240,5 +195,62 @@ export class PropertyService {
 				status: normalizedStatus
 			}
 		})
+	}
+
+	private generateWhere(filters: PropertyFiltersDto) {
+		const where: any = {
+			status: PropertyStatus.ACTIVE
+		}
+
+		if (filters.rooms?.length) {
+			where.rooms = {
+				in: filters.rooms
+			}
+		}
+
+		if (filters.buildingType?.length) {
+			where.buildingType = {
+				in: filters.buildingType
+			}
+		}
+
+		if (filters.propertyType?.length) {
+			where.propertyType = {
+				in: filters.propertyType
+			}
+		}
+
+		if (filters.isSecondary !== undefined) {
+			where.isSecondary = filters.isSecondary
+		}
+
+		if (filters.minPrice !== undefined || filters.maxPrice !== undefined) {
+			where.price = {}
+
+			if (filters.minPrice !== undefined) {
+				where.price.gte = filters.minPrice
+			}
+
+			if (filters.maxPrice !== undefined) {
+				where.price.lte = filters.maxPrice
+			}
+		}
+
+		if (
+			filters.minSquare !== undefined ||
+			filters.maxSquare !== undefined
+		) {
+			where.square = {}
+
+			if (filters.minSquare !== undefined) {
+				where.square.gte = filters.minSquare
+			}
+
+			if (filters.maxSquare !== undefined) {
+				where.square.lte = filters.maxSquare
+			}
+		}
+
+		return where
 	}
 }

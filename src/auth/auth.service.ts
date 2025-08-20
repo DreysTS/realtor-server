@@ -60,15 +60,15 @@ export class AuthService {
 
 		if (!user || !user.password) {
 			throw new NotFoundException(
-				'Пользователь не найден. Пожалуйста, проверьте введенные данные'
+				'Некорректный пользователь или пароль. Пожалуйста, проверьте введенные данные.'
 			)
 		}
 
 		const isValidPassword = await verify(user.password, dto.password)
 
 		if (!isValidPassword) {
-			throw new UnauthorizedException(
-				'Неверный пароль. Пожалуйста, попробуйте еще раз или восстановите пароль, если забыли его.'
+			throw new NotFoundException(
+				'Некорректный пользователь или пароль. Пожалуйста, проверьте введенные данные.'
 			)
 		}
 

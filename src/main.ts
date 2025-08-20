@@ -9,6 +9,7 @@ import IORedis from 'ioredis'
 import { AppModule } from './app.module'
 import { ms, StringValue } from './libs/common/utils/ms.utils'
 import { parseBoolean } from './libs/common/utils/parse-boolean.util'
+import { setupSwagger } from './libs/common/utils/swagger.util'
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule)
@@ -52,6 +53,8 @@ async function bootstrap() {
 		origin: config.getOrThrow<string>('ALLOWED_ORIGIN'),
 		credentials: true
 	})
+
+	setupSwagger(app)
 
 	await app.listen(config.getOrThrow<number>('APPLICATION_PORT'))
 }

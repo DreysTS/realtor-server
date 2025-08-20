@@ -14,6 +14,7 @@ import { PrismaModule } from './prisma/prisma.module'
 import { PropertyModule } from './property/property.module'
 import { UserModule } from './user/user.module'
 import { FeedbackModule } from './feedback/feedback.module';
+import { StorageModule } from './storage/storage.module';
 
 @Module({
 	imports: [
@@ -32,7 +33,8 @@ import { FeedbackModule } from './feedback/feedback.module';
 		PropertyModule,
 		FavoritesModule,
 		FileModule,
-		FeedbackModule
+		FeedbackModule,
+		StorageModule
 	]
 })
 export class AppModule {}

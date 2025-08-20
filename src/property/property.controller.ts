@@ -28,7 +28,7 @@ export class PropertyController {
 		@Query() filters: PropertyFiltersDto,
 		signal?: AbortSignal
 	) {
-		return this.propertyService.findAll(filters, signal)
+		return this.propertyService.findAll(filters)
 	}
 
 	@Authorization(UserRole.REALTOR)

@@ -1,5 +1,5 @@
 import { Transform } from 'class-transformer'
-import { IsInt, IsNumber, IsOptional } from 'class-validator'
+import { IsArray, IsEnum, IsInt, IsNumber, IsOptional } from 'class-validator'
 import { BuildingType, PropertyType } from 'prisma/__generated__'
 import { parseBoolean } from 'src/libs/common/utils/parse-boolean.util'
 
@@ -24,22 +24,41 @@ export class PropertyFiltersDto {
 	@Transform(({ value }) => parseInt(value))
 	maxSquare: number
 
+	@Transform(({ value }) => {
+		if (typeof value === 'string') {
+			return value.split(',').map(v => parseInt(v.trim()))
+		}
+		return value
+	})
+	@IsArray()
 	@IsOptional()
-	@IsInt()
-	@Transform(({ value }) => parseInt(value))
-	rooms: number
+	rooms?: number[]
 
 	@IsOptional()
-	@Transform(({ value }) => value.toUpperCase())
-	buildingType: BuildingType
+	@Transform(({ value }) => {
+		if (typeof value === 'string') {
+			return value.split(',').map(v => v.trim().toUpperCase())
+		}
+		return value
+	})
+	@IsArray()
+	@IsEnum(BuildingType, { each: true })
+	buildingType?: BuildingType
 
 	@IsOptional()
-	@Transform(({ value }) => value.toUpperCase())
-	propertyType: PropertyType
+	@Transform(({ value }) => {
+		if (typeof value === 'string') {
+			return value.split(',').map(v => v.trim().toUpperCase())
+		}
+		return value
+	})
+	@IsArray()
+	@IsEnum(PropertyType, { each: true })
+	propertyType?: PropertyType
 
 	@IsOptional()
 	@Transform(({ value }) => parseBoolean(value))
-	isSecondary: boolean
+	isSecondary?: boolean
 
 	@IsOptional()
 	@Transform(({ value }) => value?.split(','))

@@ -15,6 +15,6 @@ export const getMailerConfig = async (
 		}
 	},
 	defaults: {
-		from: `"MosRealtor" ${configService.getOrThrow<string>('MAIL_FROM')}`
+		from: `"MoskvRealty" ${configService.getOrThrow<string>('MAIL_FROM')}`
 	}
 })
